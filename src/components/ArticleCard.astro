@@ -1,0 +1,24 @@
+---
+interface Props {
+  slug: string;
+  title: string;
+  description: string;
+  datePublished: Date;
+  tags: string[];
+}
+
+const { slug, title, description, datePublished, tags } = Astro.props;
+---
+
+<a href={`/writing/${slug}`} class="block py-6 border-b border-[var(--color-border)] hover:border-[var(--color-accent)] transition-colors group">
+  <div class="flex items-center gap-3 text-xs text-[var(--color-text-tertiary)] mb-2">
+    <time datetime={datePublished.toISOString().split("T")[0]}>
+      {datePublished.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+    </time>
+    {tags.map((tag) => (
+      <span class="px-1.5 py-0.5 border border-[var(--color-border)] rounded-sm">{tag}</span>
+    ))}
+  </div>
+  <h3 class="text-lg font-semibold group-hover:text-[var(--color-accent)] transition-colors">{title}</h3>
+  <p class="text-sm text-[var(--color-text-secondary)] mt-1">{description}</p>
+</a>

@@ -1,0 +1,62 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import FAQSection from "../components/FAQSection.astro";
+import { PERSON } from "../lib/constants";
+
+const faq = [
+  {
+    question: "What is Gozzy's consulting availability?",
+    answer:
+      "Currently pursuing full-time management consulting positions. Advisory and project-based engagements considered selectively.",
+  },
+  {
+    question: "What types of engagements does Gozzy take on?",
+    answer:
+      "Strategy engagements with a technology component, platform architecture reviews, market entry assessments for African markets, and AI automation consulting for SMBs.",
+  },
+  {
+    question: "Where is Gozzy based?",
+    answer:
+      "Toronto, Ontario, Canada. Available for remote engagements globally and in-person across North America.",
+  },
+];
+---
+
+<PageLayout
+  title="Contact"
+  description={`Get in touch with ${PERSON.name} for consulting, advisory, or technology engagements.`}
+  breadcrumbs={[{ label: "Contact", href: "/contact" }]}
+>
+  <h1 class="mb-8">Contact</h1>
+
+  <section class="mb-12">
+    <p class="leading-relaxed">
+      I am currently exploring full-time management consulting roles and selectively
+      taking on advisory engagements. If you are working on something in Nigerian
+      fintech, healthcare technology, or AI automation and think there is a fit,
+      I would like to hear about it.
+    </p>
+
+    <h2 class="mt-12 mb-4">Focus Areas</h2>
+    <ul class="space-y-2 text-[var(--color-text-secondary)]">
+      <li>Management consulting (strategy, digital transformation, market entry)</li>
+      <li>Nigerian fintech and payments infrastructure</li>
+      <li>Healthcare workflow automation</li>
+      <li>AI agent architecture and automation for SMBs</li>
+    </ul>
+
+    <h2 class="mt-12 mb-4">Get in Touch</h2>
+    <p>
+      Email: <a href={`mailto:${PERSON.familyName.toLowerCase()}.${PERSON.givenName.toLowerCase()}@gmail.com`}>
+        {PERSON.familyName.toLowerCase()}.{PERSON.givenName.toLowerCase()}@gmail.com
+      </a>
+    </p>
+    <p class="mt-2">
+      LinkedIn: <a href="https://www.linkedin.com/in/gozzy-nwogbo/" target="_blank" rel="noopener noreferrer">
+        linkedin.com/in/gozzy-nwogbo
+      </a>
+    </p>
+  </section>
+
+  <FAQSection items={faq} />
+</PageLayout>

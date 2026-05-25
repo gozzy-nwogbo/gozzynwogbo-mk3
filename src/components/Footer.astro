@@ -1,0 +1,35 @@
+---
+import { PERSON, SOCIAL_LINKS } from "../lib/constants";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-[var(--color-surface-invert)] text-[var(--color-text-on-dark)] mt-32">
+  <div class="max-w-5xl mx-auto px-6 py-12 flex flex-col sm:flex-row justify-between items-start gap-8">
+    <div>
+      <p class="font-semibold">{PERSON.name}</p>
+      <p class="text-sm text-[var(--color-text-tertiary)] mt-1">{PERSON.jobTitle}</p>
+    </div>
+    <div class="flex gap-6">
+      {SOCIAL_LINKS.map((link) => (
+        <a
+          href={link.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm text-[var(--color-text-tertiary)] hover:text-[var(--color-text-on-dark)] transition-colors"
+        >
+          {link.label}
+        </a>
+      ))}
+      <a
+        href="/contact"
+        class="text-sm text-[var(--color-text-tertiary)] hover:text-[var(--color-text-on-dark)] transition-colors"
+      >
+        Contact
+      </a>
+    </div>
+  </div>
+  <div class="border-t border-[var(--color-border-strong)]/20 max-w-5xl mx-auto px-6 py-4">
+    <p class="text-xs text-[var(--color-text-tertiary)]">&copy; {year} {PERSON.name}</p>
+  </div>
+</footer>

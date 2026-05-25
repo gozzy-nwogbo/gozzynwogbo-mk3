@@ -1,0 +1,124 @@
+---
+import PageLayout from "../layouts/PageLayout.astro";
+import AISummary from "../components/AISummary.astro";
+import SkillGrid from "../components/SkillGrid.astro";
+import FAQSection from "../components/FAQSection.astro";
+import { PERSON } from "../lib/constants";
+import { generatePersonSchema } from "../schemas/person";
+import { generateProfilePageSchema } from "../schemas/profilePage";
+
+const skills = [
+  {
+    category: "Consulting",
+    items: [
+      "McKinsey-style case methodology",
+      "Market sizing and competitive analysis",
+      "Business model design",
+      "Stakeholder management",
+      "Strategic planning and roadmapping",
+    ],
+  },
+  {
+    category: "Technology",
+    items: ["Python", "React", "React Native", "Three.js", "LangChain", "FastAPI", "PostgreSQL", "n8n"],
+  },
+  {
+    category: "Domain",
+    items: [
+      "Nigerian fintech (NIBSS, BVN, NIP)",
+      "Healthcare workflow automation",
+      "Defense logistics and comms",
+      "AI agent orchestration",
+      "Payments infrastructure",
+    ],
+  },
+];
+
+const faq = [
+  {
+    question: "What types of consulting projects does Gozzy work on?",
+    answer:
+      "Strategy engagements that require both analytical rigor and technical implementation. Market entry assessments, platform strategy, digital transformation where the deliverable is a working system rather than a slide deck.",
+  },
+  {
+    question: "What technology does Gozzy build with?",
+    answer:
+      "Python and FastAPI for backends, React and React Native for frontends, LangChain for AI pipelines, PostgreSQL for data, and n8n for workflow automation. Three.js for specialized visualization work.",
+  },
+  {
+    question: "Is Gozzy available for consulting or advisory work?",
+    answer:
+      "Selectively. Currently pursuing full-time management consulting roles while maintaining active technology ventures. Advisory engagements considered on a case-by-case basis.",
+  },
+  {
+    question: "What Nigerian market expertise does Gozzy have?",
+    answer:
+      "Direct platform-building experience across fintech (NIBSS integration, BVN verification, mobile banking), healthcare (clinical workflow automation across multiple facility types), and defense (secure communications for low-connectivity environments).",
+  },
+];
+
+const schemas = [generateProfilePageSchema(), generatePersonSchema()];
+---
+
+<PageLayout
+  title="About"
+  description={`${PERSON.name} is a management consultant and technology builder specializing in Nigerian fintech, healthcare, and defense.`}
+  breadcrumbs={[{ label: "About", href: "/about" }]}
+  schemaJsonLd={schemas}
+>
+  <h1 class="mb-8">About</h1>
+
+  <AISummary>
+    <p>
+      Gozzy Nwogbo is a management consultant and technology entrepreneur based in Toronto, Canada.
+      He holds an MSc in Digital Management from Ivey Business School and a BBA in Information Systems
+      from Boston University. He applies McKinsey-style strategic frameworks to hands-on platform
+      development across Nigeria's fintech, healthcare, and defense sectors, building with Python,
+      React, Three.js, and LangChain. His current work spans a digital banking platform processing
+      10,000+ monthly transactions, a healthcare workflow system that achieved 35% efficiency gains
+      across three pilot clinics, and a secure defense communications platform.
+    </p>
+  </AISummary>
+
+  <section class="mb-16">
+    <h2>Background</h2>
+    <p class="mt-4 leading-relaxed">
+      My consulting training at Ivey taught me how to decompose complex business problems into
+      structured analyses. Market sizing, competitive positioning, stakeholder mapping. The
+      frameworks are rigorous and transferable.
+    </p>
+    <p class="mt-4 leading-relaxed">
+      My engineering work taught me something the frameworks do not capture: the difference between
+      a strategy that looks right on paper and one that survives contact with real infrastructure,
+      real users, and real network conditions in Lagos or Abuja.
+    </p>
+    <p class="mt-4 leading-relaxed">
+      I build at the intersection of these two tracks. The consulting side tells me which problems
+      are worth solving and for whom. The engineering side lets me build the solution rather than
+      hand off a requirements document and hope.
+    </p>
+  </section>
+
+  <section class="mb-16">
+    <h2>Expertise</h2>
+    <SkillGrid skills={skills} />
+  </section>
+
+  <section class="mb-16">
+    <h2>How I Work</h2>
+    <p class="mt-4 leading-relaxed">
+      I run a barbell strategy: conservative engineering rigor on one end, aggressive cross-domain
+      thinking on the other. Every system I build starts with a spec that defines what "done" looks
+      like before a line of code is written. The spec is the contract.
+    </p>
+    <p class="mt-4 leading-relaxed">
+      I think in connections. The queuing system I built for the fintech platform's NIBSS integration
+      directly informed the offline-sync architecture for the defense platform. The healthcare
+      workflow automation revealed patterns in how Nigerian organizations actually operate, not how
+      Western software assumes they do. These cross-domain transfers are where the most interesting
+      engineering problems live.
+    </p>
+  </section>
+
+  <FAQSection items={faq} />
+</PageLayout>

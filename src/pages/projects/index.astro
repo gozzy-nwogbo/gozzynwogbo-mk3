@@ -1,0 +1,29 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { getCollection } from "astro:content";
+
+const projects = (await getCollection("projects")).sort((a, b) => a.data.sortOrder - b.data.sortOrder);
+---
+
+<BaseLayout title="Projects" description="Technology ventures across Nigerian fintech, healthcare, and defense.">
+  <Breadcrumbs items={[{ label: "Projects", href: "/projects" }]} />
+  <h1 class="mb-4">Projects</h1>
+  <p class="text-[var(--color-text-secondary)] mb-12 max-w-[55ch]">
+    Building platforms across fintech, healthcare, and defense for the Nigerian market.
+    Each project applies consulting-grade analysis to engineering-grade execution.
+  </p>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {projects.map((project) => (
+      <ProjectCard
+        slug={project.id}
+        title={project.data.title}
+        description={project.data.description}
+        domain={project.data.domain}
+        metric={{ value: project.data.metrics[0].value, label: project.data.metrics[0].label }}
+        technologies={project.data.technologies.slice(0, 4)}
+      />
+    ))}
+  </div>
+</BaseLayout>

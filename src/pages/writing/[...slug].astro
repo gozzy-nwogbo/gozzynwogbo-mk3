@@ -1,0 +1,45 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro";
+import { getCollection, render } from "astro:content";
+import { generateArticleSchema } from "../../schemas/article";
+
+export async function getStaticPaths() {
+  const articles = await getCollection("writing");
+  return articles
+    .filter((a) => !a.data.draft)
+    .map((article) => ({
+      params: { slug: article.id },
+      props: { article },
+    }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+const schema = generateArticleSchema(article.id, article.data);
+---
+
+<PageLayout
+  title={article.data.title}
+  description={article.data.description}
+  breadcrumbs={[
+    { label: "Writing", href: "/writing" },
+    { label: article.data.title, href: "#" },
+  ]}
+  schemaJsonLd={[schema]}
+>
+  <header class="mb-12">
+    <h1 class="mb-3">{article.data.title}</h1>
+    <div class="flex items-center gap-3 text-sm text-[var(--color-text-secondary)]">
+      <time datetime={article.data.datePublished.toISOString().split("T")[0]}>
+        {article.data.datePublished.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+      </time>
+      {article.data.tags.map((tag: string) => (
+        <span class="px-2 py-0.5 border border-[var(--color-border)] rounded-sm text-xs">{tag}</span>
+      ))}
+    </div>
+  </header>
+
+  <div class="prose">
+    <Content />
+  </div>
+</PageLayout>

@@ -1,0 +1,29 @@
+---
+import { generateFAQSchema } from "../schemas/faq";
+
+interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  items: FAQItem[];
+}
+
+const { items } = Astro.props;
+const schema = generateFAQSchema(items);
+---
+
+<section class="mt-16">
+  <h2>Frequently Asked Questions</h2>
+  <dl class="mt-6 space-y-6">
+    {items.map((item) => (
+      <div class="border-b border-[var(--color-border)] pb-6">
+        <dt class="font-medium">{item.question}</dt>
+        <dd class="text-sm text-[var(--color-text-secondary)] mt-2">{item.answer}</dd>
+      </div>
+    ))}
+  </dl>
+</section>
+
+<script type="application/ld+json" set:html={JSON.stringify({ "@context": "https://schema.org", ...schema })} />

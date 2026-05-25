@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import ArticleCard from "../../components/ArticleCard.astro";
+import { getCollection } from "astro:content";
+
+const articles = (await getCollection("writing"))
+  .filter((a) => !a.data.draft)
+  .sort((a, b) => b.data.datePublished.getTime() - a.data.datePublished.getTime());
+---
+
+<BaseLayout title="Writing" description="Articles on technology, consulting, and building for African markets.">
+  <Breadcrumbs items={[{ label: "Writing", href: "/writing" }]} />
+  <h1 class="mb-4">Writing</h1>
+  <p class="text-[var(--color-text-secondary)] mb-12 max-w-[55ch]">
+    Analysis and observations from building technology platforms and
+    consulting across African markets.
+  </p>
+
+  {articles.length > 0 ? (
+    <div>
+      {articles.map((article) => (
+        <ArticleCard
+          slug={article.id}
+          title={article.data.title}
+          description={article.data.description}
+          datePublished={article.data.datePublished}
+          tags={article.data.tags}
+        />
+      ))}
+    </div>
+  ) : (
+    <p class="text-[var(--color-text-tertiary)] py-12">Articles coming soon.</p>
+  )}
+</BaseLayout>

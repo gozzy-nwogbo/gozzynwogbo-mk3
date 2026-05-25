@@ -1,0 +1,37 @@
+---
+import { NAV_LINKS, PERSON } from "../lib/constants";
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+function isActive(href: string): boolean {
+  if (href === "/") return currentPath === "/";
+  return currentPath.startsWith(href);
+}
+---
+
+<nav aria-label="Main navigation" class="flex items-center justify-between px-6 py-4 max-w-5xl mx-auto">
+  <a href="/" class="text-lg font-semibold text-[var(--color-text-primary)] hover:text-[var(--color-accent)]">
+    {PERSON.givenName} {PERSON.familyName}
+  </a>
+  <ul class="flex gap-6 list-none m-0 p-0">
+    {NAV_LINKS.filter(link => link.href !== "/").map((link) => (
+      <li>
+        <a
+          href={link.href}
+          class:list={[
+            "text-sm font-medium transition-colors",
+            isActive(link.href)
+              ? "text-[var(--color-accent)]"
+              : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]",
+          ]}
+        >
+          {link.label}
+        </a>
+      </li>
+    ))}
+  </ul>
+</nav>

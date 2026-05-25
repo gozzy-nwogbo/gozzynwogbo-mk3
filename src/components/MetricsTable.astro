@@ -1,0 +1,30 @@
+---
+interface Props {
+  metrics: { label: string; value: string; benchmark?: string }[];
+  caption?: string;
+}
+
+const { metrics, caption } = Astro.props;
+---
+
+<div class="overflow-x-auto mt-6">
+  <table class="w-full text-sm border-collapse">
+    {caption && <caption class="text-left text-xs text-[var(--color-text-tertiary)] mb-2">{caption}</caption>}
+    <thead>
+      <tr class="border-b border-[var(--color-border-strong)]">
+        <th class="text-left py-3 pr-4 font-medium text-[var(--color-text-secondary)]">Metric</th>
+        <th class="text-left py-3 pr-4 font-medium text-[var(--color-text-secondary)]">Result</th>
+        <th class="text-left py-3 font-medium text-[var(--color-text-secondary)]">Benchmark</th>
+      </tr>
+    </thead>
+    <tbody>
+      {metrics.map((row) => (
+        <tr class="border-b border-[var(--color-border)]">
+          <td class="py-3 pr-4">{row.label}</td>
+          <td class="py-3 pr-4 font-semibold">{row.value}</td>
+          <td class="py-3 text-[var(--color-text-tertiary)]">{row.benchmark ?? "—"}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

@@ -7,12 +7,12 @@ import { getCollection } from "astro:content";
 const projects = (await getCollection("projects")).sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 ---
 
-<BaseLayout title="Projects" description="Technology ventures across Nigerian fintech, healthcare, and defense.">
+<BaseLayout title="Projects" description="AI systems built to run inside real businesses: knowledge engines, automations, and agents.">
   <Breadcrumbs items={[{ label: "Projects", href: "/projects" }]} />
   <h1 class="mb-4">Projects</h1>
   <p class="text-[var(--color-text-secondary)] mb-12 max-w-[55ch]">
-    Building platforms across fintech, healthcare, and defense for the Nigerian market.
-    Each project applies consulting-grade analysis to engineering-grade execution.
+    AI systems built to run inside real businesses: knowledge engines, automations,
+    and agents. Each one ends in an outcome, not a demo.
   </p>
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
     {projects.map((project) => (

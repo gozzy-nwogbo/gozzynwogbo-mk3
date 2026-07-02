@@ -9,51 +9,58 @@ import { generateProfilePageSchema } from "../schemas/profilePage";
 
 const skills = [
   {
-    category: "Consulting",
+    category: "Business judgment",
     items: [
-      "McKinsey-style case methodology",
-      "Market sizing and competitive analysis",
-      "Business model design",
-      "Stakeholder management",
-      "Strategic planning and roadmapping",
+      "Business model analysis",
+      "Investment screening and diligence",
+      "Tender and bid strategy",
+      "AI transformation strategy",
+      "Market and competitive analysis",
     ],
   },
   {
-    category: "Technology",
-    items: ["Python", "React", "React Native", "Three.js", "LangChain", "FastAPI", "PostgreSQL", "n8n"],
+    category: "AI systems & agents",
+    items: [
+      "AI systems design",
+      "Agent design and orchestration",
+      "MCP servers and tooling",
+      "Retrieval and knowledge systems",
+      "LangChain",
+      "PostgreSQL / pgvector",
+    ],
   },
   {
-    category: "Domain",
+    category: "Automation & delivery",
     items: [
-      "Nigerian fintech (NIBSS, BVN, NIP)",
-      "Healthcare workflow automation",
-      "Defense logistics and comms",
-      "AI agent orchestration",
-      "Payments infrastructure",
+      "n8n workflow automation",
+      "Python",
+      "Cron agents and pipelines",
+      "Supabase",
+      "Astro",
     ],
   },
 ];
 
 const faq = [
   {
-    question: "What types of consulting projects does Gozzy work on?",
+    question: "So what do you do?",
     answer:
-      "Strategy engagements that require both analytical rigor and technical implementation. Market entry assessments, platform strategy, digital transformation where the deliverable is a working system rather than a slide deck.",
+      "I build AI systems that give organizations leverage they do not have yet. In practice, I take frontier AI tools and turn them into things that run inside a business: knowledge systems, automations, agents. Two years hands-on, business background underneath it.",
   },
   {
-    question: "What technology does Gozzy build with?",
+    question: "Why AI? How did you get into it?",
     answer:
-      "Python and FastAPI for backends, React and React Native for frontends, LangChain for AI pipelines, PostgreSQL for data, and n8n for workflow automation. Three.js for specialized visualization work.",
+      "I came at it from business, not computer science. About two years ago these tools crossed the line from toys to real amplifiers, and I went deep, built on the frontier instead of waiting for it to mature. The business lens is what makes it useful. I am not building tech for its own sake, I am building leverage.",
   },
   {
-    question: "Is Gozzy available for consulting or advisory work?",
+    question: "Are you a student, or further along than that?",
     answer:
-      "Selectively. Currently pursuing full-time management consulting roles while maintaining active technology ventures. Advisory engagements considered on a case-by-case basis.",
+      "I am early, and I treat that as an edge. No habits to unlearn, and I have been living on the frontier of these tools while they are still new to most professionals. I have already shipped real work for real organizations. I would rather be judged on what I have built than years served.",
   },
   {
-    question: "What Nigerian market expertise does Gozzy have?",
+    question: "Why you? What makes you different?",
     answer:
-      "Direct platform-building experience across fintech (NIBSS integration, BVN verification, mobile banking), healthcare (clinical workflow automation across multiple facility types), and defense (secure communications for low-connectivity environments).",
+      "Two things rarely sit in one person: a business head and frontier-AI hands. I have both. I build systems that outlast me, not dependencies on me. And I bring the standard to places it has not reached yet.",
   },
 ];
 
@@ -62,7 +69,7 @@ const schemas = [generateProfilePageSchema(), generatePersonSchema()];
 
 <PageLayout
   title="About"
-  description={`${PERSON.name} is a management consultant and technology builder specializing in Nigerian fintech, healthcare, and defense.`}
+  description={`${PERSON.name} builds AI systems that run inside real businesses: knowledge engines, automations, and agents. Business background, two years on the frontier. Based in Toronto.`}
   breadcrumbs={[{ label: "About", href: "/about" }]}
   schemaJsonLd={schemas}
 >
@@ -70,32 +77,34 @@ const schemas = [generateProfilePageSchema(), generatePersonSchema()];
 
   <AISummary>
     <p>
-      Gozzy Nwogbo is a management consultant and technology entrepreneur based in Toronto, Canada.
-      He holds an MSc in Digital Management from Ivey Business School and a BBA in Information Systems
-      from Boston University. He applies McKinsey-style strategic frameworks to hands-on platform
-      development across Nigeria's fintech, healthcare, and defense sectors, building with Python,
-      React, Three.js, and LangChain. His current work spans a digital banking platform processing
-      10,000+ monthly transactions, a healthcare workflow system that achieved 35% efficiency gains
-      across three pilot clinics, and a secure defense communications platform.
+      Gozzy Nwogbo is an AI systems builder based in Toronto, Canada. He holds an MSc in Digital
+      Management from Ivey Business School and a BSc in Business Administration from Boston
+      University, concentrating in Management Strategy and Management Information Systems.
+      He builds AI systems that give organizations leverage they do not have yet: knowledge systems,
+      automations, and agents made to run inside a real business. His work spans a personal knowledge
+      OS holding 70+ domains, an automated ad pipeline shipped end to end, a bid and investment
+      screening engine for a six-country infrastructure group, and a catalog of 483 automation
+      workflows. He came at AI from business, and the business lens is what makes his systems useful.
     </p>
   </AISummary>
 
   <section class="mb-16">
     <h2>Background</h2>
     <p class="mt-4 leading-relaxed">
-      My consulting training at Ivey taught me how to decompose complex business problems into
-      structured analyses. Market sizing, competitive positioning, stakeholder mapping. The
-      frameworks are rigorous and transferable.
+      I came at AI from business, not computer science. Business school taught me how to take a
+      messy organization apart on paper: what it sells, where the margin lives, which problems are
+      worth solving and for whom. That training runs underneath everything I build.
     </p>
     <p class="mt-4 leading-relaxed">
-      My engineering work taught me something the frameworks do not capture: the difference between
-      a strategy that looks right on paper and one that survives contact with real infrastructure,
-      real users, and real network conditions in Lagos or Abuja.
+      About two years ago, AI tools crossed a line. They stopped being toys and became amplifiers,
+      and I made a decision: go deep now, build on the frontier while it is still forming, instead
+      of waiting for it to mature into something safe. Since then I have built daily. Knowledge
+      systems, agents, automation pipelines, real deliverables for real organizations.
     </p>
     <p class="mt-4 leading-relaxed">
-      I build at the intersection of these two tracks. The consulting side tells me which problems
-      are worth solving and for whom. The engineering side lets me build the solution rather than
-      hand off a requirements document and hope.
+      The result is a bridge. Two things rarely sit in one person: a business head and frontier-AI
+      hands. I have both. I sit between what AI can do and how organizations actually work, and I
+      close that gap myself rather than handing off a requirements document and hoping.
     </p>
   </section>
 
@@ -107,16 +116,17 @@ const schemas = [generateProfilePageSchema(), generatePersonSchema()];
   <section class="mb-16">
     <h2>How I Work</h2>
     <p class="mt-4 leading-relaxed">
-      I run a barbell strategy: conservative engineering rigor on one end, aggressive cross-domain
-      thinking on the other. Every system I build starts with a spec that defines what "done" looks
-      like before a line of code is written. The spec is the contract.
+      Business first. Before any system gets built, I want to know what it is worth: whose time it
+      saves, what that time costs, what changes if it works. I measure in time saved first, then
+      convert to money. Technology that cannot answer those questions is a hobby, and I keep my
+      hobbies separate.
     </p>
     <p class="mt-4 leading-relaxed">
-      I think in connections. The queuing system I built for the fintech platform's NIBSS integration
-      directly informed the offline-sync architecture for the defense platform. The healthcare
-      workflow automation revealed patterns in how Nigerian organizations actually operate, not how
-      Western software assumes they do. These cross-domain transfers are where the most interesting
-      engineering problems live.
+      Then I build to prove. I do not sell outcomes I have not produced. Every system starts with a
+      spec that defines what done looks like before a line of code is written, and the fastest way
+      to settle whether something will work is a small pilot you can see with your own eyes before
+      you commit to anything. The systems I rely on daily were built the same way, which is why I
+      can show them instead of describing them.
     </p>
   </section>
 

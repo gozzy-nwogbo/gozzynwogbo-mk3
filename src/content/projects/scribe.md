@@ -28,7 +28,7 @@ AI-generated content has a sameness problem. Ask a model to write a post and you
 
 Scribe splits the problem in two and solves each half separately.
 
-Scout handles the "what." It scans the last 30 days of discussion across Reddit, Hacker News and other sources, and scores topics by argument intensity: not what is popular, but what people are actively fighting about. A topic people argue over is a topic where a clear position earns attention. Scout surfaces those angles while they are still hot.
+Scout handles the "what." It scans the last 30 days of discussion across Reddit, Hacker News and other sources, and scores topics by argument intensity, the measure of what people are actively fighting about. Popularity is a weaker signal. A topic people argue over is a topic where a clear position earns attention. Scout surfaces those angles while they are still hot.
 
 Scribe handles the "how." Instead of prompting a model cold, it drafts from an atom graph, a corpus of small, linked knowledge units I have extracted and refined over months of reading and building. When Scribe writes about positioning, it pulls my actual atoms on positioning, with my examples and my references. The model does the assembly; the knowledge is mine.
 

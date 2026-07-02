@@ -1,25 +1,30 @@
 # Gozzy Nwogbo — gozzynwogbo.com
 
-> Management consultant and technology builder. Toronto, Canada. Nigerian.
+> AI systems builder and transformation partner. Toronto, Canada. Nigerian.
 
 ## About
 
-Gozzy Nwogbo applies McKinsey-style strategic frameworks to hands-on platform
-development across Nigeria's fintech, healthcare, and defense sectors. He holds
-an MSc in Digital Management from Ivey Business School and a BBA in Information
-Systems from Boston University.
+Gozzy Nwogbo builds AI systems that give organizations leverage they do not
+have yet: knowledge systems, automations, and agents made to run inside a real
+business. Business background, two years hands-on with frontier tools. He holds
+an MSc in Digital Management from Ivey Business School and a BSc in Business
+Administration from Boston University, concentrating in Management Strategy and
+Management Information Systems.
 
 ## Projects
 
-- [Nigerian Digital Banking Platform](/projects/nigerian-fintech-platform): Mobile-first digital banking for unbanked Nigerians. 82% onboarding rate, 10,000+ monthly transactions.
-- [Healthcare Workflow Automation](/projects/healthcare-workflow): AI-powered clinical workflow system. 35% efficiency gain across 3 pilot clinics.
-- [Defense Technology Platform](/projects/defense-tech): Secure offline-first communications for Nigerian defense operations. Architecture complete, MVP in development.
+- [Second Brain / Open Brain](/projects/second-brain): A working personal knowledge OS. MCP server, semantic search over pgvector, daily pipelines, 70+ knowledge domains. It runs his daily practice.
+- [Obscura](/projects/obscura): Automated ad pipeline. A blurb becomes a storyboard, drift-free character renders, and a scored MP4, gated by an ad-comprehension audit. Shipped end to end.
+- [Bid & Investment Screening](/projects/infrastructure-bid-engine): A full priced tender package in one weekend for a six-country infrastructure group, plus an investment screen that caught a falsified growth claim.
+- [Tender Radar](/projects/tender-radar): Hands-off cron agent screening federal tenders, can-bid or cannot-bid with the decisive clause, weekly digest.
+- [Scribe / Scribe Scout](/projects/scribe): Content engine drafting from an atom graph, with discovery scored by argument intensity.
+- [Healthcare Workflow Automation](/projects/healthcare-workflow): Early-stage clinical workflow automation piloted across three Nigerian clinics.
 
 ## Expertise
 
-Consulting: case methodology, market sizing, business model design, strategic planning
-Technology: Python, FastAPI, React, React Native, Three.js, LangChain, PostgreSQL, n8n
-Domain: Nigerian fintech (NIBSS, BVN), healthcare workflow, defense logistics, AI automation
+Business judgment: business model analysis, investment screening, tender and bid strategy, AI transformation strategy
+AI systems & agents: systems design, agent orchestration, MCP servers, retrieval and knowledge systems, LangChain, PostgreSQL / pgvector
+Automation & delivery: n8n, Python, cron agents and pipelines, Supabase, Astro
 
 ## Contact
 
@@ -29,7 +34,8 @@ Domain: Nigerian fintech (NIBSS, BVN), healthcare workflow, defense logistics, A
 
 ## Site Structure
 
-- /about — Full profile and expertise
-- /projects — All ventures with metrics
+- /about — Full profile and expertise (markdown mirror: /about.md)
+- /projects — All projects with outcomes (markdown mirror: /projects/index.md)
 - /writing — Articles and analysis
-- /contact — Availability and engagement types
+- /contact — How to get in touch (markdown mirror: /contact.md)
+- /llms-full.txt — Full site text for machine readers

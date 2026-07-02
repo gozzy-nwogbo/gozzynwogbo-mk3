@@ -13,12 +13,13 @@ interface Props {
   ogImage?: string;
   schemaJsonLd?: Record<string, unknown>[];
   breadcrumbs?: BreadcrumbItem[];
+  markdownUrl?: string;
 }
 
-const { title, description, ogImage, schemaJsonLd, breadcrumbs } = Astro.props;
+const { title, description, ogImage, schemaJsonLd, breadcrumbs, markdownUrl } = Astro.props;
 ---
 
-<BaseLayout title={title} description={description} ogImage={ogImage} schemaJsonLd={schemaJsonLd}>
+<BaseLayout title={title} description={description} ogImage={ogImage} schemaJsonLd={schemaJsonLd} markdownUrl={markdownUrl}>
   {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
   <article class="max-w-[65ch] mx-auto">
     <slot />

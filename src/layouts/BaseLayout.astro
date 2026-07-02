@@ -9,9 +9,10 @@ interface Props {
   description: string;
   ogImage?: string;
   schemaJsonLd?: Record<string, unknown>[];
+  markdownUrl?: string;
 }
 
-const { title, description, ogImage, schemaJsonLd } = Astro.props;
+const { title, description, ogImage, schemaJsonLd, markdownUrl } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
 
@@ -23,6 +24,7 @@ const currentPath = Astro.url.pathname;
       description={description}
       ogImage={ogImage}
       schemaJsonLd={schemaJsonLd}
+      markdownUrl={markdownUrl}
     />
   </head>
   <body class="min-h-screen flex flex-col">

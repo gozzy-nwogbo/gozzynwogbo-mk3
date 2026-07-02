@@ -7,7 +7,7 @@ import { getCollection } from "astro:content";
 const projects = (await getCollection("projects")).sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 ---
 
-<BaseLayout title="Projects" description="AI systems built to run inside real businesses: knowledge engines, automations, and agents.">
+<BaseLayout title="Projects" description="AI systems built to run inside real businesses: knowledge engines, automations, and agents." markdownUrl="/projects/index.md">
   <Breadcrumbs items={[{ label: "Projects", href: "/projects" }]} />
   <h1 class="mb-4">Projects</h1>
   <p class="text-[var(--color-text-secondary)] mb-12 max-w-[55ch]">

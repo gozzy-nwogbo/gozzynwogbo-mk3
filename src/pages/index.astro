@@ -12,9 +12,9 @@ const projects = (await getCollection("projects"))
   .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 
 const stats = [
-  { number: "3", label: "technology ventures in active development" },
-  { number: "35%", label: "workflow efficiency gain in healthcare pilot" },
-  { number: "10,000+", label: "monthly transactions on fintech platform" },
+  { number: "70+", label: "knowledge domains running on a system I built and use daily" },
+  { number: "483", label: "automation workflows across 8 domains" },
+  { number: "1 weekend", label: "to produce a full priced tender package a team scopes in weeks" },
 ];
 
 const schemas = [generateWebSiteSchema(), generatePersonSchema()];
@@ -26,9 +26,10 @@ const schemas = [generateWebSiteSchema(), generatePersonSchema()];
     <h1 class="text-5xl font-bold">{PERSON.name}</h1>
     <p class="text-xl text-[var(--color-text-secondary)] mt-3">{PERSON.jobTitle}</p>
     <p class="text-lg text-[var(--color-text-secondary)] mt-4 max-w-[55ch] leading-relaxed">
-      Building consulting capabilities at Deloitte while developing fintech,
-      healthcare, and defense technology platforms for Nigeria's emerging
-      tech ecosystem. Based in Toronto.
+      I build AI systems that give organizations leverage they do not have yet.
+      Frontier tools made to actually run inside a business, not just demo.
+      I come at it from business, not computer science, and that is what makes
+      it useful. Based in Toronto.
     </p>
     <ImpactStats stats={stats} />
   </section>
@@ -57,10 +58,10 @@ const schemas = [generateWebSiteSchema(), generatePersonSchema()];
   <section class="py-16">
     <h2 class="text-3xl font-semibold mb-4">About</h2>
     <p class="text-[var(--color-text-secondary)] max-w-[55ch] leading-relaxed">
-      I sit at the intersection of management consulting and platform engineering.
-      My consulting training gives me the frameworks to analyze markets and structure
-      decisions. My engineering work gives me the ability to build what the analysis reveals.
-      The Nigerian market is where these two tracks converge.
+      Two things rarely sit in one person: a business head and frontier-AI hands.
+      I have both. I take AI that mostly lives in demos and turn it into systems
+      that run inside a real business, knowledge engines, automations, and agents.
+      The business lens is what makes the technology useful.
     </p>
     <p class="mt-4">
       <a href="/about" class="text-sm font-medium">Read more &rarr;</a>

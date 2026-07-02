@@ -1,6 +1,6 @@
 ---
 title: "Healthcare Workflow Automation"
-description: "AI-powered clinical workflow system reducing administrative burden in Nigerian healthcare facilities."
+description: "Early-stage clinical workflow automation, piloted hands-on across three Nigerian clinics, cutting administrative documentation time by roughly a third."
 domain: "healthcare"
 geography: "Nigeria"
 status: "Pilot Complete"
@@ -10,21 +10,21 @@ technologies: ["Python", "LangChain", "FastAPI", "PostgreSQL", "n8n"]
 schemaType: "SoftwareApplication"
 applicationCategory: "HealthApplication"
 metrics:
-  - label: "Administrative time reduction"
-    value: "35% workflow efficiency gain"
-    benchmark: "~15-20% for comparable EMR add-ons"
-  - label: "Documentation accuracy"
-    value: "94% first-pass accuracy"
-    benchmark: "~80% for template-based systems"
+  - label: "Administrative time"
+    value: "Documentation time cut by roughly a third in pilot"
+  - label: "Documentation"
+    value: "Practitioners review and approve AI-drafted notes"
   - label: "Pilot facilities"
-    value: "3 clinics, 12 practitioners"
+    value: "3 clinics across different specialties"
 featured: true
-sortOrder: 2
+sortOrder: 6
 ---
 
 ## Problem
 
-Nigerian healthcare facilities, particularly small-to-medium clinics, spend roughly 40% of practitioner time on administrative documentation rather than patient care (WHO Health Workforce Report, 2023). Most existing EMR solutions are designed for Western hospital systems and assume infrastructure (reliable internet, IT support, standardized workflows) that does not exist in most Nigerian clinical settings.
+Nigerian healthcare facilities, particularly small-to-medium clinics, lose a large share of practitioner time to administrative documentation rather than patient care. Most existing EMR solutions are designed for Western hospital systems and assume infrastructure (reliable internet, IT support, standardized workflows) that does not exist in most Nigerian clinical settings.
+
+This was real early-stage building: a small pilot with real clinics, honest numbers, and the failure modes left in the write-up.
 
 ## Approach
 
@@ -36,11 +36,11 @@ Key architecture decisions:
 - FastAPI backend with role-based access and audit logging
 - Designed for low-bandwidth, intermittent-connectivity environments
 
-The system was piloted across three clinics with different specialties (general practice, maternal health, pediatrics) to validate generalizability.
+The system ran as a pilot across three clinics with different specialties (general practice, maternal health, pediatrics) to validate generalizability.
 
 ## Outcome
 
-35% reduction in administrative workflow time across all three pilot facilities, measured against pre-implementation baselines. Documentation accuracy at 94% first-pass, meaning practitioners review and approve AI-generated notes rather than writing from scratch.
+Administrative documentation time fell by roughly a third across the three pilot clinics, measured against pre-implementation baselines. First-pass accuracy was high enough that practitioners review and approve AI-drafted notes rather than writing from scratch, which is the shift that actually returns time to patient care.
 
 The n8n-based configuration layer proved critical. Each clinic customized workflows for their specific processes without requiring developer intervention.
 

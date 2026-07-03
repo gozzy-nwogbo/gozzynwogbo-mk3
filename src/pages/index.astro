@@ -45,16 +45,145 @@ const schemas = [generateWebSiteSchema(), generatePersonSchema()];
   <CompetencyGrid />
 
   <!-- About Preview -->
-  <section class="py-16">
-    <h2 class="text-3xl font-semibold mb-4">About</h2>
-    <p class="text-[var(--color-text-secondary)] max-w-[55ch] leading-relaxed">
+  <section class="home-about">
+    <div class="section-kicker">
+      <hr class="bridge-rule kicker-rule" />
+      <p class="kicker-text">About</p>
+    </div>
+    <p class="home-about-lede">
       Two things rarely sit in one person: a business head and frontier-AI hands.
-      I have both. I take AI that mostly lives in demos and turn it into systems
+      I have both.
+    </p>
+    <p class="home-about-body">
+      I take AI that mostly lives in demos and turn it into systems
       that run inside a real business, knowledge engines, automations, and agents.
       The business lens is what makes the technology useful.
     </p>
-    <p class="mt-4">
-      <a href="/about" class="text-sm font-medium">Read more &rarr;</a>
+    <p class="home-about-link">
+      <a href="/about">Read more &rarr;</a>
     </p>
   </section>
+
+  <!-- Closing CTA -->
+  <section class="home-cta">
+    <div class="home-cta-inner">
+      <h2 class="home-cta-title">Let&rsquo;s talk<span class="home-cta-dot">.</span></h2>
+      <p class="home-cta-body">
+        I am open to interesting problems and good conversations across AI systems
+        and transformation.
+      </p>
+      <a href="/contact" class="btn-cta">Get in touch</a>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .section-kicker {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .kicker-rule {
+    width: 3rem;
+    flex: none;
+    margin: 0;
+  }
+
+  .kicker-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  .home-about {
+    border-top: 1px solid var(--color-border);
+    padding-block: var(--spacing-16);
+  }
+
+  .home-about-lede {
+    font-size: var(--text-3xl);
+    font-weight: 550;
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+    max-width: 32ch;
+    text-wrap: balance;
+  }
+
+  .home-about-body {
+    margin-top: var(--spacing-6);
+    max-width: 52ch;
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+  }
+
+  .home-about-link {
+    margin-top: var(--spacing-6);
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  .home-cta {
+    margin-block: var(--spacing-8) var(--spacing-24);
+  }
+
+  .home-cta-inner {
+    background-color: var(--color-surface-invert);
+    color: var(--color-text-on-dark);
+    border-radius: var(--radius-lg);
+    padding: clamp(3rem, 7vw, 5rem);
+  }
+
+  .home-cta-title {
+    color: var(--color-text-on-dark);
+    font-size: var(--text-5xl);
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+
+  .home-cta-dot {
+    color: var(--color-accent);
+  }
+
+  .home-cta-body {
+    margin-top: var(--spacing-4);
+    max-width: 44ch;
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-on-dark);
+    opacity: 0.75;
+  }
+
+  .btn-cta {
+    display: inline-block;
+    margin-top: var(--spacing-8);
+    padding: 0.875rem 1.75rem;
+    border-radius: 999px;
+    background-color: var(--color-accent);
+    color: var(--color-text-on-dark);
+    font-weight: 500;
+    line-height: 1;
+    transition:
+      background-color var(--transition-fast),
+      transform var(--transition-fast);
+  }
+
+  .btn-cta:hover {
+    background-color: var(--color-accent-hover);
+    color: var(--color-text-on-dark);
+    transform: translateY(-1px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-cta {
+      transition: none;
+    }
+    .btn-cta:hover {
+      transform: none;
+    }
+  }
+</style>

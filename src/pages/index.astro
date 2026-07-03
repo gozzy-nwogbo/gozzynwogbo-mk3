@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
+import CredibilityStrip from "../components/CredibilityStrip.astro";
 import ImpactStats from "../components/ImpactStats.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import { SITE, PERSON } from "../lib/constants";
@@ -24,6 +25,9 @@ const schemas = [generateWebSiteSchema(), generatePersonSchema()];
 <BaseLayout title={SITE.name} description={SITE.description} schemaJsonLd={schemas}>
   <!-- Hero -->
   <Hero />
+
+  <!-- Credibility strip -->
+  <CredibilityStrip />
 
   <!-- Stats (restyled as counters in Task 5) -->
   <section class="pb-16">

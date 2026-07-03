@@ -35,6 +35,18 @@ export const PERSON = {
   ],
 } as const;
 
+export const CREDIBILITY = {
+  workedWith: [
+    { name: "MI-C3", note: "" },
+    { name: "Yale", note: "intern" },
+    { name: "FSRA", note: "advisory" },
+    { name: "Loop Tech", note: "co-founded, dissolved" },
+  ],
+  loopTechClients: ["Bupa Global", "NHS", "Boston Medical Center"],
+  builtWith: ["n8n", "Claude API", "Supabase", "Python", "LangChain", "Astro", "pgvector"],
+  iveyProjects: ["Scotiabank", "CIBC", "Autism Society of America", "Boys & Girls Club of London"],
+} as const;
+
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },

@@ -1,0 +1,152 @@
+---
+import ProjectCard from "./ProjectCard.astro";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  projects: CollectionEntry<"projects">[];
+}
+const { projects } = Astro.props;
+---
+
+<section class="bench">
+  <div class="bench-head">
+    <div>
+      <div class="section-kicker">
+        <hr class="bridge-rule kicker-rule" />
+        <p class="kicker-text">Selected work</p>
+      </div>
+      <h2 class="bench-title">Projects</h2>
+    </div>
+    <div class="bench-controls" data-bench-controls hidden>
+      <button type="button" class="bench-btn" data-bench-prev aria-label="Previous projects">&larr;</button>
+      <button type="button" class="bench-btn" data-bench-next aria-label="Next projects">&rarr;</button>
+    </div>
+  </div>
+
+  <div class="bench-track" data-bench-track>
+    {projects.map((project) => (
+      <div class="bench-item">
+        <ProjectCard
+          slug={project.id}
+          title={project.data.title}
+          description={project.data.description}
+          domain={project.data.domain}
+          metric={{ value: project.data.metrics[0].value, label: project.data.metrics[0].label }}
+          technologies={project.data.technologies.slice(0, 4)}
+        />
+      </div>
+    ))}
+  </div>
+
+  <p class="bench-more">
+    <a href="/projects">View all projects &rarr;</a>
+  </p>
+</section>
+
+<script>
+  // Progressive enhancement: arrow controls for the scroll-snap track.
+  // Without JS the track is a native horizontal scroller — every card reachable.
+  const track = document.querySelector<HTMLElement>("[data-bench-track]");
+  const controls = document.querySelector<HTMLElement>("[data-bench-controls]");
+  if (track && controls) {
+    controls.hidden = false;
+    const step = () => {
+      const item = track.querySelector<HTMLElement>(".bench-item");
+      return item ? item.offsetWidth + 24 : 360;
+    };
+    controls.querySelector("[data-bench-prev]")?.addEventListener("click", () => {
+      track.scrollBy({ left: -step(), behavior: "smooth" });
+    });
+    controls.querySelector("[data-bench-next]")?.addEventListener("click", () => {
+      track.scrollBy({ left: step(), behavior: "smooth" });
+    });
+  }
+</script>
+
+<style>
+  .bench {
+    border-top: 1px solid var(--color-border);
+    padding-block: var(--spacing-16);
+  }
+
+  .bench-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--spacing-6);
+    margin-bottom: var(--spacing-8);
+  }
+
+  .section-kicker {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .kicker-rule {
+    width: 3rem;
+    flex: none;
+    margin: 0;
+  }
+
+  .kicker-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  .bench-title {
+    font-size: var(--text-4xl);
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .bench-controls {
+    display: flex;
+    gap: var(--spacing-2);
+  }
+
+  .bench-btn {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border-strong);
+    background: none;
+    color: var(--color-text-primary);
+    font-size: var(--text-lg);
+    cursor: pointer;
+    transition:
+      border-color var(--transition-fast),
+      color var(--transition-fast);
+  }
+
+  .bench-btn:hover {
+    border-color: var(--color-interactive);
+    color: var(--color-interactive);
+  }
+
+  .bench-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(19rem, 24rem);
+    gap: var(--spacing-6);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: var(--spacing-4);
+    scrollbar-width: thin;
+  }
+
+  .bench-item {
+    scroll-snap-align: start;
+    display: grid;
+  }
+
+  .bench-more {
+    margin-top: var(--spacing-6);
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+</style>

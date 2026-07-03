@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import CredibilityStrip from "../components/CredibilityStrip.astro";
 import StatCounter from "../components/StatCounter.astro";
-import ProjectCard from "../components/ProjectCard.astro";
+import ProjectBench from "../components/ProjectBench.astro";
 import { SITE, PERSON } from "../lib/constants";
 import { generatePersonSchema } from "../schemas/person";
 import { generateWebSiteSchema } from "../schemas/website";
@@ -34,25 +34,11 @@ const schemas = [generateWebSiteSchema(), generatePersonSchema()];
     <StatCounter stats={stats} />
   </section>
 
+  <!-- B2 explorer mounts here (id kept live so the hero teaser CTA lands) -->
+  <div id="explorer"></div>
+
   <!-- Featured Projects -->
-  <section class="py-16">
-    <h2 class="text-3xl font-semibold mb-8">Projects</h2>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {projects.map((project) => (
-        <ProjectCard
-          slug={project.id}
-          title={project.data.title}
-          description={project.data.description}
-          domain={project.data.domain}
-          metric={{ value: project.data.metrics[0].value, label: project.data.metrics[0].label }}
-          technologies={project.data.technologies.slice(0, 4)}
-        />
-      ))}
-    </div>
-    <p class="mt-6">
-      <a href="/projects" class="text-sm font-medium">View all projects &rarr;</a>
-    </p>
-  </section>
+  <ProjectBench projects={projects} />
 
   <!-- About Preview -->
   <section class="py-16">

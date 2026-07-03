@@ -4,6 +4,7 @@ import Hero from "../components/Hero.astro";
 import CredibilityStrip from "../components/CredibilityStrip.astro";
 import StatCounter from "../components/StatCounter.astro";
 import ProjectBench from "../components/ProjectBench.astro";
+import CompetencyGrid from "../components/CompetencyGrid.astro";
 import { SITE, PERSON } from "../lib/constants";
 import { generatePersonSchema } from "../schemas/person";
 import { generateWebSiteSchema } from "../schemas/website";
@@ -39,6 +40,9 @@ const schemas = [generateWebSiteSchema(), generatePersonSchema()];
 
   <!-- Featured Projects -->
   <ProjectBench projects={projects} />
+
+  <!-- Competencies -->
+  <CompetencyGrid />
 
   <!-- About Preview -->
   <section class="py-16">

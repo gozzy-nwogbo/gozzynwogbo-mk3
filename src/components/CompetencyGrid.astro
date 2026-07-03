@@ -1,0 +1,131 @@
+---
+import Reveal from "./Reveal.astro";
+
+// Labels and lines drawn from existing site copy (About / Contact) — no new claims.
+const competencies = [
+  {
+    label: "Business model analysis",
+    line: "What it sells, where the margin lives, which problems are worth solving and for whom.",
+  },
+  {
+    label: "AI transformation strategy",
+    line: "Where AI fits in an organization and where it does not.",
+  },
+  {
+    label: "AI systems design",
+    line: "Knowledge systems, automations, and agents made to run inside a real business.",
+  },
+  {
+    label: "Retrieval & knowledge systems",
+    line: "Systems that give AI real context, so answers come from your knowledge, not model memory.",
+  },
+  {
+    label: "Agent & workflow automation",
+    line: "Agents and pipelines that run hands-off, with output a human can audit at a glance.",
+  },
+  {
+    label: "Investment & bid analysis",
+    line: "Business analysis with the numbers rebuilt, not accepted.",
+  },
+];
+---
+
+<section class="comp">
+  <div class="section-kicker">
+    <hr class="bridge-rule kicker-rule" />
+    <p class="kicker-text">What I bring</p>
+  </div>
+  <h2 class="comp-title">A business head and frontier-AI hands</h2>
+
+  <div class="comp-grid">
+    {competencies.map((c, i) => (
+      <Reveal delay={i * 70}>
+        <div class="comp-item">
+          <span class="comp-num">{String(i + 1).padStart(2, "0")}</span>
+          <h3 class="comp-label">{c.label}</h3>
+          <p class="comp-line">{c.line}</p>
+        </div>
+      </Reveal>
+    ))}
+  </div>
+</section>
+
+<style>
+  .comp {
+    border-top: 1px solid var(--color-border);
+    padding-block: var(--spacing-16);
+  }
+
+  .section-kicker {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .kicker-rule {
+    width: 3rem;
+    flex: none;
+    margin: 0;
+  }
+
+  .kicker-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  .comp-title {
+    font-size: var(--text-4xl);
+    letter-spacing: -0.02em;
+    margin: 0 0 var(--spacing-12);
+    max-width: 24ch;
+  }
+
+  .comp-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--spacing-8);
+  }
+
+  @media (max-width: 60rem) {
+    .comp-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .comp-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .comp-item {
+    height: 100%;
+    padding-top: var(--spacing-4);
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .comp-num {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+  }
+
+  .comp-label {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-top: var(--spacing-3);
+  }
+
+  .comp-line {
+    margin-top: var(--spacing-2);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--color-text-secondary);
+  }
+</style>

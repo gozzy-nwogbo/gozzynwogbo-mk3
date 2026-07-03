@@ -1,0 +1,82 @@
+---
+interface Props {
+  stats: { value: string; label: string }[];
+}
+const { stats } = Astro.props;
+---
+
+<div class="stats">
+  {stats.map((stat) => (
+    <div class="stat">
+      <p class="stat-value" data-counter>{stat.value}</p>
+      <p class="stat-label">{stat.label}</p>
+    </div>
+  ))}
+</div>
+
+<script>
+  // Progressive enhancement: count the numeric portion up on first view.
+  // Static floor: the final value is server-rendered text; no JS, no motion,
+  // or an unparseable value all leave it untouched.
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduced) {
+    const els = document.querySelectorAll<HTMLElement>("[data-counter]");
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        io.unobserve(entry.target);
+        const el = entry.target as HTMLElement;
+        const final = el.textContent ?? "";
+        const match = final.match(/^(\D*)(\d+)(.*)$/);
+        if (!match) continue;
+        const [, prefix, num, suffix] = match;
+        const target = parseInt(num, 10);
+        const duration = 1200;
+        const start = performance.now();
+        const tick = (now: number) => {
+          const t = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = `${prefix}${Math.round(eased * target)}${suffix}`;
+          if (t < 1) requestAnimationFrame(tick);
+          else el.textContent = final;
+        };
+        requestAnimationFrame(tick);
+      }
+    }, { threshold: 0.4 });
+    for (const el of els) io.observe(el);
+  }
+</script>
+
+<style>
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--spacing-8);
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--spacing-12);
+  }
+
+  @media (max-width: 48rem) {
+    .stats {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-8);
+    }
+  }
+
+  .stat-value {
+    font-size: var(--text-metric);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--color-accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-label {
+    margin-top: var(--spacing-3);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--color-text-secondary);
+    max-width: 32ch;
+  }
+</style>

@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import CredibilityStrip from "../components/CredibilityStrip.astro";
-import ImpactStats from "../components/ImpactStats.astro";
+import StatCounter from "../components/StatCounter.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import { SITE, PERSON } from "../lib/constants";
 import { generatePersonSchema } from "../schemas/person";
@@ -14,9 +14,9 @@ const projects = (await getCollection("projects"))
   .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 
 const stats = [
-  { number: "70+", label: "knowledge domains running on a system I built and use daily" },
-  { number: "483", label: "automation workflows across 8 domains" },
-  { number: "1 weekend", label: "to produce a full priced tender package a team scopes in weeks" },
+  { value: "70+", label: "knowledge domains running on a system I built and use daily" },
+  { value: "483", label: "automation workflows across 8 domains" },
+  { value: "3 days", label: "to produce a full priced tender package a team scopes in weeks" },
 ];
 
 const schemas = [generateWebSiteSchema(), generatePersonSchema()];
@@ -29,9 +29,9 @@ const schemas = [generateWebSiteSchema(), generatePersonSchema()];
   <!-- Credibility strip -->
   <CredibilityStrip />
 
-  <!-- Stats (restyled as counters in Task 5) -->
+  <!-- Stats -->
   <section class="pb-16">
-    <ImpactStats stats={stats} />
+    <StatCounter stats={stats} />
   </section>
 
   <!-- Featured Projects -->

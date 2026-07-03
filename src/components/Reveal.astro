@@ -1,0 +1,37 @@
+---
+interface Props {
+  delay?: number;
+  class?: string;
+}
+const { delay = 0, class: className } = Astro.props;
+---
+
+<div data-reveal class={className} style={delay ? `--reveal-delay: ${delay}ms` : undefined}>
+  <slot />
+</div>
+
+<script>
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduced) {
+    const els = document.querySelectorAll("[data-reveal]:not(.is-armed):not(.is-visible)");
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            io.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.15 },
+    );
+    for (const el of els) {
+      // Only arm and animate elements still below the fold; content already
+      // on screen stays visible with no animation.
+      if (el.getBoundingClientRect().top > window.innerHeight * 0.9) {
+        el.classList.add("is-armed");
+        io.observe(el);
+      }
+    }
+  }
+</script>

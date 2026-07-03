@@ -1,0 +1,40 @@
+/* Motion primitives — progressive enhancement over a fully-visible static floor. */
+
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Scroll reveal (Reveal.astro). Static-first: visible by default;
+   JS adds .is-armed, then .is-visible on intersection. */
+[data-reveal] { opacity: 1; }
+[data-reveal].is-armed { opacity: 0; }
+[data-reveal].is-visible { animation: reveal-up var(--duration-slow) var(--ease-out) both; }
+
+/* Staggered children: set --reveal-delay inline where needed. */
+[data-reveal].is-visible { animation-delay: var(--reveal-delay, 0ms); }
+
+/* Load entrance (pure CSS, no JS required — used by the hero). */
+@keyframes enter-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.enter { animation: enter-up var(--duration-slow) var(--ease-out) both; animation-delay: var(--enter-delay, 0ms); }
+
+/* Bridge rule — the signature device: terracotta into teal. */
+.bridge-rule {
+  height: 2px;
+  border: 0;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-interactive));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal].is-armed,
+  [data-reveal].is-visible,
+  .enter {
+    opacity: 1 !important;
+    animation: none !important;
+    transform: none !important;
+  }
+}

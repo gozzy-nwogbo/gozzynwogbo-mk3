@@ -1,0 +1,178 @@
+---
+import { PERSON } from "../lib/constants";
+import ExplorerTeaser from "./ExplorerTeaser.astro";
+---
+
+<section class="hero">
+  <div class="hero-main">
+  <div class="hero-kicker enter" style="--enter-delay: 0ms">
+    <hr class="bridge-rule kicker-rule" />
+    <p class="kicker-text">{PERSON.jobTitle}</p>
+  </div>
+
+  <h1 class="hero-title enter" style="--enter-delay: 100ms">
+    {PERSON.name}<span class="hero-dot">.</span>
+  </h1>
+
+  <p class="hero-lede enter" style="--enter-delay: 200ms">
+    I build AI systems that give organizations leverage they do not have yet.
+  </p>
+
+  <p class="hero-support enter" style="--enter-delay: 300ms">
+    Frontier tools made to actually run inside a business, not just demo.
+    I come at it from business, not computer science, and that is what makes
+    it useful. Based in Toronto.
+  </p>
+
+  <div class="hero-actions enter" style="--enter-delay: 400ms">
+    <a href="/projects" class="btn btn-primary">See the work</a>
+    <a href="/contact" class="btn btn-ghost">Let&rsquo;s talk <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+  </div>
+  </div>
+
+  <div class="hero-side">
+    <ExplorerTeaser />
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(4rem, 12vh, 8rem) clamp(3rem, 8vh, 5rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+    gap: var(--spacing-16);
+    align-items: center;
+  }
+
+  .hero-side {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  @media (max-width: 56rem) {
+    .hero {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-12);
+    }
+    .hero-side {
+      justify-content: flex-start;
+    }
+  }
+
+  .hero-kicker {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-8);
+  }
+
+  .kicker-rule {
+    width: 3rem;
+    flex: none;
+    margin: 0;
+  }
+
+  .kicker-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  .hero-title {
+    font-size: var(--text-display);
+    font-weight: 650;
+    letter-spacing: -0.04em;
+    line-height: 1.02;
+    margin: 0;
+  }
+
+  .hero-dot {
+    color: var(--color-accent);
+  }
+
+  .hero-lede {
+    margin-top: var(--spacing-8);
+    max-width: 26ch;
+    font-size: clamp(1.5rem, 2.6vw, 2.125rem);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    color: var(--color-text-primary);
+    text-wrap: balance;
+  }
+
+  .hero-support {
+    margin-top: var(--spacing-6);
+    max-width: 52ch;
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+  }
+
+  .hero-actions {
+    margin-top: var(--spacing-12);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-4);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: 0.875rem 1.75rem;
+    border-radius: 999px;
+    font-size: var(--text-base);
+    font-weight: 500;
+    line-height: 1;
+    transition:
+      background-color var(--transition-fast),
+      color var(--transition-fast),
+      border-color var(--transition-fast),
+      transform var(--transition-fast),
+      box-shadow var(--transition-fast);
+  }
+
+  .btn-primary {
+    background-color: var(--color-accent);
+    color: var(--color-text-on-dark);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-accent-hover);
+    color: var(--color-text-on-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-ghost {
+    border: 1px solid var(--color-border-strong);
+    color: var(--color-text-primary);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--color-interactive);
+    color: var(--color-interactive);
+  }
+
+  .btn-arrow {
+    transition: transform var(--transition-fast);
+  }
+
+  .btn-ghost:hover .btn-arrow {
+    transform: translateX(3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn,
+    .btn-arrow {
+      transition: none;
+    }
+    .btn-primary:hover {
+      transform: none;
+    }
+  }
+</style>

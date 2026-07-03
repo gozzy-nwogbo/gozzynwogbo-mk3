@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import Hero from "../components/Hero.astro";
 import ImpactStats from "../components/ImpactStats.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 import { SITE, PERSON } from "../lib/constants";
@@ -22,15 +23,10 @@ const schemas = [generateWebSiteSchema(), generatePersonSchema()];
 
 <BaseLayout title={SITE.name} description={SITE.description} schemaJsonLd={schemas}>
   <!-- Hero -->
-  <section class="py-24">
-    <h1 class="text-5xl font-bold">{PERSON.name}</h1>
-    <p class="text-xl text-[var(--color-text-secondary)] mt-3">{PERSON.jobTitle}</p>
-    <p class="text-lg text-[var(--color-text-secondary)] mt-4 max-w-[55ch] leading-relaxed">
-      I build AI systems that give organizations leverage they do not have yet.
-      Frontier tools made to actually run inside a business, not just demo.
-      I come at it from business, not computer science, and that is what makes
-      it useful. Based in Toronto.
-    </p>
+  <Hero />
+
+  <!-- Stats (restyled as counters in Task 5) -->
+  <section class="pb-16">
     <ImpactStats stats={stats} />
   </section>
 

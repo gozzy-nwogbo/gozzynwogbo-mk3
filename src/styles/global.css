@@ -19,6 +19,12 @@
   --color-accent-hover: #9E5640;
   --color-accent-subtle: #B5654A1A;
 
+  /* Color — Interactive accent (teal; explorer + interactive highlights) */
+  --color-interactive: #0F766E;
+  --color-interactive-hover: #0B5D56;
+  --color-interactive-subtle: #0F766E14;
+  --color-interactive-bright: #14B8A6;
+
   /* Color — Borders */
   --color-border: #E8E4DF;
   --color-border-strong: #D1CCC6;
@@ -42,6 +48,10 @@
   --text-4xl: 2.25rem;
   --text-5xl: 3rem;
   --text-metric: 3.75rem;
+
+  /* Display type (hero) */
+  --text-6xl: clamp(2.75rem, 6vw, 5rem);
+  --text-display: clamp(3.25rem, 7vw, 5.5rem);
 
   /* Line Height */
   --leading-tight: 1.2;
@@ -74,6 +84,10 @@
   --transition-fast: 150ms ease;
   --transition-normal: 250ms ease;
   --transition-slow: 400ms ease;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-slow: 600ms;
 }
 
 @layer base {

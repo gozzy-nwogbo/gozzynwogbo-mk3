@@ -15,7 +15,7 @@ Management Information Systems.
 
 - [Second Brain / Open Brain](/projects/second-brain): A working personal knowledge OS. MCP server, semantic search over pgvector, daily pipelines, 70+ knowledge domains. It runs his daily practice.
 - [Obscura](/projects/obscura): Automated ad pipeline. A blurb becomes a storyboard, drift-free character renders, and a scored MP4, gated by an ad-comprehension audit. Shipped end to end.
-- [Bid & Investment Screening](/projects/infrastructure-bid-engine): A full priced tender package in one weekend for a six-country infrastructure group, plus an investment screen that caught a falsified growth claim.
+- [Bid & Investment Screening](/projects/infrastructure-bid-engine): A full priced tender package in 3 days for a six-country infrastructure group, plus an investment screen that caught a falsified growth claim.
 - [Tender Radar](/projects/tender-radar): Hands-off cron agent screening federal tenders, can-bid or cannot-bid with the decisive clause, weekly digest.
 - [Scribe / Scribe Scout](/projects/scribe): Content engine drafting from an atom graph, with discovery scored by argument intensity.
 - [Healthcare Workflow Automation](/projects/healthcare-workflow): Early-stage clinical workflow automation piloted across three Nigerian clinics.

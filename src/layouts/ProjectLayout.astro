@@ -47,7 +47,7 @@ const {
         </span>
         <span class="plate-sep" aria-hidden="true">&middot;</span>
         <time datetime={datePublished.toISOString().split("T")[0]}>
-          {datePublished.toLocaleDateString("en-US", { year: "numeric", month: "long" })}
+          {datePublished.toLocaleDateString("en-US", { year: "numeric", month: "long", timeZone: "UTC" })}
         </time>
       </p>
 
@@ -216,5 +216,26 @@ const {
     max-width: 65ch;
     margin-inline: auto;
     margin-bottom: var(--spacing-24);
+  }
+
+  .prose-col :global(p) {
+    margin-block: var(--spacing-4);
+    line-height: var(--leading-relaxed);
+  }
+
+  .prose-col :global(h2) {
+    margin-top: var(--spacing-12);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .prose-col :global(ul),
+  .prose-col :global(ol) {
+    margin-block: var(--spacing-4);
+    padding-left: var(--spacing-6);
+    line-height: var(--leading-relaxed);
+  }
+
+  .prose-col :global(li) {
+    margin-block: var(--spacing-2);
   }
 </style>

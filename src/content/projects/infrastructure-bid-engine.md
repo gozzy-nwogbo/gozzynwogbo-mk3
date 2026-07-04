@@ -1,6 +1,6 @@
 ---
 title: "Bid & Investment Screening for an Infrastructure Group"
-description: "A full priced tender package produced over a single weekend for a six-country infrastructure group, plus an investment screen that caught a falsified growth claim before money moved."
+description: "A full priced tender package produced in 3 days for a six-country infrastructure group, plus an investment screen that caught a falsified growth claim before money moved."
 domain: "consulting"
 geography: "a six-country infrastructure group"
 status: "Active"
@@ -10,7 +10,7 @@ technologies: ["Claude", "Python", "Parametric estimation", "Financial analysis"
 schemaType: "CreativeWork"
 metrics:
   - label: "Tender package"
-    value: "Full priced bid in one weekend, against a 4 to 6 week team baseline"
+    value: "Full priced bid in 3 days, against a 4 to 6 week team baseline"
   - label: "Package depth"
     value: "Compliance map, 40-risk register, 74% local-content plan, priced commercials"
   - label: "Investment screen"
@@ -33,7 +33,7 @@ For the investment screen, I did what a diligence team does and let the numbers 
 
 ## Outcome
 
-The full priced tender package, a bid recommendation of USD 7.73M, went out within the deadline. Work the group normally scopes in 4 to 6 weeks was produced over a single weekend, from limited context. With full access to their data, the cycle gets shorter still.
+The full priced tender package, a bid recommendation of USD 7.73M, went out within the deadline. Work the group normally scopes in 4 to 6 weeks was produced in 3 days, from limited context. With full access to their data, the cycle gets shorter still.
 
 The investment screen caught the story breaking. The "consistent growth" claim was false: revenue was actually down 23% year on year. That finding reached the decision-makers before any money moved.
 

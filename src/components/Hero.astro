@@ -1,69 +1,57 @@
 ---
 import { PERSON } from "../lib/constants";
 import ExplorerTeaser from "./ExplorerTeaser.astro";
+import BridgeSpan from "./BridgeSpan.astro";
 ---
 
 <section class="hero">
-  <div class="hero-main">
   <div class="hero-kicker enter" style="--enter-delay: 0ms">
     <hr class="bridge-rule kicker-rule" />
-    <p class="kicker-text">{PERSON.jobTitle}</p>
+    <p class="kicker-text">
+      <span class="kicker-name">{PERSON.name}</span>
+      <span class="kicker-sep" aria-hidden="true">&middot;</span>
+      {PERSON.jobTitle}
+    </p>
   </div>
 
-  <h1 class="hero-title enter" style="--enter-delay: 100ms">
-    {PERSON.name}<span class="hero-dot">.</span>
+  <h1 class="hero-title">
+    <span class="title-setup enter" style="--enter-delay: 100ms">Most AI never<br />leaves the demo.</span>
+    <span class="title-payoff enter" style="--enter-delay: 220ms">I build the version that runs<span class="anchor-dot" aria-hidden="true"></span></span>
   </h1>
 
-  <p class="hero-lede enter" style="--enter-delay: 200ms">
-    I build AI systems that give organizations leverage they do not have yet.
-  </p>
+  <div class="hero-row">
+    <div class="hero-main">
+      <p class="hero-support enter" style="--enter-delay: 340ms">
+        I come at it from business, not computer science, and that is what makes
+        it useful. Based in Toronto.
+      </p>
 
-  <p class="hero-support enter" style="--enter-delay: 300ms">
-    Frontier tools made to actually run inside a business, not just demo.
-    I come at it from business, not computer science, and that is what makes
-    it useful. Based in Toronto.
-  </p>
+      <div class="hero-actions enter" style="--enter-delay: 440ms">
+        <a href="/projects" class="btn btn-primary">See the work</a>
+        <a href="/contact" class="btn btn-ghost">Let&rsquo;s talk <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+      </div>
+    </div>
 
-  <div class="hero-actions enter" style="--enter-delay: 400ms">
-    <a href="/projects" class="btn btn-primary">See the work</a>
-    <a href="/contact" class="btn btn-ghost">Let&rsquo;s talk <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+    <div class="hero-side enter" style="--enter-delay: 520ms">
+      <ExplorerTeaser />
+    </div>
   </div>
-  </div>
 
-  <div class="hero-side">
-    <ExplorerTeaser />
+  <div class="hero-bridge enter" style="--enter-delay: 640ms">
+    <BridgeSpan catenary />
   </div>
 </section>
 
 <style>
   .hero {
-    padding-block: clamp(4rem, 12vh, 8rem) clamp(3rem, 8vh, 5rem);
-    display: grid;
-    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
-    gap: var(--spacing-16);
-    align-items: center;
-  }
-
-  .hero-side {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  @media (max-width: 56rem) {
-    .hero {
-      grid-template-columns: 1fr;
-      gap: var(--spacing-12);
-    }
-    .hero-side {
-      justify-content: flex-start;
-    }
+    padding-block: clamp(3.5rem, 10vh, 6rem) 0;
   }
 
   .hero-kicker {
     display: flex;
     align-items: center;
     gap: var(--spacing-4);
-    margin-bottom: var(--spacing-8);
+    margin-bottom: var(--spacing-10, 2.5rem);
   }
 
   .kicker-rule {
@@ -80,31 +68,74 @@ import ExplorerTeaser from "./ExplorerTeaser.astro";
     color: var(--color-text-secondary);
   }
 
+  .kicker-name {
+    color: var(--color-text-primary);
+    font-weight: 500;
+  }
+
+  .kicker-sep {
+    margin-inline: 0.5em;
+    color: var(--color-text-tertiary);
+  }
+
   .hero-title {
-    font-size: var(--text-display);
-    font-weight: 650;
-    letter-spacing: -0.04em;
-    line-height: 1.02;
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-size: clamp(2.625rem, 6.4vw, 5.125rem);
+    font-weight: 540;
+    letter-spacing: -0.015em;
+    line-height: 1.08;
     margin: 0;
   }
 
-  .hero-dot {
-    color: var(--color-accent);
+  .title-setup {
+    display: block;
+    color: var(--color-text-secondary);
   }
 
-  .hero-lede {
-    margin-top: var(--spacing-8);
-    max-width: 26ch;
-    font-size: clamp(1.5rem, 2.6vw, 2.125rem);
-    font-weight: 500;
-    line-height: 1.25;
-    letter-spacing: -0.015em;
+  .title-payoff {
+    display: block;
     color: var(--color-text-primary);
-    text-wrap: balance;
+  }
+
+  /* Geometric bridge-anchor dot in place of the payoff period. */
+  .anchor-dot {
+    display: inline-block;
+    width: 0.13em;
+    height: 0.13em;
+    border-radius: 999px;
+    background-color: var(--color-accent);
+    margin-left: 0.08em;
+  }
+
+  .hero-row {
+    margin-top: var(--spacing-12);
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.8fr);
+    gap: var(--spacing-16);
+    align-items: start;
+  }
+
+  .hero-side {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .hero-bridge {
+    margin-top: clamp(2.5rem, 6vh, 4rem);
+  }
+
+  @media (max-width: 56rem) {
+    .hero-row {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-12);
+    }
+    .hero-side {
+      justify-content: flex-start;
+    }
   }
 
   .hero-support {
-    margin-top: var(--spacing-6);
     max-width: 52ch;
     font-size: var(--text-lg);
     line-height: var(--leading-relaxed);
@@ -112,7 +143,7 @@ import ExplorerTeaser from "./ExplorerTeaser.astro";
   }
 
   .hero-actions {
-    margin-top: var(--spacing-12);
+    margin-top: var(--spacing-8);
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -149,13 +180,14 @@ import ExplorerTeaser from "./ExplorerTeaser.astro";
   }
 
   .btn-ghost {
-    border: 1px solid var(--color-border-strong);
-    color: var(--color-text-primary);
+    border: 1px solid var(--color-interactive);
+    color: var(--color-interactive);
   }
 
   .btn-ghost:hover {
-    border-color: var(--color-interactive);
-    color: var(--color-interactive);
+    background-color: var(--color-interactive-subtle);
+    color: var(--color-interactive-hover);
+    border-color: var(--color-interactive-hover);
   }
 
   .btn-arrow {

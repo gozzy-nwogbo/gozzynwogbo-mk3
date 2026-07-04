@@ -4,11 +4,12 @@ import { PERSON, SOCIAL_LINKS } from "../lib/constants";
 const year = new Date().getFullYear();
 ---
 
-<footer class="bg-[var(--color-surface-invert)] text-[var(--color-text-on-dark)] mt-32">
+<footer class="footer bg-[var(--color-surface-invert)] text-[var(--color-text-on-dark)] mt-32">
   <div class="max-w-5xl mx-auto px-6 py-12 flex flex-col sm:flex-row justify-between items-start gap-8">
     <div>
-      <p class="font-semibold">{PERSON.name}</p>
+      <p class="footer-name">{PERSON.name}<span class="footer-dot" aria-hidden="true"></span></p>
       <p class="text-sm text-[var(--color-text-tertiary)] mt-1">{PERSON.jobTitle}</p>
+      <p class="footer-credit">This site was built from my own knowledge corpus.</p>
     </div>
     <div class="flex gap-6">
       {SOCIAL_LINKS.map((link) => (
@@ -33,3 +34,44 @@ const year = new Date().getFullYear();
     <p class="text-xs text-[var(--color-text-tertiary)]">&copy; {year} {PERSON.name}</p>
   </div>
 </footer>
+
+<style>
+  /* The far bank: footer opens on the bridge deck. */
+  .footer {
+    position: relative;
+  }
+
+  .footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-interactive));
+  }
+
+  .footer-name {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-weight: 560;
+    font-size: var(--text-lg);
+  }
+
+  .footer-dot {
+    display: inline-block;
+    width: 0.32em;
+    height: 0.32em;
+    border-radius: 999px;
+    background-color: var(--color-accent);
+    margin-left: 0.12em;
+  }
+
+  .footer-credit {
+    margin-top: var(--spacing-4);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.06em;
+    color: var(--color-text-tertiary);
+  }
+</style>

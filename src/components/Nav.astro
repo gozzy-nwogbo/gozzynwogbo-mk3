@@ -13,19 +13,20 @@ function isActive(href: string): boolean {
 }
 ---
 
-<nav aria-label="Main navigation" class="flex items-center justify-between px-6 py-4 max-w-5xl mx-auto">
-  <a href="/" class="text-lg font-semibold text-[var(--color-text-primary)] hover:text-[var(--color-accent)]">
-    {PERSON.givenName} {PERSON.familyName}
+<nav aria-label="Main navigation" class="flex items-center justify-between gap-4 px-6 py-5 max-w-5xl mx-auto">
+  <a href="/" class="brand whitespace-nowrap text-lg text-[var(--color-text-primary)]">
+    {PERSON.givenName} {PERSON.familyName}<span class="brand-dot" aria-hidden="true"></span>
   </a>
-  <ul class="flex gap-6 list-none m-0 p-0">
+  <ul class="flex gap-5 sm:gap-6 list-none m-0 p-0">
     {NAV_LINKS.filter(link => link.href !== "/").map((link) => (
       <li>
         <a
           href={link.href}
+          aria-current={isActive(link.href) ? "page" : undefined}
           class:list={[
-            "text-sm font-medium transition-colors",
+            "nav-link text-sm font-medium transition-colors",
             isActive(link.href)
-              ? "text-[var(--color-accent)]"
+              ? "is-active text-[var(--color-text-primary)]"
               : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]",
           ]}
         >
@@ -35,3 +36,47 @@ function isActive(href: string): boolean {
     ))}
   </ul>
 </nav>
+
+<style>
+  .brand {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-weight: 560;
+    letter-spacing: -0.01em;
+  }
+
+  .brand:hover {
+    color: var(--color-text-primary);
+  }
+
+  .brand-dot {
+    display: inline-block;
+    width: 0.4em;
+    height: 0.4em;
+    border-radius: 999px;
+    background-color: var(--color-accent);
+    margin-left: 0.14em;
+    transform: translateY(-0.02em);
+    transition: background-color var(--transition-fast);
+  }
+
+  .brand:hover .brand-dot {
+    background-color: var(--color-interactive);
+  }
+
+  .nav-link {
+    position: relative;
+    padding-bottom: 0.375rem;
+  }
+
+  .nav-link.is-active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-interactive));
+  }
+</style>

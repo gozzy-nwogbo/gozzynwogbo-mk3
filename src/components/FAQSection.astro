@@ -8,22 +8,38 @@ interface FAQItem {
 
 interface Props {
   items: FAQItem[];
+  hideTitle?: boolean;
 }
 
-const { items } = Astro.props;
+const { items, hideTitle = false } = Astro.props;
 const schema = generateFAQSchema(items);
 ---
 
-<section class="mt-16">
-  <h2>Frequently Asked Questions</h2>
+<section class:list={[!hideTitle && "mt-16"]}>
+  {!hideTitle && <h2>Frequently Asked Questions</h2>}
   <dl class="mt-6 space-y-6">
     {items.map((item) => (
-      <div class="border-b border-[var(--color-border)] pb-6">
-        <dt class="font-medium">{item.question}</dt>
-        <dd class="text-sm text-[var(--color-text-secondary)] mt-2">{item.answer}</dd>
+      <div class="faq-row border-b border-[var(--color-border)] pb-6">
+        <dt class="faq-q">{item.question}</dt>
+        <dd class="faq-a text-[var(--color-text-secondary)] mt-2 max-w-[58ch]">{item.answer}</dd>
       </div>
     ))}
   </dl>
 </section>
+
+<style>
+  .faq-q {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-size: var(--text-xl);
+    font-weight: 540;
+    letter-spacing: -0.01em;
+  }
+
+  .faq-a {
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+  }
+</style>
 
 <script type="application/ld+json" set:html={JSON.stringify({ "@context": "https://schema.org", ...schema })} />

@@ -1,0 +1,122 @@
+---
+// Interior bridge-progress rail: sticky left-edge index of sections as spans.
+// Anchor links work with no JS; the current-span highlight is a JS enhancement.
+// Hidden below ~86rem so it never crowds content.
+interface Props {
+  items: { id: string; index: string; label: string }[];
+}
+const { items } = Astro.props;
+---
+
+<nav class="rail" aria-label="Section index">
+  {items.map((item) => (
+    <a href={`#${item.id}`} class="rail-item" data-rail-link={item.id}>
+      <span class="rail-index">{item.index}</span>
+      <span class="rail-tick" aria-hidden="true"></span>
+      <span class="rail-label">{item.label}</span>
+    </a>
+  ))}
+</nav>
+
+<script>
+  const links = document.querySelectorAll<HTMLElement>("[data-rail-link]");
+  if (links.length) {
+    const byId = new Map<string, HTMLElement>();
+    for (const link of links) byId.set(link.dataset.railLink!, link);
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            for (const l of links) l.classList.remove("is-current");
+            byId.get(entry.target.id)?.classList.add("is-current");
+          }
+        }
+      },
+      { rootMargin: "-30% 0px -60% 0px" },
+    );
+    for (const id of byId.keys()) {
+      const section = document.getElementById(id);
+      if (section) io.observe(section);
+    }
+  }
+</script>
+
+<style>
+  .rail {
+    display: none;
+  }
+
+  @media (min-width: 86rem) {
+    .rail {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-4);
+      position: fixed;
+      left: var(--spacing-8);
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+    }
+  }
+
+  .rail-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    color: var(--color-text-tertiary);
+    text-decoration: none;
+  }
+
+  .rail-item:hover {
+    color: var(--color-text-secondary);
+  }
+
+  .rail-index {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+  }
+
+  .rail-tick {
+    width: 1rem;
+    height: 1px;
+    background-color: var(--color-border-strong);
+    transition: width var(--transition-fast), background-color var(--transition-fast);
+  }
+
+  .rail-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .rail-item:hover .rail-label,
+  .rail-item.is-current .rail-label {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .rail-item.is-current {
+    color: var(--color-text-primary);
+  }
+
+  .rail-item.is-current .rail-index {
+    color: var(--color-accent);
+  }
+
+  .rail-item.is-current .rail-tick {
+    width: 1.75rem;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-interactive));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rail-tick,
+    .rail-label {
+      transition: none;
+    }
+  }
+</style>

@@ -1,11 +1,22 @@
 ---
-import PageLayout from "../layouts/PageLayout.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 import AISummary from "../components/AISummary.astro";
 import SkillGrid from "../components/SkillGrid.astro";
 import FAQSection from "../components/FAQSection.astro";
+import SpanHeader from "../components/SpanHeader.astro";
+import BridgeProgressRail from "../components/BridgeProgressRail.astro";
+import Reveal from "../components/Reveal.astro";
 import { PERSON } from "../lib/constants";
 import { generatePersonSchema } from "../schemas/person";
 import { generateProfilePageSchema } from "../schemas/profilePage";
+
+const railItems = [
+  { id: "background", index: "01", label: "Background" },
+  { id: "expertise", index: "02", label: "Expertise" },
+  { id: "how-i-work", index: "03", label: "How I work" },
+  { id: "faq", index: "04", label: "FAQ" },
+];
 
 const skills = [
   {
@@ -67,14 +78,16 @@ const faq = [
 const schemas = [generateProfilePageSchema(), generatePersonSchema()];
 ---
 
-<PageLayout
+<BaseLayout
   title="About"
   description={`${PERSON.name} builds AI systems that run inside real businesses: knowledge engines, automations, and agents. Business background, two years on the frontier. Based in Toronto.`}
-  breadcrumbs={[{ label: "About", href: "/about" }]}
   schemaJsonLd={schemas}
   markdownUrl="/about.md"
 >
-  <h1 class="mb-8">About</h1>
+  <Breadcrumbs items={[{ label: "About", href: "/about" }]} />
+  <BridgeProgressRail items={railItems} />
+
+  <h1 class="about-title">About<span class="about-dot" aria-hidden="true"></span></h1>
 
   <AISummary>
     <p>
@@ -89,33 +102,54 @@ const schemas = [generateProfilePageSchema(), generatePersonSchema()];
     </p>
   </AISummary>
 
-  <section class="mb-16">
-    <h2>Background</h2>
-    <p class="mt-4 leading-relaxed">
-      I came at AI from business, not computer science. Business school taught me how to take a
-      messy organization apart on paper: what it sells, where the margin lives, which problems are
-      worth solving and for whom. That training runs underneath everything I build.
-    </p>
-    <p class="mt-4 leading-relaxed">
-      About two years ago, AI tools crossed a line. They stopped being toys and became amplifiers,
-      and I made a decision: go deep now, build on the frontier while it is still forming, instead
-      of waiting for it to mature into something safe. Since then I have built daily. Knowledge
-      systems, agents, automation pipelines, real deliverables for real organizations.
-    </p>
-    <p class="mt-4 leading-relaxed">
-      The result is a bridge. Two things rarely sit in one person: a business head and frontier-AI
-      hands. I have both. I sit between what AI can do and how organizations actually work, and I
-      close that gap myself rather than handing off a requirements document and hoping.
-    </p>
+  <section class="about-section" id="background">
+    <SpanHeader index="01" label="Background">
+      The <em>bridge</em>, built from the business side.
+    </SpanHeader>
+    <div class="bg-grid">
+      <div class="bg-text">
+        <p class="mt-4 leading-relaxed">
+          I came at AI from business, not computer science. Business school taught me how to take a
+          messy organization apart on paper: what it sells, where the margin lives, which problems are
+          worth solving and for whom. That training runs underneath everything I build.
+        </p>
+        <p class="mt-4 leading-relaxed">
+          About two years ago, AI tools crossed a line. They stopped being toys and became amplifiers,
+          and I made a decision: go deep now, build on the frontier while it is still forming, instead
+          of waiting for it to mature into something safe. Since then I have built daily. Knowledge
+          systems, agents, automation pipelines, real deliverables for real organizations.
+        </p>
+        <p class="mt-4 leading-relaxed">
+          The result is a bridge. Two things rarely sit in one person: a business head and frontier-AI
+          hands. I have both. I sit between what AI can do and how organizations actually work, and I
+          close that gap myself rather than handing off a requirements document and hoping.
+        </p>
+      </div>
+      <Reveal class="bg-photo-wrap">
+        <figure class="bg-photo">
+          <img
+            src="/headshot.jpg"
+            alt={`${PERSON.name}, AI systems builder, Toronto`}
+            width="1600"
+            height="1066"
+            loading="eager"
+          />
+        </figure>
+      </Reveal>
+    </div>
   </section>
 
-  <section class="mb-16">
-    <h2>Expertise</h2>
+  <section class="about-section" id="expertise">
+    <SpanHeader index="02" label="Expertise">
+      Business judgment, systems, <em>delivery</em>.
+    </SpanHeader>
     <SkillGrid skills={skills} />
   </section>
 
-  <section class="mb-16">
-    <h2>How I Work</h2>
+  <section class="about-section" id="how-i-work">
+    <SpanHeader index="03" label="How I work">
+      Business first, then <em>build to prove</em>.
+    </SpanHeader>
     <p class="mt-4 leading-relaxed">
       Business first. Before any system gets built, I want to know what it is worth: whose time it
       saves, what that time costs, what changes if it works. I measure in time saved first, then
@@ -131,5 +165,65 @@ const schemas = [generateProfilePageSchema(), generatePersonSchema()];
     </p>
   </section>
 
-  <FAQSection items={faq} />
-</PageLayout>
+  <section class="about-section" id="faq">
+    <SpanHeader index="04" label="FAQ">
+      The questions I <em>actually</em> get.
+    </SpanHeader>
+    <FAQSection items={faq} hideTitle />
+  </section>
+</BaseLayout>
+
+<style>
+  .about-title {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 520;
+    letter-spacing: -0.015em;
+    margin: var(--spacing-8) 0 var(--spacing-12);
+  }
+
+  .about-dot {
+    display: inline-block;
+    width: 0.13em;
+    height: 0.13em;
+    border-radius: 999px;
+    background-color: var(--color-accent);
+    margin-left: 0.08em;
+  }
+
+  .about-section {
+    margin-bottom: var(--spacing-24);
+    scroll-margin-top: var(--spacing-16);
+  }
+
+  .bg-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: var(--spacing-16);
+    align-items: start;
+    margin-top: var(--spacing-8);
+  }
+
+  .bg-text {
+    max-width: 58ch;
+  }
+
+  @media (max-width: 56rem) {
+    .bg-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-8);
+    }
+  }
+
+  .bg-photo {
+    margin: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .bg-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>

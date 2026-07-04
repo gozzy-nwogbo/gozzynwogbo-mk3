@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "@fontsource-variable/geist";
 @import "@fontsource-variable/geist-mono";
+@import "@fontsource-variable/fraunces/opsz.css";
 @import "./motion.css";
 
 @theme {
@@ -37,6 +38,7 @@
   /* Typography */
   --font-sans: "Geist Variable", system-ui, -apple-system, sans-serif;
   --font-mono: "Geist Mono Variable", ui-monospace, monospace;
+  --font-serif: "Fraunces Variable", "Newsreader", Georgia, serif;
 
   /* Type Scale (Major Third — 1.250) */
   --text-xs: 0.75rem;
@@ -52,7 +54,7 @@
 
   /* Display type (hero) */
   --text-6xl: clamp(2.75rem, 6vw, 5rem);
-  --text-display: clamp(3.25rem, 7vw, 5.5rem);
+  --text-display: clamp(3.5rem, 9vw, 7.75rem);
 
   /* Line Height */
   --leading-tight: 1.2;
@@ -102,7 +104,16 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  h1, h2, h3, h4 {
+  h1, h2, h3 {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-weight: 540;
+    letter-spacing: -0.01em;
+    line-height: var(--leading-tight);
+    color: var(--color-text-primary);
+  }
+
+  h4 {
     line-height: var(--leading-tight);
     font-weight: 600;
     color: var(--color-text-primary);
@@ -125,5 +136,17 @@
 
   ::selection {
     background-color: var(--color-accent-subtle);
+  }
+
+  /* Warm paper grain — depth within the existing hues, no new color. */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0.3;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.17 0 0 0 0 0.16 0 0 0 0 0.14 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 }

@@ -9,12 +9,13 @@ const projects = (await getCollection("projects")).sort((a, b) => a.data.sortOrd
 
 <BaseLayout title="Projects" description="AI systems built to run inside real businesses: knowledge engines, automations, and agents." markdownUrl="/projects/index.md">
   <Breadcrumbs items={[{ label: "Projects", href: "/projects" }]} />
-  <h1 class="mb-4">Projects</h1>
-  <p class="text-[var(--color-text-secondary)] mb-12 max-w-[55ch]">
+  <h1 class="pi-title">Work that <em>runs</em><span class="pi-dot" aria-hidden="true"></span></h1>
+  <p class="pi-lede">
     AI systems built to run inside real businesses: knowledge engines, automations,
     and agents. Each one ends in an outcome, not a demo.
   </p>
-  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+  <h2 class="sr-only">All projects</h2>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12 mb-24">
     {projects.map((project) => (
       <ProjectCard
         slug={project.id}
@@ -27,3 +28,34 @@ const projects = (await getCollection("projects")).sort((a, b) => a.data.sortOrd
     ))}
   </div>
 </BaseLayout>
+
+<style>
+  .pi-title {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 520;
+    letter-spacing: -0.015em;
+    margin: var(--spacing-8) 0 var(--spacing-6);
+  }
+
+  .pi-title em {
+    font-style: italic;
+    font-weight: 480;
+    color: var(--color-accent);
+  }
+
+  .pi-dot {
+    display: inline-block;
+    width: 0.13em;
+    height: 0.13em;
+    border-radius: 999px;
+    background-color: var(--color-accent);
+    margin-left: 0.08em;
+  }
+
+  .pi-lede {
+    max-width: 55ch;
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+  }
+</style>

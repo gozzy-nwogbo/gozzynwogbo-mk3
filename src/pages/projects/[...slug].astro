@@ -17,9 +17,11 @@ const schema = generateProjectSchema(project.id, project.data);
 ---
 
 <ProjectLayout
+  slug={project.id}
   title={project.data.title}
   description={project.data.description}
   domain={project.data.domain}
+  status={project.data.status}
   technologies={project.data.technologies}
   datePublished={project.data.datePublished}
   metrics={project.data.metrics}

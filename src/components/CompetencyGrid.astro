@@ -1,5 +1,6 @@
 ---
 import Reveal from "./Reveal.astro";
+import SpanHeader from "./SpanHeader.astro";
 
 // Labels and lines drawn from existing site copy (About / Contact) — no new claims.
 const competencies = [
@@ -31,11 +32,10 @@ const competencies = [
 ---
 
 <section class="comp">
-  <div class="section-kicker">
-    <hr class="bridge-rule kicker-rule" />
-    <p class="kicker-text">What I bring</p>
-  </div>
-  <h2 class="comp-title">A business head and frontier-AI hands</h2>
+  <SpanHeader index="04" label="What I bring">
+    A business head and <em>frontier-AI</em> hands.
+  </SpanHeader>
+  <div class="comp-spacer"></div>
 
   <div class="comp-grid">
     {competencies.map((c, i) => (
@@ -52,36 +52,11 @@ const competencies = [
 
 <style>
   .comp {
-    border-top: 1px solid var(--color-border);
     padding-block: var(--spacing-16);
   }
 
-  .section-kicker {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-4);
-    margin-bottom: var(--spacing-4);
-  }
-
-  .kicker-rule {
-    width: 3rem;
-    flex: none;
-    margin: 0;
-  }
-
-  .kicker-text {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-text-secondary);
-  }
-
-  .comp-title {
-    font-size: var(--text-4xl);
-    letter-spacing: -0.02em;
-    margin: 0 0 var(--spacing-12);
-    max-width: 24ch;
+  .comp-spacer {
+    height: var(--spacing-12);
   }
 
   .comp-grid {

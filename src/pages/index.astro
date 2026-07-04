@@ -2,9 +2,10 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import CredibilityStrip from "../components/CredibilityStrip.astro";
-import StatCounter from "../components/StatCounter.astro";
+import StatMarquee from "../components/StatMarquee.astro";
 import ProjectBench from "../components/ProjectBench.astro";
 import CompetencyGrid from "../components/CompetencyGrid.astro";
+import SpanHeader from "../components/SpanHeader.astro";
 import { SITE, PERSON } from "../lib/constants";
 import { generatePersonSchema } from "../schemas/person";
 import { generateWebSiteSchema } from "../schemas/website";
@@ -27,12 +28,16 @@ const schemas = [generateWebSiteSchema(), generatePersonSchema()];
   <!-- Hero -->
   <Hero />
 
-  <!-- Credibility strip -->
-  <CredibilityStrip />
+  <!-- 01 · Credibility -->
+  <section class="pt-12">
+    <SpanHeader index="01" label="The record" />
+    <CredibilityStrip />
+  </section>
 
-  <!-- Stats -->
-  <section class="pb-16">
-    <StatCounter stats={stats} />
+  <!-- 02 · Stats -->
+  <section class="pt-8 pb-12">
+    <SpanHeader index="02" label="The numbers" />
+    <StatMarquee stats={stats} phrase="the system is the demo" />
   </section>
 
   <!-- B2 explorer mounts here (id kept live so the hero teaser CTA lands) -->
@@ -46,13 +51,11 @@ const schemas = [generateWebSiteSchema(), generatePersonSchema()];
 
   <!-- About Preview -->
   <section class="home-about">
-    <div class="section-kicker">
-      <hr class="bridge-rule kicker-rule" />
-      <p class="kicker-text">About</p>
-    </div>
+    <SpanHeader index="05" label="About" />
+    <div class="home-about-spacer"></div>
     <p class="home-about-lede">
       Two things rarely sit in one person: a business head and frontier-AI hands.
-      I have both.
+      I have <em>both</em>.
     </p>
     <p class="home-about-body">
       I take AI that mostly lives in demos and turn it into systems
@@ -78,39 +81,29 @@ const schemas = [generateWebSiteSchema(), generatePersonSchema()];
 </BaseLayout>
 
 <style>
-  .section-kicker {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-4);
-    margin-bottom: var(--spacing-4);
-  }
-
-  .kicker-rule {
-    width: 3rem;
-    flex: none;
-    margin: 0;
-  }
-
-  .kicker-text {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--color-text-secondary);
-  }
-
   .home-about {
-    border-top: 1px solid var(--color-border);
     padding-block: var(--spacing-16);
   }
 
+  .home-about-spacer {
+    height: var(--spacing-10, 2.5rem);
+  }
+
   .home-about-lede {
-    font-size: var(--text-3xl);
-    font-weight: 550;
-    letter-spacing: -0.015em;
-    line-height: 1.3;
-    max-width: 32ch;
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 520;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    max-width: 30ch;
     text-wrap: balance;
+  }
+
+  .home-about-lede em {
+    font-style: italic;
+    font-weight: 480;
+    color: var(--color-accent);
   }
 
   .home-about-body {

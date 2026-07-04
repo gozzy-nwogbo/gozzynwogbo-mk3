@@ -1,5 +1,6 @@
 ---
 import ProjectCard from "./ProjectCard.astro";
+import SpanHeader from "./SpanHeader.astro";
 import type { CollectionEntry } from "astro:content";
 
 interface Props {
@@ -9,14 +10,11 @@ const { projects } = Astro.props;
 ---
 
 <section class="bench">
+  <SpanHeader index="03" label="Selected work">
+    Work that <em>runs</em>.
+  </SpanHeader>
   <div class="bench-head">
-    <div>
-      <div class="section-kicker">
-        <hr class="bridge-rule kicker-rule" />
-        <p class="kicker-text">Selected work</p>
-      </div>
-      <h2 class="bench-title">Projects</h2>
-    </div>
+    <p class="bench-note">Six systems, each ending in an outcome.</p>
     <div class="bench-controls" data-bench-controls hidden>
       <button type="button" class="bench-btn" data-bench-prev aria-label="Previous projects">&larr;</button>
       <button type="button" class="bench-btn" data-bench-next aria-label="Next projects">&rarr;</button>
@@ -65,43 +63,20 @@ const { projects } = Astro.props;
 
 <style>
   .bench {
-    border-top: 1px solid var(--color-border);
     padding-block: var(--spacing-16);
   }
 
   .bench-head {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
     gap: var(--spacing-6);
-    margin-bottom: var(--spacing-8);
+    margin-block: var(--spacing-6) var(--spacing-8);
   }
 
-  .section-kicker {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-4);
-    margin-bottom: var(--spacing-4);
-  }
-
-  .kicker-rule {
-    width: 3rem;
-    flex: none;
-    margin: 0;
-  }
-
-  .kicker-text {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+  .bench-note {
+    font-size: var(--text-base);
     color: var(--color-text-secondary);
-  }
-
-  .bench-title {
-    font-size: var(--text-4xl);
-    letter-spacing: -0.02em;
-    margin: 0;
   }
 
   .bench-controls {

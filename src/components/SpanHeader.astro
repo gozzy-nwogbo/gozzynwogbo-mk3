@@ -1,0 +1,71 @@
+---
+// Editorial section header on the bridge motif: mono index, the span (deck +
+// piers), mono label. Optional Fraunces headline via slot (one italic word).
+import BridgeSpan from "./BridgeSpan.astro";
+
+interface Props {
+  index: string;
+  label: string;
+  class?: string;
+}
+const { index, label, class: className } = Astro.props;
+---
+
+<div class:list={["span-header", className]}>
+  <div class="span-row">
+    <span class="span-index">{index}</span>
+    <BridgeSpan class="span-line" />
+    <span class="span-label">{label}</span>
+  </div>
+  {Astro.slots.has("default") && (
+    <h2 class="span-title"><slot /></h2>
+  )}
+</div>
+
+<style>
+  .span-header {
+    padding-top: var(--spacing-4);
+  }
+
+  .span-row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+  }
+
+  .span-index {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    flex: none;
+  }
+
+  .span-row :global(.span-line) {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .span-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    flex: none;
+  }
+
+  .span-title {
+    margin: var(--spacing-8) 0 0;
+    font-size: clamp(2rem, 3.6vw, 3rem);
+    font-weight: 520;
+    letter-spacing: -0.01em;
+    max-width: 26ch;
+  }
+
+  .span-title :global(em) {
+    font-style: italic;
+    font-weight: 480;
+    color: var(--color-accent);
+  }
+</style>

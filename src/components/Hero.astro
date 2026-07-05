@@ -1,6 +1,6 @@
 ---
 import { PERSON } from "../lib/constants";
-import ExplorerTeaser from "./ExplorerTeaser.astro";
+import Explorer from "./Explorer.astro";
 import BridgeSpan from "./BridgeSpan.astro";
 ---
 
@@ -33,7 +33,7 @@ import BridgeSpan from "./BridgeSpan.astro";
     </div>
 
     <div class="hero-side enter" style="--enter-delay: 520ms">
-      <ExplorerTeaser />
+      <Explorer />
     </div>
   </div>
 
@@ -113,7 +113,7 @@ import BridgeSpan from "./BridgeSpan.astro";
     display: grid;
     grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.8fr);
     gap: var(--spacing-16);
-    align-items: start;
+    align-items: center;
   }
 
   .hero-side {

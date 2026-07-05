@@ -1,0 +1,45 @@
+{
+  "note": "Curated from the real corpus: the n8n workflow catalog (483 workflows across 8 domains) and shipped systems (Tender Radar, the infrastructure bid engine, the clinical workflow pilot). Every item maps to something actually built.",
+  "industries": [
+    {
+      "id": "healthcare",
+      "label": "Healthcare",
+      "items": [
+        { "area": "Clinical documentation", "fit": "AI drafts the notes, practitioners review and approve.", "weight": 86 },
+        { "area": "Patient intake", "fit": "Structured records from voice transcripts and handwritten forms.", "weight": 72 },
+        { "area": "Workflow rules", "fit": "Clinic admins change automation rules with no developer.", "weight": 63 },
+        { "area": "Low-connectivity operation", "fit": "Built for intermittent networks, not ideal ones.", "weight": 52 }
+      ]
+    },
+    {
+      "id": "logistics",
+      "label": "Logistics",
+      "items": [
+        { "area": "Tender screening", "fit": "Can-bid or cannot-bid, with the single decisive clause.", "weight": 88 },
+        { "area": "Freight invoice matching", "fit": "Invoices audited against contracts automatically.", "weight": 74 },
+        { "area": "Shipment monitoring", "fit": "Exceptions surfaced instead of dashboards watched.", "weight": 65 },
+        { "area": "Supply-chain risk", "fit": "A structured risk register from operational documents.", "weight": 56 }
+      ]
+    },
+    {
+      "id": "finance",
+      "label": "Finance",
+      "items": [
+        { "area": "Investment screening", "fit": "Revenue rebuilt from source documents, not the summary slide.", "weight": 90 },
+        { "area": "Statement analysis", "fit": "Financial statements decomposed into structured findings.", "weight": 75 },
+        { "area": "Reconciliation", "fit": "Transactions matched, only the exceptions escalated.", "weight": 66 },
+        { "area": "Cash-flow forecasting", "fit": "A forward view generated straight from the ledger.", "weight": 57 }
+      ]
+    },
+    {
+      "id": "legal",
+      "label": "Legal",
+      "items": [
+        { "area": "Contract review", "fit": "Clause-by-clause reads with anomalies flagged.", "weight": 84 },
+        { "area": "Regulatory compliance", "fit": "Requirements mapped against documents, gap by gap.", "weight": 74 },
+        { "area": "Due diligence", "fit": "Document sets classified, redacted, and summarized.", "weight": 64 },
+        { "area": "Legal research", "fit": "Grounded answers with citations, not model memory.", "weight": 55 }
+      ]
+    }
+  ]
+}

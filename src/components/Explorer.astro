@@ -1,0 +1,238 @@
+---
+// The live "where does AI fit?" explorer (B2). Corpus-backed: every panel item
+// is curated from real built systems (see src/data/explorer.json). All panels
+// are server-rendered; JS only toggles which one shows. With JS off the page
+// renders every industry as readable markup — never a blank widget.
+import data from "../data/explorer.json";
+
+const industries = data.industries;
+const defaultId = industries[0].id;
+---
+
+<aside class="xp" data-explorer aria-label="Where does AI fit: an interactive demo">
+  <p class="xp-kicker">A tool I built &middot; live demo</p>
+  <p class="xp-question">Where does AI fit in your org?</p>
+
+  <div class="xp-chips" role="group" aria-label="Pick an industry" data-xp-chips hidden>
+    {industries.map((ind) => (
+      <button
+        type="button"
+        class="xp-chip"
+        data-xp-chip={ind.id}
+        aria-pressed={ind.id === defaultId ? "true" : "false"}
+      >
+        {ind.label}
+      </button>
+    ))}
+  </div>
+
+  <div class="xp-panels">
+    {industries.map((ind) => (
+      <section class="xp-panel" data-xp-panel={ind.id}>
+        <h3 class="xp-panel-title">{ind.label}</h3>
+        <ul class="xp-list">
+          {ind.items.map((item) => (
+            <li class="xp-item">
+              <div class="xp-item-head">
+                <span class="xp-area">{item.area}</span>
+              </div>
+              <span class="xp-track"><span class="xp-fill" style={`--bar: ${item.weight}%`}></span></span>
+              <p class="xp-fit">{item.fit}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+
+  <p class="xp-note">Drawn from 483 automations and the systems on this site.</p>
+</aside>
+
+<script>
+  const root = document.querySelector<HTMLElement>("[data-explorer]");
+  if (root) {
+    const chips = [...root.querySelectorAll<HTMLButtonElement>("[data-xp-chip]")];
+    const panels = [...root.querySelectorAll<HTMLElement>("[data-xp-panel]")];
+    const chipRow = root.querySelector<HTMLElement>("[data-xp-chips]");
+    const select = (id: string) => {
+      for (const chip of chips) {
+        chip.setAttribute("aria-pressed", chip.dataset.xpChip === id ? "true" : "false");
+      }
+      for (const panel of panels) {
+        panel.classList.toggle("is-active", panel.dataset.xpPanel === id);
+      }
+    };
+    for (const chip of chips) {
+      chip.addEventListener("click", () => select(chip.dataset.xpChip!));
+    }
+    if (chipRow) chipRow.hidden = false;
+    root.classList.add("is-live");
+    select(chips[0]?.dataset.xpChip ?? "");
+  }
+</script>
+
+<style>
+  .xp {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-md);
+    padding: clamp(1.5rem, 3vw, 2rem);
+    width: 100%;
+    max-width: 26rem;
+  }
+
+  .xp-kicker {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-interactive);
+    margin-bottom: var(--spacing-3);
+  }
+
+  .xp-question {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-size: var(--text-2xl);
+    font-weight: 540;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    color: var(--color-text-primary);
+    text-wrap: balance;
+  }
+
+  .xp-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+    margin-top: var(--spacing-6);
+  }
+
+  .xp-chip {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: 1;
+    padding: 0.625rem 0.875rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border-strong);
+    background: none;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition:
+      background-color var(--transition-fast),
+      border-color var(--transition-fast),
+      color var(--transition-fast);
+  }
+
+  .xp-chip:hover {
+    border-color: var(--color-interactive);
+    color: var(--color-interactive);
+  }
+
+  .xp-chip[aria-pressed="true"] {
+    background-color: var(--color-interactive);
+    border-color: var(--color-interactive);
+    color: var(--color-surface);
+  }
+
+  .xp-panels {
+    margin-top: var(--spacing-6);
+  }
+
+  /* Static floor: all panels stacked and readable. */
+  .xp-panel + .xp-panel {
+    margin-top: var(--spacing-8);
+  }
+
+  .xp-panel-title {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    margin-bottom: var(--spacing-4);
+  }
+
+  /* Live: one panel at a time, chip row does the naming. */
+  .xp.is-live .xp-panel {
+    display: none;
+    margin-top: 0;
+  }
+
+  .xp.is-live .xp-panel.is-active {
+    display: block;
+  }
+
+  .xp.is-live .xp-panel-title {
+    display: none;
+  }
+
+  .xp-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--spacing-5, 1.25rem);
+  }
+
+  .xp-area {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-secondary);
+  }
+
+  .xp-track {
+    display: block;
+    height: 6px;
+    border-radius: 999px;
+    background-color: var(--color-interactive-subtle);
+    overflow: hidden;
+    margin-top: var(--spacing-2);
+  }
+
+  .xp-fill {
+    display: block;
+    height: 100%;
+    width: var(--bar);
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--color-interactive), var(--color-interactive-bright));
+    transform-origin: left;
+  }
+
+  .xp.is-live .xp-panel.is-active .xp-fill {
+    animation: xp-grow 700ms var(--ease-out) both;
+  }
+
+  @keyframes xp-grow {
+    from { transform: scaleX(0.2); opacity: 0.4; }
+    to   { transform: scaleX(1); opacity: 1; }
+  }
+
+  .xp-fit {
+    margin-top: var(--spacing-2);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--color-text-secondary);
+  }
+
+  .xp-note {
+    margin-top: var(--spacing-8);
+    padding-top: var(--spacing-4);
+    border-top: 1px solid var(--color-border);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+    color: var(--color-text-tertiary);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .xp-chip {
+      transition: none;
+    }
+    .xp.is-live .xp-panel.is-active .xp-fill {
+      animation: none;
+    }
+  }
+</style>

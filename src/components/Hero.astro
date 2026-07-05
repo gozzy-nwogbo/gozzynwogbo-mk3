@@ -26,9 +26,12 @@ import BridgeSpan from "./BridgeSpan.astro";
         it useful. Based in Toronto.
       </p>
 
-      <div class="hero-actions enter" style="--enter-delay: 440ms">
-        <a href="/projects" class="btn btn-primary">See the work</a>
-        <a href="/contact" class="btn btn-ghost">Let&rsquo;s talk <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+      <div class="hero-foot enter" style="--enter-delay: 440ms">
+        <p class="hero-corpus">Every item in the fit demo maps to something I have built. Drawn from 483 automations and the systems on this site.</p>
+        <div class="hero-actions">
+          <a href="/projects" class="btn btn-primary">See the work</a>
+          <a href="/contact" class="btn btn-ghost">Let&rsquo;s talk <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+        </div>
       </div>
     </div>
 
@@ -140,7 +143,27 @@ import BridgeSpan from "./BridgeSpan.astro";
     display: grid;
     grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.8fr);
     gap: var(--spacing-16);
-    align-items: center;
+    align-items: stretch;
+  }
+
+  .hero-main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hero-foot {
+    margin-top: auto;
+  }
+
+  .hero-corpus {
+    max-width: 44ch;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: 1.7;
+    letter-spacing: 0.04em;
+    color: var(--color-text-tertiary);
+    padding-left: var(--spacing-4);
+    border-left: 2px solid var(--color-border-strong);
   }
 
   .hero-side {
@@ -183,7 +206,7 @@ import BridgeSpan from "./BridgeSpan.astro";
   }
 
   .hero-actions {
-    margin-top: var(--spacing-8);
+    margin-top: var(--spacing-6);
     display: flex;
     flex-wrap: wrap;
     align-items: center;

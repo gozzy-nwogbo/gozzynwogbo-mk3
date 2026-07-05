@@ -17,25 +17,53 @@ function isActive(href: string): boolean {
   <a href="/" class="brand whitespace-nowrap text-lg text-[var(--color-text-primary)]">
     {PERSON.givenName} {PERSON.familyName}<span class="brand-dot" aria-hidden="true"></span>
   </a>
-  <ul class="flex gap-5 sm:gap-6 list-none m-0 p-0">
-    {NAV_LINKS.filter(link => link.href !== "/").map((link) => (
-      <li>
-        <a
-          href={link.href}
-          aria-current={isActive(link.href) ? "page" : undefined}
-          class:list={[
-            "nav-link text-sm font-medium transition-colors",
-            isActive(link.href)
-              ? "is-active text-[var(--color-text-primary)]"
-              : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]",
-          ]}
-        >
-          {link.label}
-        </a>
-      </li>
-    ))}
-  </ul>
+  <div class="flex items-center gap-5 sm:gap-6">
+    <ul class="flex gap-5 sm:gap-6 list-none m-0 p-0">
+      {NAV_LINKS.filter(link => link.href !== "/").map((link) => (
+        <li>
+          <a
+            href={link.href}
+            aria-current={isActive(link.href) ? "page" : undefined}
+            class:list={[
+              "nav-link text-sm font-medium transition-colors",
+              isActive(link.href)
+                ? "is-active text-[var(--color-text-primary)]"
+                : "text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)]",
+            ]}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark theme" hidden>
+      <span class="tt-dot" aria-hidden="true"></span>
+    </button>
+  </div>
 </nav>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
+  if (btn) {
+    const label = () =>
+      btn.setAttribute(
+        "aria-label",
+        document.documentElement.dataset.theme === "dark"
+          ? "Switch to light theme"
+          : "Switch to dark theme",
+      );
+    btn.hidden = false;
+    label();
+    btn.addEventListener("click", () => {
+      const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+      document.documentElement.dataset.theme = next;
+      try {
+        localStorage.setItem("theme", next);
+      } catch {}
+      label();
+    });
+  }
+</script>
 
 <style>
   .brand {
@@ -78,5 +106,39 @@ function isActive(href: string): boolean {
     height: 2px;
     border-radius: 999px;
     background: linear-gradient(90deg, var(--color-accent), var(--color-interactive));
+  }
+
+  /* Theme toggle: the other bank. Dot shows the theme you would cross to. */
+  .theme-toggle {
+    width: 2rem;
+    height: 2rem;
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    background: none;
+    cursor: pointer;
+    transition: border-color var(--transition-fast);
+  }
+
+  .theme-toggle:hover {
+    border-color: var(--color-interactive);
+  }
+
+  .tt-dot {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 999px;
+    background-color: var(--color-text-primary);
+    transition: background-color var(--transition-fast);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .theme-toggle,
+    .tt-dot {
+      transition: none;
+    }
   }
 </style>

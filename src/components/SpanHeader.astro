@@ -55,6 +55,28 @@ const { index, label, class: className } = Astro.props;
     flex: none;
   }
 
+  /* Mobile: index + label read as one line, the span drops below full-width. */
+  @media (max-width: 40rem) {
+    .span-row {
+      flex-wrap: wrap;
+      gap: var(--spacing-2) var(--spacing-4);
+    }
+
+    .span-index {
+      order: 1;
+    }
+
+    .span-label {
+      order: 2;
+      margin-left: auto;
+    }
+
+    .span-row :global(.span-line) {
+      order: 3;
+      flex-basis: 100%;
+    }
+  }
+
   .span-title {
     margin: var(--spacing-8) 0 0;
     font-size: clamp(2rem, 3.6vw, 3rem);

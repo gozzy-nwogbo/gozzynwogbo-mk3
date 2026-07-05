@@ -82,6 +82,18 @@ const defaultId = industries[0].id;
     max-width: 26rem;
   }
 
+  /* Mobile: the explorer is a full-width stacked block with touch-size chips. */
+  @media (max-width: 56rem) {
+    .xp {
+      max-width: none;
+    }
+
+    .xp-chip {
+      padding: 0.875rem 1.125rem;
+      font-size: var(--text-sm);
+    }
+  }
+
   .xp-kicker {
     font-family: var(--font-mono);
     font-size: var(--text-xs);

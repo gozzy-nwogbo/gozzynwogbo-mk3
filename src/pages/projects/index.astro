@@ -22,6 +22,8 @@ const projects = (await getCollection("projects")).sort((a, b) => a.data.sortOrd
         title={project.data.title}
         description={project.data.description}
         domain={project.data.domain}
+        status={project.data.status}
+        philosophy={project.data.philosophy}
         metric={{ value: project.data.metrics[0].value, label: project.data.metrics[0].label }}
         technologies={project.data.technologies.slice(0, 4)}
       />

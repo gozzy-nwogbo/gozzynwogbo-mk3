@@ -1,5 +1,6 @@
 ---
 import ProjectCard from "./ProjectCard.astro";
+import ProjectVisual from "./ProjectVisual.astro";
 import SpanHeader from "./SpanHeader.astro";
 import type { CollectionEntry } from "astro:content";
 
@@ -7,14 +8,29 @@ interface Props {
   projects: CollectionEntry<"projects">[];
 }
 const { projects } = Astro.props;
+const [flagship, ...rest] = projects;
 ---
 
 <section class="bench">
   <SpanHeader index="05" label="Selected work">
     Work that <em>runs</em>.
   </SpanHeader>
+
+  {flagship && (
+    <a href={`/projects/${flagship.id}`} class="feature">
+      <div class="feature-text">
+        <span class="feature-meta">{flagship.data.domain} &middot; {flagship.data.status} &middot; the flagship</span>
+        {flagship.data.philosophy && <p class="feature-philosophy">{flagship.data.philosophy}</p>}
+        <h3 class="feature-title">{flagship.data.title}</h3>
+        <p class="feature-desc">{flagship.data.description}</p>
+        <span class="feature-link">Read the case study <span aria-hidden="true">&rarr;</span></span>
+      </div>
+      <ProjectVisual slug={flagship.id} class="feature-visual" />
+    </a>
+  )}
+
   <div class="bench-head">
-    <p class="bench-note">Six systems, each ending in an outcome.</p>
+    <p class="bench-note">And the rest of the bench, each ending in an outcome.</p>
     <div class="bench-controls" data-bench-controls hidden>
       <button type="button" class="bench-btn" data-bench-prev aria-label="Previous projects">&larr;</button>
       <button type="button" class="bench-btn" data-bench-next aria-label="Next projects">&rarr;</button>
@@ -22,13 +38,15 @@ const { projects } = Astro.props;
   </div>
 
   <div class="bench-track" data-bench-track>
-    {projects.map((project) => (
+    {rest.map((project) => (
       <div class="bench-item">
         <ProjectCard
           slug={project.id}
           title={project.data.title}
           description={project.data.description}
           domain={project.data.domain}
+          status={project.data.status}
+          philosophy={project.data.philosophy}
           metric={{ value: project.data.metrics[0].value, label: project.data.metrics[0].label }}
           technologies={project.data.technologies.slice(0, 4)}
         />
@@ -64,6 +82,94 @@ const { projects } = Astro.props;
 <style>
   .bench {
     padding-block: var(--spacing-16);
+  }
+
+  /* Flagship feature plate */
+  .feature {
+    margin-top: var(--spacing-8);
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    color: var(--color-text-primary);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .feature:hover {
+    color: var(--color-text-primary);
+    border-color: var(--color-interactive);
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 56rem) {
+    .feature {
+      grid-template-columns: 1fr;
+    }
+    .feature :global(.feature-visual) {
+      order: -1;
+      min-height: 11rem;
+    }
+  }
+
+  .feature-text {
+    padding: clamp(1.75rem, 4vw, 3rem);
+  }
+
+  .feature :global(.feature-visual) {
+    border-radius: 0;
+    min-height: 100%;
+  }
+
+  .feature-meta {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  .feature-philosophy {
+    margin-top: var(--spacing-5, 1.25rem);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1.375rem, 2.4vw, 1.875rem);
+    line-height: 1.35;
+    color: var(--color-text-primary);
+    border-left: 2px solid var(--color-accent);
+    padding-left: var(--spacing-5, 1.25rem);
+    max-width: 30ch;
+  }
+
+  .feature-title {
+    margin-top: var(--spacing-6);
+    font-size: var(--text-2xl);
+    font-weight: 540;
+    letter-spacing: -0.01em;
+    transition: color var(--transition-fast);
+  }
+
+  .feature:hover .feature-title {
+    color: var(--color-interactive);
+  }
+
+  .feature-desc {
+    margin-top: var(--spacing-3);
+    max-width: 52ch;
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+  }
+
+  .feature-link {
+    display: inline-block;
+    margin-top: var(--spacing-6);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-interactive);
   }
 
   .bench-head {

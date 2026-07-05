@@ -1,5 +1,6 @@
 ---
 title: "Scribe / Scribe Scout"
+philosophy: "Retrieval over an owned corpus beats generation from model memory."
 description: "A content engine that drafts from an atom graph of my own knowledge corpus, plus a discovery front end that scans the last 30 days of online discussion and scores topics by argument intensity."
 domain: "content"
 geography: "Toronto, Canada"

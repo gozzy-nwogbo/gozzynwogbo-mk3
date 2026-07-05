@@ -1,5 +1,6 @@
 ---
 title: "Bid & Investment Screening for an Infrastructure Group"
+philosophy: "The numbers rebuilt, not accepted."
 description: "A full priced tender package produced in 3 days for a six-country infrastructure group, plus an investment screen that caught a falsified growth claim before money moved."
 domain: "consulting"
 geography: "a six-country infrastructure group"

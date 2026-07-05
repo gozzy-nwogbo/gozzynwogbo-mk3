@@ -1,5 +1,6 @@
 ---
 title: "Second Brain / Open Brain"
+philosophy: "AI is only as useful as what you can put in front of it."
 description: "A working personal knowledge OS: an MCP server with semantic search over pgvector, daily capture, processing, and digest pipelines, spanning ~70 knowledge domains. It runs my daily practice."
 domain: "knowledge"
 geography: "Toronto, Canada"

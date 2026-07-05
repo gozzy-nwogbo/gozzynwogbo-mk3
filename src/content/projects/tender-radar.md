@@ -1,5 +1,6 @@
 ---
 title: "Tender Radar"
+philosophy: "Most business AI does not need to be a chatbot."
 description: "A hands-off cron agent that reads new federal tenders, decides can-bid or cannot-bid against a company profile with the single decisive clause, and emits a weekly digest."
 domain: "automation"
 geography: "Canada"

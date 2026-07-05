@@ -1,5 +1,6 @@
 ---
 title: "Healthcare Workflow Automation"
+philosophy: "Real early-stage building, with the failure modes left in the write-up."
 description: "Early-stage clinical workflow automation, piloted hands-on across three Nigerian clinics, cutting administrative documentation time by roughly a third."
 domain: "healthcare"
 geography: "Nigeria"

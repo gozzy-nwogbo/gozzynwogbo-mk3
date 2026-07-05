@@ -1,5 +1,6 @@
 ---
 title: "Obscura"
+philosophy: "A beautiful ad that does not land its message is a beautiful failure."
 description: "An automated ad pipeline: a product blurb becomes a multi-scene storyboard, drift-free character renders, and a scored MP4, gated by an audit that measures whether a cold viewer gets the message."
 domain: "content"
 geography: "Toronto, Canada"

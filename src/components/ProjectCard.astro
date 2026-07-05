@@ -4,15 +4,20 @@ interface Props {
   title: string;
   description: string;
   domain: string;
+  status?: string;
+  philosophy?: string;
   metric: { value: string; label: string };
   technologies: string[];
 }
 
-const { slug, title, description, domain, metric, technologies } = Astro.props;
+const { slug, title, description, domain, status, philosophy, metric, technologies } = Astro.props;
 ---
 
 <a href={`/projects/${slug}`} class="card group">
-  <span class="card-domain">{domain}</span>
+  <span class="card-domain">
+    {domain}{status && <span class="card-status"> &middot; {status}</span>}
+  </span>
+  {philosophy && <p class="card-philosophy">{philosophy}</p>}
   <h3 class="card-title">{title}</h3>
   <p class="card-desc">{description}</p>
   <div class="card-metric">
@@ -57,6 +62,23 @@ const { slug, title, description, domain, metric, technologies } = Astro.props;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--color-text-tertiary);
+  }
+
+  .card-status {
+    color: var(--color-positive);
+    text-transform: none;
+    letter-spacing: 0.06em;
+  }
+
+  .card-philosophy {
+    margin-top: var(--spacing-4);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-lg);
+    line-height: 1.4;
+    color: var(--color-text-primary);
+    border-left: 2px solid var(--color-accent);
+    padding-left: var(--spacing-4);
   }
 
   .card-title {

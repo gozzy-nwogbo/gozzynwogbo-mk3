@@ -11,6 +11,18 @@ an MSc in Digital Management from Ivey Business School and a BSc in Business
 Administration from Boston University, concentrating in Management Strategy and
 Management Information Systems.
 
+## Now
+
+- Currently building: Atomos, a governed AI knowledge layer where every output traces back to the rule that allowed it.
+- Last shipped: Tender Radar, a hands-off agent that reads new federal tenders and emits a weekly can-bid / can't-bid digest.
+
+## Experience
+
+- Loop Tech Systems (Jul 2023 to Nov 2025, venture closed): Co-founder, Head of Strategy & Expansion. Enterprise client engagements for Bupa Global, the NHS, and Boston Medical Center; telehealth transformation roadmap and workflow (~500 users, 4 features shipped); AI orchestration on n8n, Relevance AI, and Python that lifted client workflow throughput 2.3x.
+- Ivey Business School, IDIS (May to Jul 2025): Strategy Consultant Intern. AI and digital-transformation strategy for CIBC, Autism Society of America, and Boys & Girls Club of London; built an agentic donor-engagement automation.
+- MI-C3 International (Sep 2022 to Aug 2023): Software Engineer. Workflow-optimization features: SQL data models, monitoring dashboards, operational pipelines.
+- Yale University (Jul to Sep 2020): Research Assistant. Incentive-design research; KPIs and study-parameter database; findings in the final paper.
+
 ## Projects
 
 - [Second Brain / Open Brain](/projects/second-brain): A working personal knowledge OS. MCP server, semantic search over pgvector, daily pipelines, 70+ knowledge domains. It runs his daily practice.

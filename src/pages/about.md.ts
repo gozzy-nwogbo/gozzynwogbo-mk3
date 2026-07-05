@@ -3,9 +3,17 @@ import { PERSON, SITE } from "../lib/constants";
 
 const md = `# About Gozzy Nwogbo
 
+A hybrid operator: a business head with frontier-AI hands.
+
 ${PERSON.description}
 
-Gozzy Nwogbo is an AI systems builder based in Toronto, Canada. He holds an MSc in Digital Management from Ivey Business School and a BSc in Business Administration from Boston University, concentrating in Management Strategy and Management Information Systems. He builds AI systems that give organizations leverage they do not have yet: knowledge systems, automations, and agents made to run inside a real business. His work spans a personal knowledge OS holding 70+ domains, an automated ad pipeline shipped end to end, a bid and investment screening engine for a six-country infrastructure group, and a catalog of 483 automation workflows. He came at AI from business, and the business lens is what makes his systems useful.
+## Vitals
+
+- Currently: Building Atomos and independent AI systems
+- Previously: Loop Tech Systems, Co-founder, Head of Strategy & Expansion (2023 to 2025)
+- Based in: Toronto, Ontario, Canada
+- Open to: Founding and greenfield AI roles, forward-deployed and solutions engineering, AI transformation
+- Education: MSc in Digital Management (Ivey Business School); BSc in Business Administration (Boston University), concentrating in Management Strategy and Management Information Systems
 
 ## Background
 

@@ -11,9 +11,9 @@
   --color-surface-invert: #1C1917;
 
   /* Color — Text */
-  --color-text-primary: #2C2825;
-  --color-text-secondary: #6B6560;
-  --color-text-tertiary: #9C9590;
+  --color-text-primary: #26221F;
+  --color-text-secondary: #5D564F;
+  --color-text-tertiary: #8D847B;
   --color-text-on-dark: #FAF8F5;
 
   /* Color — Accent (muted terracotta) */
@@ -31,8 +31,8 @@
   --color-interactive-bright: #14B8A6;
 
   /* Color — Borders */
-  --color-border: #E8E4DF;
-  --color-border-strong: #D1CCC6;
+  --color-border: #E2DCD3;
+  --color-border-strong: #C6BEB3;
 
   /* Color — Status */
   --color-positive: #5A7A5A;
@@ -82,9 +82,9 @@
   --radius-lg: 0.75rem;
 
   /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(44, 40, 37, 0.05);
-  --shadow-md: 0 4px 12px rgba(44, 40, 37, 0.08);
-  --shadow-lg: 0 8px 24px rgba(44, 40, 37, 0.12);
+  --shadow-sm: 0 1px 2px rgba(38, 34, 31, 0.06);
+  --shadow-md: 0 4px 14px rgba(38, 34, 31, 0.10);
+  --shadow-lg: 0 10px 28px rgba(38, 34, 31, 0.14);
 
   /* Transitions */
   --transition-fast: 150ms ease;

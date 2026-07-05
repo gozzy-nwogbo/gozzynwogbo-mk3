@@ -109,6 +109,17 @@ import { CREDIBILITY } from "../lib/constants";
     letter-spacing: -0.01em;
     color: var(--color-text-secondary);
     white-space: nowrap;
+    transition: color var(--transition-fast);
+  }
+
+  .wordmark:hover {
+    color: var(--color-text-primary);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wordmark {
+      transition: none;
+    }
   }
 
   .wordmark-note {

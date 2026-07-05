@@ -81,13 +81,34 @@ const competencies = [
     height: 100%;
     padding-top: var(--spacing-4);
     border-top: 1px solid var(--color-border-strong);
+    transition: border-color var(--transition-normal);
+  }
+
+  .comp-item:hover {
+    border-top-color: var(--color-accent);
   }
 
   .comp-num {
+    display: inline-block;
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     letter-spacing: 0.08em;
     color: var(--color-accent);
+    transition: transform var(--transition-fast);
+  }
+
+  .comp-item:hover .comp-num {
+    transform: translateX(3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .comp-item,
+    .comp-num {
+      transition: none;
+    }
+    .comp-item:hover .comp-num {
+      transform: none;
+    }
   }
 
   .comp-label {

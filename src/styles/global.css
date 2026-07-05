@@ -21,6 +21,8 @@
   --color-accent-hover: #9E5640;
   --color-accent-subtle: #B5654A1A;
   --color-on-accent: #FAF8F5;
+  --color-link: #9E5640;
+  --color-link-hover: #B5654A;
 
   /* Color — Interactive accent (teal; explorer + interactive highlights) */
   --color-interactive: #0F766E;
@@ -119,6 +121,8 @@
     --color-accent-hover: #E2A288;
     --color-accent-subtle: #D68E7026;
     --color-on-accent: #211B16;
+    --color-link: #D68E70;
+    --color-link-hover: #E2A288;
     --color-interactive: #2FC4B2;
     --color-interactive-hover: #6ADFCF;
     --color-interactive-subtle: #2FC4B21F;
@@ -156,13 +160,13 @@
   h4 { font-size: var(--text-xl); }
 
   a {
-    color: var(--color-accent);
+    color: var(--color-link);
     text-decoration: none;
     transition: color var(--transition-fast);
   }
 
   a:hover {
-    color: var(--color-accent-hover);
+    color: var(--color-link-hover);
   }
 
   ::selection {

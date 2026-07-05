@@ -2,10 +2,15 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import CredibilityStrip from "../components/CredibilityStrip.astro";
-import StatMarquee from "../components/StatMarquee.astro";
+import ProofStats from "../components/ProofStats.astro";
+import NowDigest from "../components/NowDigest.astro";
 import ProjectBench from "../components/ProjectBench.astro";
 import CompetencyGrid from "../components/CompetencyGrid.astro";
+import Experience from "../components/Experience.astro";
+import VisualStudies from "../components/VisualStudies.astro";
 import SpanHeader from "../components/SpanHeader.astro";
+import AISummary from "../components/AISummary.astro";
+import BridgeProgressRail from "../components/BridgeProgressRail.astro";
 import { SITE, PERSON } from "../lib/constants";
 import { generatePersonSchema } from "../schemas/person";
 import { generateWebSiteSchema } from "../schemas/website";
@@ -15,52 +20,96 @@ const projects = (await getCollection("projects"))
   .filter((p) => p.data.featured)
   .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 
-const stats = [
-  { value: "70+", label: "knowledge domains running on a system I built and use daily" },
-  { value: "483", label: "automation workflows across 8 domains" },
-  { value: "3 days", label: "to produce a full priced tender package a team scopes in weeks" },
+const railItems = [
+  { id: "record", index: "01", label: "The record" },
+  { id: "numbers", index: "02", label: "The numbers" },
+  { id: "now", index: "03", label: "Now" },
+  { id: "experience", index: "04", label: "Experience" },
+  { id: "work", index: "05", label: "Selected work" },
+  { id: "bring", index: "06", label: "What I bring" },
+  { id: "studies", index: "07", label: "Visual studies" },
+  { id: "about", index: "08", label: "About" },
 ];
 
 const schemas = [generateWebSiteSchema(), generatePersonSchema()];
 ---
 
 <BaseLayout title={SITE.name} description={SITE.description} schemaJsonLd={schemas}>
+  <BridgeProgressRail items={railItems} />
+
   <!-- Hero -->
   <Hero />
 
   <!-- 01 · Credibility -->
-  <section class="pt-12">
+  <section class="pt-12 scroll-mt-16" id="record">
     <SpanHeader index="01" label="The record" />
     <CredibilityStrip />
   </section>
 
   <!-- 02 · Stats -->
-  <section class="pt-8 pb-12">
-    <SpanHeader index="02" label="The numbers" />
-    <StatMarquee stats={stats} phrase="the system is the demo" />
+  <section class="pt-8 pb-12" id="numbers">
+    <SpanHeader index="02" label="The numbers">
+      Selected <em>proof</em>.
+    </SpanHeader>
+    <ProofStats />
   </section>
 
-  <!-- Featured Projects -->
-  <ProjectBench projects={projects} />
+  <!-- 03 · Now -->
+  <section class="pt-8 pb-12 scroll-mt-16" id="now">
+    <SpanHeader index="03" label="Now">
+      What is moving <em>this month</em>.
+    </SpanHeader>
+    <NowDigest />
+  </section>
 
-  <!-- Competencies -->
-  <CompetencyGrid />
+  <!-- 04 · Experience -->
+  <section class="pt-8 pb-12 scroll-mt-16" id="experience">
+    <SpanHeader index="04" label="Experience">
+      Laying the foundation of a <em>hybrid</em> practice.
+    </SpanHeader>
+    <Experience />
+  </section>
 
-  <!-- About Preview -->
-  <section class="home-about">
-    <SpanHeader index="05" label="About" />
+  <!-- 05 · Featured Projects -->
+  <div id="work" class="scroll-mt-16">
+    <ProjectBench projects={projects} />
+  </div>
+
+  <!-- 06 · Competencies -->
+  <div id="bring" class="scroll-mt-16">
+    <CompetencyGrid />
+  </div>
+
+  <!-- 07 · Visual studies -->
+  <section class="pt-8 pb-12 scroll-mt-16" id="studies">
+    <SpanHeader index="07" label="Visual studies">
+      The tools, pointed <em>back at the portfolio</em>.
+    </SpanHeader>
+    <VisualStudies />
+  </section>
+
+  <!-- 08 · About Preview -->
+  <section class="home-about scroll-mt-16" id="about">
+    <SpanHeader index="08" label="About" />
     <div class="home-about-spacer"></div>
     <p class="home-about-lede">
       Two things rarely sit in one person: a business head and frontier-AI hands.
       I have <em>both</em>.
     </p>
-    <p class="home-about-body">
-      I take AI that mostly lives in demos and turn it into systems
-      that run inside a real business, knowledge engines, automations, and agents.
-      The business lens is what makes the technology useful.
-    </p>
+    <AISummary>
+      <p>
+        Gozzy Nwogbo is an AI systems builder based in Toronto, Canada. He holds an MSc in Digital
+        Management from Ivey Business School and a BSc in Business Administration from Boston
+        University, concentrating in Management Strategy and Management Information Systems.
+        He builds AI systems that give organizations leverage they do not have yet: knowledge systems,
+        automations, and agents made to run inside a real business. His work spans a personal knowledge
+        OS holding 70+ domains, an automated ad pipeline shipped end to end, a bid and investment
+        screening engine for a six-country infrastructure group, and a catalog of 483 automation
+        workflows. He came at AI from business, and the business lens is what makes his systems useful.
+      </p>
+    </AISummary>
     <p class="home-about-link">
-      <a href="/about">Read more &rarr;</a>
+      <a href="/about">The longer story &rarr;</a>
     </p>
   </section>
 

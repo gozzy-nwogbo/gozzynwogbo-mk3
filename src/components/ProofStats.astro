@@ -1,0 +1,129 @@
+---
+// Selected proof: three numbers with the receipts under them. Numbers count up
+// on first view (JS enhancement over server-rendered finals).
+const proofs = [
+  {
+    kicker: "Knowledge domains",
+    value: "70+",
+    line: "The Second Brain holds 70+ domains and runs my daily practice. Every working session reads from it and writes back to it.",
+  },
+  {
+    kicker: "Automation workflows",
+    value: "483",
+    line: "A reusable automation library across 8 domains, from contract review to freight invoice auditing.",
+  },
+  {
+    kicker: "Full priced tender",
+    value: "3 days",
+    line: "A complete priced package for a six-country infrastructure group, against a 4 to 6 week team baseline.",
+  },
+];
+---
+
+<div class="proof">
+  {proofs.map((p) => (
+    <div class="proof-item">
+      <p class="proof-kicker">{p.kicker}</p>
+      <p class="proof-value" data-proof>{p.value}</p>
+      <p class="proof-line">{p.line}</p>
+    </div>
+  ))}
+</div>
+<p class="proof-close">The system is the demo.</p>
+
+<script>
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduced) {
+    const els = document.querySelectorAll<HTMLElement>("[data-proof]");
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        io.unobserve(entry.target);
+        const el = entry.target as HTMLElement;
+        const final = el.textContent ?? "";
+        const m = final.match(/^(\D*)(\d+)(.*)$/);
+        if (!m) continue;
+        const [, pre, num, suf] = m;
+        const target = parseInt(num, 10);
+        const start = performance.now();
+        const tick = (now: number) => {
+          const t = Math.min((now - start) / 1100, 1);
+          const eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = `${pre}${Math.round(eased * target)}${suf}`;
+          if (t < 1) requestAnimationFrame(tick);
+          else el.textContent = final;
+        };
+        requestAnimationFrame(tick);
+      }
+    }, { threshold: 0.5 });
+    for (const el of els) io.observe(el);
+  }
+</script>
+
+<style>
+  .proof {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--spacing-12);
+    padding-top: var(--spacing-10, 2.5rem);
+  }
+
+  @media (max-width: 56rem) {
+    .proof {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-8);
+    }
+  }
+
+  .proof-item {
+    border-top: 1px solid var(--color-border-strong);
+    padding-top: var(--spacing-4);
+    transition: border-color var(--transition-normal);
+  }
+
+  .proof-item:hover {
+    border-top-color: var(--color-accent);
+  }
+
+  .proof-kicker {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  .proof-value {
+    margin-top: var(--spacing-4);
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-size: clamp(3rem, 5.5vw, 4.5rem);
+    font-weight: 540;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--color-accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .proof-line {
+    margin-top: var(--spacing-4);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+    max-width: 38ch;
+  }
+
+  .proof-close {
+    margin-top: var(--spacing-10, 2.5rem);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-xl);
+    color: var(--color-text-secondary);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .proof-item {
+      transition: none;
+    }
+  }
+</style>

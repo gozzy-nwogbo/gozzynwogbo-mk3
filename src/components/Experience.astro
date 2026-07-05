@@ -1,0 +1,186 @@
+---
+// Experience as the hybrid model: business rooms and build rooms, one practice.
+// Exactly one headline metric across the whole section (Loop Tech 2.3x).
+const roles = [
+  {
+    company: "Loop Tech Systems",
+    role: "Co-founder, Head of Strategy & Expansion",
+    where: "Boston, MA (Remote)",
+    period: "Jul 2023 to Nov 2025",
+    tag: "Venture, closed",
+    body: "Co-founded a health-tech startup and ran strategy and expansion until the venture closed in 2025. Led enterprise client engagements for Bupa Global, the NHS, and Boston Medical Center. Designed the transformation roadmap and clinical workflow for a telehealth platform serving roughly 500 users, and shipped 4 features against it. Built the AI orchestration layer on n8n, Relevance AI, and Python.",
+    metric: { value: "2.3x", label: "Workflow throughput", line: "The orchestration layer lifted client workflow throughput 2.3x." },
+  },
+  {
+    company: "Ivey Business School, IDIS",
+    role: "Strategy Consultant Intern",
+    where: "Toronto (Remote)",
+    period: "May 2025 to Jul 2025",
+    tag: "Consulting",
+    body: "AI and digital-transformation strategy with change management for CIBC, the Autism Society of America, and the Boys & Girls Club of London. Built an agentic donor-engagement automation on Relevance AI and Python, so the strategy deck shipped with a working system behind it.",
+    metric: null,
+  },
+  {
+    company: "MI-C3 International",
+    role: "Software Engineer",
+    where: "Boston, MA (Remote)",
+    period: "Sep 2022 to Aug 2023",
+    tag: "Engineering",
+    body: "Built workflow-optimization features on a 5-person cross-functional team: SQL data models, monitoring dashboards, and operational pipelines. The year that turned business questions into schemas and shipping discipline.",
+    metric: null,
+  },
+  {
+    company: "Yale University",
+    role: "Research Assistant",
+    where: "New Haven, CT",
+    period: "Jul 2020 to Sep 2020",
+    tag: "Research",
+    body: "Selected for research on incentive design in organizations. Determined the KPIs, built the Excel database that cataloged study parameters, and distilled the findings into the final paper. The root of a lasting interest in why people actually do things, which now runs through the content and persuasion work.",
+    metric: null,
+  },
+];
+---
+
+<div class="xr">
+  {roles.map((r) => (
+    <article class="xr-role">
+      <div class="xr-rail">
+        <span class="xr-slash" aria-hidden="true"></span>
+        <p class="xr-period">{r.period}</p>
+        <p class="xr-tag">{r.tag}</p>
+      </div>
+      <div class="xr-body">
+        <h3 class="xr-title">{r.role}</h3>
+        <p class="xr-org">{r.company} &middot; {r.where}</p>
+        <p class="xr-text">{r.body}</p>
+        {r.metric && (
+          <div class="xr-metric">
+            <p class="xr-metric-value">{r.metric.value}</p>
+            <div>
+              <p class="xr-metric-label">{r.metric.label}</p>
+              <p class="xr-metric-line">{r.metric.line}</p>
+            </div>
+          </div>
+        )}
+      </div>
+    </article>
+  ))}
+</div>
+
+<style>
+  .xr {
+    display: grid;
+    gap: var(--spacing-12);
+    padding-top: var(--spacing-10, 2.5rem);
+  }
+
+  .xr-role {
+    display: grid;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    gap: var(--spacing-8);
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--spacing-8);
+    transition: border-color var(--transition-normal);
+  }
+
+  .xr-role:hover {
+    border-top-color: var(--color-accent);
+  }
+
+  @media (max-width: 48rem) {
+    .xr-role {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-4);
+    }
+  }
+
+  .xr-slash {
+    display: block;
+    width: 3px;
+    height: 2.25rem;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--color-accent), var(--color-interactive));
+    transform: skewX(-12deg);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .xr-period {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+
+  .xr-tag {
+    margin-top: var(--spacing-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  .xr-title {
+    font-size: clamp(1.5rem, 2.6vw, 2.125rem);
+    font-weight: 540;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  .xr-org {
+    margin-top: var(--spacing-2);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+  }
+
+  .xr-text {
+    margin-top: var(--spacing-4);
+    max-width: 62ch;
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+  }
+
+  .xr-metric {
+    margin-top: var(--spacing-6);
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-6);
+    border-left: 2px solid var(--color-accent);
+    padding-left: var(--spacing-6);
+  }
+
+  .xr-metric-value {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-size: clamp(2.25rem, 4vw, 3.25rem);
+    font-weight: 540;
+    line-height: 1;
+    color: var(--color-accent);
+  }
+
+  .xr-metric-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  .xr-metric-line {
+    margin-top: var(--spacing-1);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    max-width: 40ch;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .xr-role {
+      transition: none;
+    }
+  }
+</style>

@@ -1,0 +1,144 @@
+---
+// The "now" strip: what is actually moving this month. Content is real and
+// maintained by hand; the pulse dot marks the live thread.
+const cells = [
+  {
+    label: "Currently building",
+    title: "Atomos",
+    line: "A governed AI knowledge layer where every output traces back to the rule that allowed it.",
+    live: true,
+    href: null,
+  },
+  {
+    label: "Reading",
+    title: "Rewired",
+    line: "McKinsey's AI playbook.",
+    live: false,
+    href: null,
+  },
+  {
+    label: "Listening",
+    title: "Icon",
+    line: "Brent Faiyaz.",
+    live: false,
+    href: null,
+  },
+  {
+    label: "Last shipped",
+    title: "Tender Radar",
+    line: "A hands-off agent that reads new federal tenders and emits a weekly can-bid / can't-bid digest.",
+    live: false,
+    href: "/projects/tender-radar",
+  },
+];
+---
+
+<div class="now">
+  {cells.map((cell) => (
+    <div class="now-cell">
+      <p class="now-label">
+        {cell.live && <span class="now-pulse" aria-hidden="true"></span>}
+        {cell.label}
+      </p>
+      <p class="now-title">
+        {cell.href ? <a href={cell.href}>{cell.title} <span aria-hidden="true">&rarr;</span></a> : cell.title}
+      </p>
+      <p class="now-line">{cell.line}</p>
+    </div>
+  ))}
+</div>
+
+<style>
+  .now {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--spacing-8);
+    padding-top: var(--spacing-10, 2.5rem);
+  }
+
+  @media (max-width: 60rem) {
+    .now {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 34rem) {
+    .now {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .now-cell {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: var(--color-surface);
+    padding: var(--spacing-6);
+    transition: border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .now-cell:hover {
+    border-color: var(--color-border-strong);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .now-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  .now-pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background-color: var(--color-interactive-bright);
+    animation: now-pulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes now-pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--color-interactive-subtle); }
+    50% { opacity: 0.55; box-shadow: 0 0 0 5px var(--color-interactive-subtle); }
+  }
+
+  .now-title {
+    margin-top: var(--spacing-4);
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-size: var(--text-2xl);
+    font-weight: 540;
+    letter-spacing: -0.01em;
+  }
+
+  .now-title a {
+    color: var(--color-text-primary);
+  }
+
+  .now-title a:hover {
+    color: var(--color-interactive);
+  }
+
+  .now-line {
+    margin-top: var(--spacing-3);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--color-text-secondary);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .now-cell {
+      transition: none;
+    }
+    .now-cell:hover {
+      transform: none;
+    }
+    .now-pulse {
+      animation: none;
+    }
+  }
+</style>

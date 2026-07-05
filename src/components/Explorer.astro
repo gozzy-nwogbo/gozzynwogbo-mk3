@@ -10,20 +10,23 @@ const defaultId = industries[0].id;
 ---
 
 <aside class="xp" data-explorer aria-label="Where does AI fit: an interactive demo">
-  <p class="xp-kicker">A tool I built &middot; live demo</p>
-  <p class="xp-question">Where does AI fit in your org?</p>
-
-  <div class="xp-chips" role="group" aria-label="Pick an industry" data-xp-chips hidden>
-    {industries.map((ind) => (
-      <button
-        type="button"
-        class="xp-chip"
-        data-xp-chip={ind.id}
-        aria-pressed={ind.id === defaultId ? "true" : "false"}
-      >
-        {ind.label}
-      </button>
-    ))}
+  <div class="xp-head">
+    <div>
+      <p class="xp-kicker">A tool I built &middot; live demo</p>
+      <p class="xp-question">Where does AI fit in your org?</p>
+    </div>
+    <div class="xp-chips" role="group" aria-label="Pick an industry" data-xp-chips hidden>
+      {industries.map((ind) => (
+        <button
+          type="button"
+          class="xp-chip"
+          data-xp-chip={ind.id}
+          aria-pressed={ind.id === defaultId ? "true" : "false"}
+        >
+          {ind.label}
+        </button>
+      ))}
+    </div>
   </div>
 
   <div class="xp-panels">
@@ -71,22 +74,25 @@ const defaultId = industries[0].id;
 </script>
 
 <style>
+  /* Horizontal band: full content width, head row, items in columns. */
   .xp {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     background-color: var(--color-surface);
     box-shadow: var(--shadow-md);
-    padding: clamp(1.5rem, 3vw, 2rem);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
     width: 100%;
-    max-width: 26rem;
   }
 
-  /* Mobile: the explorer is a full-width stacked block with touch-size chips. */
-  @media (max-width: 56rem) {
-    .xp {
-      max-width: none;
-    }
+  .xp-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--spacing-6);
+    flex-wrap: wrap;
+  }
 
+  @media (max-width: 56rem) {
     .xp-chip {
       padding: 0.875rem 1.125rem;
       font-size: var(--text-sm);
@@ -117,7 +123,6 @@ const defaultId = industries[0].id;
     display: flex;
     flex-wrap: wrap;
     gap: var(--spacing-2);
-    margin-top: var(--spacing-6);
   }
 
   .xp-chip {
@@ -185,7 +190,22 @@ const defaultId = industries[0].id;
     margin: 0;
     padding: 0;
     display: grid;
-    gap: var(--spacing-5, 1.25rem);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--spacing-8);
+  }
+
+  @media (max-width: 56rem) {
+    .xp-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--spacing-6);
+    }
+  }
+
+  @media (max-width: 30rem) {
+    .xp-list {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-5, 1.25rem);
+    }
   }
 
   .xp-area {

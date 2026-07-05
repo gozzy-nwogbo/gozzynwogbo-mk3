@@ -19,24 +19,20 @@ import BridgeSpan from "./BridgeSpan.astro";
     <span class="title-payoff enter" style="--enter-delay: 220ms">I build the version that runs<span class="anchor-dot" aria-hidden="true"></span></span>
   </h1>
 
-  <div class="hero-row">
-    <div class="hero-main">
-      <p class="hero-support enter" style="--enter-delay: 340ms">
-        I come at it from business, not computer science, and that is what makes
-        it useful. Based in Toronto.
-      </p>
+  <p class="hero-support enter" style="--enter-delay: 340ms">
+    I come at it from business, not computer science, and that is what makes
+    it useful. Based in Toronto.
+  </p>
 
-      <div class="hero-foot enter" style="--enter-delay: 440ms">
-        <p class="hero-corpus">Every item in the fit demo maps to something I have built. Drawn from 483 automations and the systems on this site.</p>
-        <div class="hero-actions">
-          <a href="/projects" class="btn btn-primary">See the work</a>
-          <a href="/contact" class="btn btn-ghost">Let&rsquo;s talk <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
-        </div>
-      </div>
-    </div>
+  <div class="hero-band enter" style="--enter-delay: 440ms">
+    <Explorer />
+  </div>
 
-    <div class="hero-side enter" style="--enter-delay: 520ms">
-      <Explorer />
+  <div class="hero-foot enter" style="--enter-delay: 540ms">
+    <p class="hero-corpus">Every item in the fit demo maps to something I have built. Drawn from 483 automations and the systems on this site.</p>
+    <div class="hero-actions">
+      <a href="/projects" class="btn btn-primary">See the work</a>
+      <a href="/contact" class="btn btn-ghost">Let&rsquo;s talk <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
     </div>
   </div>
 
@@ -138,25 +134,29 @@ import BridgeSpan from "./BridgeSpan.astro";
     margin-left: 0.08em;
   }
 
-  .hero-row {
-    margin-top: var(--spacing-12);
-    display: grid;
-    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.8fr);
-    gap: var(--spacing-16);
-    align-items: stretch;
+  .hero-support {
+    margin-top: var(--spacing-8);
+    max-width: 52ch;
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
   }
 
-  .hero-main {
-    display: flex;
-    flex-direction: column;
+  .hero-band {
+    margin-top: var(--spacing-10, 2.5rem);
   }
 
   .hero-foot {
-    margin-top: auto;
+    margin-top: var(--spacing-8);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-8);
+    flex-wrap: wrap;
   }
 
   .hero-corpus {
-    max-width: 44ch;
+    max-width: 46ch;
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     line-height: 1.7;
@@ -164,11 +164,6 @@ import BridgeSpan from "./BridgeSpan.astro";
     color: var(--color-text-tertiary);
     padding-left: var(--spacing-4);
     border-left: 2px solid var(--color-border-strong);
-  }
-
-  .hero-side {
-    display: flex;
-    justify-content: flex-end;
   }
 
   .hero-bridge {
@@ -182,13 +177,13 @@ import BridgeSpan from "./BridgeSpan.astro";
     .hero-kicker {
       margin-bottom: var(--spacing-6);
     }
-    .hero-row {
+    .hero-band {
       margin-top: var(--spacing-8);
-      grid-template-columns: 1fr;
-      gap: var(--spacing-8);
     }
-    .hero-side {
-      justify-content: stretch;
+    .hero-foot {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-6);
     }
     .hero-actions .btn {
       padding: 1rem 1.75rem;
@@ -198,15 +193,7 @@ import BridgeSpan from "./BridgeSpan.astro";
     }
   }
 
-  .hero-support {
-    max-width: 52ch;
-    font-size: var(--text-lg);
-    line-height: var(--leading-relaxed);
-    color: var(--color-text-secondary);
-  }
-
   .hero-actions {
-    margin-top: var(--spacing-6);
     display: flex;
     flex-wrap: wrap;
     align-items: center;

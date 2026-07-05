@@ -5,9 +5,10 @@
 // tokens, renders with no JS, no external asset.
 interface Props {
   catenary?: boolean;
+  traveler?: boolean;
   class?: string;
 }
-const { catenary = false, class: className } = Astro.props;
+const { catenary = false, traveler = false, class: className } = Astro.props;
 ---
 
 <div class:list={["bridge-span", catenary && "has-catenary", className]} aria-hidden="true">
@@ -26,6 +27,7 @@ const { catenary = false, class: className } = Astro.props;
     <span class="pier" style="left: 25%"></span>
     <span class="pier" style="left: 50%"></span>
     <span class="pier" style="left: 75%"></span>
+    {traveler && <span class="traveler"></span>}
     <span class="anchor anchor-right"></span>
   </div>
 </div>
@@ -91,5 +93,32 @@ const { catenary = false, class: className } = Astro.props;
   .anchor-right {
     right: 0;
     background-color: var(--color-interactive);
+  }
+
+  /* One quiet crossing: a dot travels the deck, business bank to AI bank. */
+  .traveler {
+    position: absolute;
+    top: 0.75px;
+    left: 0;
+    width: 4px;
+    height: 4px;
+    border-radius: 999px;
+    transform: translateY(-50%);
+    animation: traveler-cross 9s linear 2s infinite;
+    opacity: 0;
+  }
+
+  @keyframes traveler-cross {
+    0%   { left: 0%;   background-color: var(--color-accent); opacity: 0; }
+    6%   { opacity: 0.7; }
+    50%  { background-color: var(--color-interactive); }
+    94%  { opacity: 0.7; }
+    100% { left: 100%; background-color: var(--color-interactive); opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .traveler {
+      display: none;
+    }
   }
 </style>

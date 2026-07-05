@@ -38,7 +38,7 @@ import BridgeSpan from "./BridgeSpan.astro";
   </div>
 
   <div class="hero-bridge enter" style="--enter-delay: 640ms">
-    <BridgeSpan catenary />
+    <BridgeSpan catenary traveler />
   </div>
 </section>
 
@@ -69,8 +69,35 @@ import BridgeSpan from "./BridgeSpan.astro";
   }
 
   .kicker-name {
+    position: relative;
     color: var(--color-text-primary);
     font-weight: 500;
+  }
+
+  /* The name draws its own span: terracotta into teal, once, on load. */
+  .kicker-name::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.35em;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-interactive));
+    transform-origin: left;
+    animation: name-draw 700ms var(--ease-out) 1100ms both;
+  }
+
+  @keyframes name-draw {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .kicker-name::after {
+      animation: none;
+      transform: none;
+    }
   }
 
   .kicker-sep {

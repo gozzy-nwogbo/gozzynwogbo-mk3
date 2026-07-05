@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
-import AISummary from "../components/AISummary.astro";
 import SkillGrid from "../components/SkillGrid.astro";
 import FAQSection from "../components/FAQSection.astro";
 import SpanHeader from "../components/SpanHeader.astro";
@@ -89,18 +88,37 @@ const schemas = [generateProfilePageSchema(), generatePersonSchema()];
 
   <h1 class="about-title">About<span class="about-dot" aria-hidden="true"></span></h1>
 
-  <AISummary>
-    <p>
-      Gozzy Nwogbo is an AI systems builder based in Toronto, Canada. He holds an MSc in Digital
-      Management from Ivey Business School and a BSc in Business Administration from Boston
-      University, concentrating in Management Strategy and Management Information Systems.
-      He builds AI systems that give organizations leverage they do not have yet: knowledge systems,
-      automations, and agents made to run inside a real business. His work spans a personal knowledge
-      OS holding 70+ domains, an automated ad pipeline shipped end to end, a bid and investment
-      screening engine for a six-country infrastructure group, and a catalog of 483 automation
-      workflows. He came at AI from business, and the business lens is what makes his systems useful.
-    </p>
-  </AISummary>
+  <p class="about-identity">
+    A hybrid operator: a business head with <em>frontier-AI</em> hands.
+  </p>
+
+  <p class="about-disciplines">
+    {PERSON.knowsAbout.slice(0, 5).map((d, i) => (
+      <>
+        {i > 0 && <span class="disc-sep" aria-hidden="true">&middot;</span>}
+        <span class="disc">{d}</span>
+      </>
+    ))}
+  </p>
+
+  <dl class="vitals">
+    <div class="vitals-row">
+      <dt>Currently</dt>
+      <dd>Building Atomos and independent AI systems</dd>
+    </div>
+    <div class="vitals-row">
+      <dt>Previously</dt>
+      <dd>Loop Tech Systems, Co-founder, Head of Strategy &amp; Expansion (2023 to 2025)</dd>
+    </div>
+    <div class="vitals-row">
+      <dt>Based in</dt>
+      <dd>Toronto, Ontario, Canada</dd>
+    </div>
+    <div class="vitals-row">
+      <dt>Open to</dt>
+      <dd>Founding and greenfield AI roles, forward-deployed and solutions engineering, AI transformation</dd>
+    </div>
+  </dl>
 
   <section class="about-section" id="background">
     <SpanHeader index="01" label="Background">
@@ -188,6 +206,82 @@ const schemas = [generateProfilePageSchema(), generatePersonSchema()];
     border-radius: 999px;
     background-color: var(--color-accent);
     margin-left: 0.08em;
+  }
+
+  .about-identity {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-size: clamp(1.5rem, 2.8vw, 2.25rem);
+    font-weight: 520;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    max-width: 30ch;
+    margin-top: calc(-1 * var(--spacing-6));
+  }
+
+  .about-identity em {
+    font-style: italic;
+    font-weight: 480;
+    color: var(--color-accent);
+  }
+
+  .about-disciplines {
+    margin-top: var(--spacing-6);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-3);
+    align-items: baseline;
+  }
+
+  .disc-sep {
+    color: var(--color-accent);
+  }
+
+  .vitals {
+    margin: var(--spacing-10, 2.5rem) 0 var(--spacing-16);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .vitals-row {
+    display: grid;
+    grid-template-columns: 10rem minmax(0, 1fr);
+    gap: var(--spacing-6);
+    padding: var(--spacing-4) var(--spacing-6);
+  }
+
+  .vitals-row + .vitals-row {
+    border-top: 1px solid var(--color-border);
+  }
+
+  @media (max-width: 40rem) {
+    .vitals-row {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-1);
+    }
+  }
+
+  .vitals-row dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    padding-top: 0.2em;
+  }
+
+  .vitals-row dd {
+    margin: 0;
+    font-size: var(--text-base);
+    color: var(--color-text-primary);
   }
 
   .about-section {

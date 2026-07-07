@@ -1,7 +1,7 @@
 ---
 title: "Second Brain / Open Brain"
 philosophy: "AI is only as useful as what you can put in front of it."
-description: "A working personal knowledge OS: an MCP server with semantic search over pgvector, daily capture, processing, and digest pipelines, spanning ~70 knowledge domains. It runs my daily practice."
+description: "A working personal knowledge OS: an MCP server with semantic search over pgvector, daily capture, processing, and digest pipelines, holding 11,000+ entries across 59 knowledge domains. It runs my daily practice."
 domain: "knowledge"
 geography: "Toronto, Canada"
 status: "Active"
@@ -11,8 +11,8 @@ technologies: ["Python", "MCP", "PostgreSQL", "pgvector", "OpenAI embeddings", "
 schemaType: "SoftwareApplication"
 applicationCategory: "ProductivityApplication"
 metrics:
-  - label: "Knowledge domains"
-    value: "70+ domains held in one system"
+  - label: "Knowledge corpus"
+    value: "11,000+ entries across 59 domains"
   - label: "Core tools"
     value: "4 MCP tools over captures, people, projects, ideas"
   - label: "Proof of use"
@@ -35,7 +35,7 @@ Underneath, four tables hold the load: captures, people, projects, and ideas. Da
 
 ## Outcome
 
-The system runs my daily practice. Around 70 knowledge domains live in it, from AI agent architecture to copywriting psychology to tender pricing, and every working session reads from and writes back to that base. When I research something once, it stays researched.
+The system runs my daily practice. 11,000+ entries across 59 knowledge domains live in it, from AI agent architecture to copywriting psychology to tender pricing, and every working session reads from and writes back to that base. When I research something once, it stays researched.
 
 The sharpest proof: it carried a full strategy exercise end to end. Research, positioning, drafting, and review all ran against the same knowledge base, with the system supplying context at each step. The result read like the work of someone with a research team behind them. The team was the system.
 

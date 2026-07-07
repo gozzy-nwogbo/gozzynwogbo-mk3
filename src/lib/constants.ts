@@ -19,6 +19,7 @@ export const PERSON = {
   sameAs: [
     "https://www.linkedin.com/in/gozzy-nwogbo/",
     "https://x.com/gozzynb",
+    "https://github.com/gozzy-nwogbo",
     "https://www.wikidata.org/wiki/Q139934550",
   ],
   knowsAbout: [
@@ -57,5 +58,6 @@ export const NAV_LINKS = [
 
 export const SOCIAL_LINKS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/gozzy-nwogbo/" },
+  { label: "GitHub", href: "https://github.com/gozzy-nwogbo" },
   { label: "X", href: "https://x.com/gozzynb" },
 ] as const;

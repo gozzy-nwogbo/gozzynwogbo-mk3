@@ -31,7 +31,7 @@ ${PERSON.description}
 
 Education: MSc in Digital Management, Ivey Business School. BSc in Business Administration, Boston University, concentrating in Management Strategy and Management Information Systems.
 
-Contact: nwogbo.gozzy@gmail.com | https://www.linkedin.com/in/gozzy-nwogbo/
+Contact: nwogbo.gozzy@gmail.com | https://www.linkedin.com/in/gozzy-nwogbo/ | https://github.com/gozzy-nwogbo
 Location: Toronto, Ontario, Canada
 
 Knows about: ${PERSON.knowsAbout.join(", ")}

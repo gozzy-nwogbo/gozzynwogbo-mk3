@@ -34,9 +34,10 @@ Python, MCP, PostgreSQL / pgvector, Supabase, n8n, LangChain, Astro
 - Previously: Loop Tech Systems, Co-founder, Head of Strategy & Expansion (2023 to 2025, venture closed); client work for Bupa Global, NHS, Boston Medical Center
 - Earlier: Strategy Consultant Intern at Ivey IDIS (CIBC, Autism Society of America, Boys & Girls Club of London); Software Engineer at MI-C3 International; Research Assistant at Yale
 - Education: MSc Digital Management (Ivey Business School), BSc Business Administration (Boston University), concentrating in Management Strategy and Management Information Systems
-- Flagship project: Second Brain / Open Brain, a personal knowledge OS spanning 70+ domains
+- Flagship project: Second Brain / Open Brain, a personal knowledge OS holding 11,000+ entries across 59 domains
 - Other work: Obscura ad pipeline, bid and investment screening for a six-country infrastructure group, Tender Radar, Scribe, a catalog of 483 automation workflows
 - Open to: Founding and greenfield AI roles, forward-deployed and solutions engineering, AI transformation
 - LinkedIn: linkedin.com/in/gozzy-nwogbo
+- GitHub: github.com/gozzy-nwogbo
 - X/Twitter: x.com/gozzynb
 - Contact: gozzynwogbo.com/contact

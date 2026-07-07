@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import ProjectCard from "../../components/ProjectCard.astro";
+import { PROJECT_CARD_IMAGES } from "../../lib/constants";
 import { getCollection } from "astro:content";
 
 const projects = (await getCollection("projects")).sort((a, b) => a.data.sortOrder - b.data.sortOrder);
@@ -26,6 +27,7 @@ const projects = (await getCollection("projects")).sort((a, b) => a.data.sortOrd
         philosophy={project.data.philosophy}
         metric={{ value: project.data.metrics[0].value, label: project.data.metrics[0].label }}
         technologies={project.data.technologies.slice(0, 4)}
+        image={PROJECT_CARD_IMAGES[project.id]}
       />
     ))}
   </div>

@@ -48,6 +48,16 @@ export const CREDIBILITY = {
   iveyProjects: ["Scotiabank", "CIBC", "Autism Society of America", "Boys & Girls Club of London"],
 } as const;
 
+// Generated motif imagery per project; used on the home bench and the projects index.
+export const PROJECT_CARD_IMAGES: Record<string, string> = {
+  "second-brain": "/projects/atomos-motif.jpg",
+  obscura: "/projects/obscura-motif.jpg",
+  scribe: "/projects/scribe-motif.jpg",
+  "tender-radar": "/projects/tender-radar-motif.jpg",
+  "infrastructure-bid-engine": "/projects/infra-bid-engine-motif.jpg",
+  "healthcare-workflow": "/projects/healthcare-workflow-motif.jpg",
+};
+
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },

@@ -1,6 +1,7 @@
 ---
 import ProjectCard from "./ProjectCard.astro";
 import SpanHeader from "./SpanHeader.astro";
+import { PROJECT_CARD_IMAGES } from "../lib/constants";
 import type { CollectionEntry } from "astro:content";
 
 interface Props {
@@ -8,15 +9,6 @@ interface Props {
 }
 const { projects } = Astro.props;
 const [flagship, ...rest] = projects;
-
-// Generated motif imagery per project; every bench card carries its own.
-const cardImages: Record<string, string> = {
-  obscura: "/projects/obscura-motif.jpg",
-  scribe: "/projects/atomos-motif.jpg",
-  "tender-radar": "/projects/tender-radar-motif.jpg",
-  "infrastructure-bid-engine": "/projects/infra-bid-engine-motif.jpg",
-  "healthcare-workflow": "/projects/healthcare-workflow-motif.jpg",
-};
 ---
 
 <section class="bench">
@@ -66,7 +58,7 @@ const cardImages: Record<string, string> = {
           philosophy={project.data.philosophy}
           metric={{ value: project.data.metrics[0].value, label: project.data.metrics[0].label }}
           technologies={project.data.technologies.slice(0, 4)}
-          image={cardImages[project.id]}
+          image={PROJECT_CARD_IMAGES[project.id]}
         />
       </div>
     ))}

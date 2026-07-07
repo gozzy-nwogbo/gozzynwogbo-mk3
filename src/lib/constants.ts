@@ -61,6 +61,7 @@ export const PROJECT_CARD_IMAGES: Record<string, string> = {
 export const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
+  { label: "Experience", href: "/experience" },
   { label: "Projects", href: "/projects" },
   { label: "Writing", href: "/writing" },
   { label: "Contact", href: "/contact" },

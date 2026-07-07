@@ -1,0 +1,202 @@
+---
+// Home 02 · Experience: the through-the-years skim. One line of what + why
+// per stop, the single 2.3x headline metric on the Loop Tech stop, and a
+// button through to the full /experience narrative. The deep résumé lives on
+// the tab; this is the crossing at a glance.
+import Reveal from "./Reveal.astro";
+
+const timeline = [
+  {
+    year: "'20",
+    role: "Research Assistant",
+    org: "Yale University",
+    line: "Selected for research on incentive design. The root of a lasting interest in why people actually do things, which still runs through the persuasion and content work.",
+  },
+  {
+    year: "'22",
+    role: "Software Engineer",
+    org: "MI-C3 International",
+    line: "Built workflow-optimization features on a cross-functional team. The year business questions turned into schemas and shipping discipline.",
+  },
+  {
+    year: "'23",
+    role: "Co-founder, Strategy & Expansion",
+    org: "Loop Tech Systems",
+    line: "Co-founded a health-tech venture and ran enterprise engagements for Bupa Global, the NHS, and Boston Medical Center. Built the AI orchestration layer behind the platform.",
+    metric: { value: "2.3x", label: "Client workflow throughput" },
+  },
+  {
+    year: "'25",
+    role: "Strategy Consultant, IDIS",
+    org: "Ivey Business School",
+    line: "AI and digital-transformation strategy for CIBC and national nonprofits. Each strategy deck shipped with a working system behind it, not just slides.",
+  },
+  {
+    year: "now",
+    role: "Independent AI systems",
+    org: "Building Atomos",
+    line: "Building daily: knowledge systems, agents, and automation that run inside real businesses.",
+    live: true,
+  },
+];
+---
+
+<div class="xt">
+  <ol class="xt-list">
+    {timeline.map((t, i) => (
+      <Reveal delay={i * 80}>
+        <li class="xt-row">
+          <span class:list={["xt-dot", t.live && "is-live"]} aria-hidden="true"></span>
+          <div class="xt-when">
+            <span class="xt-year">{t.year}</span>
+          </div>
+          <div class="xt-body">
+            <h3 class="xt-role">{t.role} <span class="xt-org">&middot; {t.org}</span></h3>
+            <p class="xt-line">{t.line}</p>
+            {t.metric && (
+              <div class="xt-metric">
+                <span class="xt-metric-value">{t.metric.value}</span>
+                <span class="xt-metric-label">{t.metric.label}</span>
+              </div>
+            )}
+          </div>
+        </li>
+      </Reveal>
+    ))}
+  </ol>
+
+  <p class="xt-more">
+    <a href="/experience" class="xt-more-btn">Full experience <span aria-hidden="true">&rarr;</span></a>
+  </p>
+</div>
+
+<style>
+  .xt {
+    padding-top: var(--spacing-8);
+  }
+
+  .xt-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+  }
+
+  /* The bridge deck, turned vertical: one line through the years. */
+  .xt-list::before {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 0.6em;
+    bottom: 1em;
+    width: 1px;
+    background: linear-gradient(180deg, var(--color-accent), var(--color-interactive));
+    opacity: 0.5;
+  }
+
+  .xt-row {
+    position: relative;
+    display: grid;
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    gap: var(--spacing-5, 1.25rem);
+    padding: var(--spacing-4) 0 var(--spacing-6) var(--spacing-6);
+  }
+
+  .xt-dot {
+    position: absolute;
+    left: 0;
+    top: 1.35em;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background-color: var(--color-accent);
+  }
+
+  .xt-dot.is-live {
+    background-color: var(--color-interactive-bright);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-interactive-bright) 22%, transparent);
+  }
+
+  .xt-year {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    padding-top: 0.9em;
+    display: inline-block;
+  }
+
+  .xt-role {
+    font-size: clamp(1.125rem, 1.8vw, 1.375rem);
+    font-weight: 560;
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  .xt-org {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 440;
+    font-size: 0.92em;
+    color: var(--color-text-secondary);
+  }
+
+  .xt-line {
+    margin-top: var(--spacing-2);
+    max-width: 58ch;
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+  }
+
+  .xt-metric {
+    margin-top: var(--spacing-4);
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--spacing-3);
+    border-left: 2px solid var(--color-accent);
+    padding-left: var(--spacing-4);
+  }
+
+  .xt-metric-value {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-size: clamp(1.875rem, 3vw, 2.5rem);
+    font-weight: 540;
+    line-height: 1;
+    color: var(--color-accent);
+  }
+
+  .xt-metric-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  .xt-more {
+    margin-top: var(--spacing-4);
+    padding-left: var(--spacing-6);
+  }
+
+  .xt-more-btn {
+    display: inline-block;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-interactive);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--transition-fast);
+  }
+
+  .xt-more-btn:hover {
+    border-bottom-color: var(--color-interactive);
+  }
+
+  @media (max-width: 40rem) {
+    .xt-row {
+      grid-template-columns: 2.5rem minmax(0, 1fr);
+      gap: var(--spacing-3);
+    }
+  }
+</style>

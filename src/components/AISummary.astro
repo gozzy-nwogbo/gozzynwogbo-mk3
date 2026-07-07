@@ -1,7 +1,19 @@
 ---
 // Structured summary block for LLM extraction. First ~200 words of the page.
+// srOnly hides it visually while keeping it in the DOM for machine readers
+// (used on the home page, where the visible bio would read as third-person).
+interface Props {
+  srOnly?: boolean;
+}
+const { srOnly = false } = Astro.props;
 ---
 
-<aside role="note" aria-label="Page overview" class="bg-[var(--color-surface-subtle)] rounded-[var(--radius-md)] p-6 mb-12 text-sm leading-relaxed">
-  <slot />
-</aside>
+{srOnly ? (
+  <aside role="note" aria-label="Page overview" class="sr-only">
+    <slot />
+  </aside>
+) : (
+  <aside role="note" aria-label="Page overview" class="bg-[var(--color-surface-subtle)] rounded-[var(--radius-md)] p-6 mb-12 text-sm leading-relaxed">
+    <slot />
+  </aside>
+)}

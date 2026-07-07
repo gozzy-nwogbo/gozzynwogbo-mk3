@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import MovingBanner from "../components/MovingBanner.astro";
 import AboutSection from "../components/AboutSection.astro";
-import Experience from "../components/Experience.astro";
+import ExperienceTimeline from "../components/ExperienceTimeline.astro";
 import ProofCharge from "../components/ProofCharge.astro";
 import ProjectBench from "../components/ProjectBench.astro";
 import CompetencyGrid from "../components/CompetencyGrid.astro";
@@ -48,9 +48,9 @@ const schemas = [generateWebSiteSchema(), generatePersonSchema()];
   <!-- 02 · Experience -->
   <section class="pt-8 pb-12 scroll-mt-16" id="experience">
     <SpanHeader index="02" label="Experience">
-      Laying the foundation of a <em>hybrid</em> practice.
+      Through the years, one <em>practice</em>.
     </SpanHeader>
-    <Experience />
+    <ExperienceTimeline />
   </section>
 
   <!-- 03 · Selected proof -->

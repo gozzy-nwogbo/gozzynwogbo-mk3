@@ -20,14 +20,6 @@ const disciplines = [
   "Supabase / pgvector",
 ];
 
-const timeline = [
-  { year: "'20", line: "Yale University · research on incentive design" },
-  { year: "'22", line: "MI-C3 International · software engineer" },
-  { year: "'23", line: "Loop Tech Systems · co-founder, strategy & expansion" },
-  { year: "'25", line: "Ivey Business School · MSc + IDIS strategy consulting" },
-  { year: "now", line: "Building Atomos and independent AI systems", live: true },
-];
-
 const vitals = [
   { term: "Currently", detail: "Building Atomos and independent AI systems" },
   { term: "Previously", detail: "Loop Tech Systems, Co-founder, Head of Strategy & Expansion (2023 to 2025)" },
@@ -84,21 +76,6 @@ const vitals = [
         <span class="ab-name-text">{PERSON.name}</span>
         <span class="ab-name-role">&middot; AI systems builder</span>
       </div>
-
-      <div class="ab-years">
-        <p class="ab-years-label">Through the years</p>
-        <ol class="ab-years-list">
-          {timeline.map((t, i) => (
-            <Reveal delay={i * 90}>
-              <li class="ab-year">
-                <span class:list={["ab-year-dot", t.live && "is-live"]} aria-hidden="true"></span>
-                <span class="ab-year-when">{t.year}</span>
-                <span class="ab-year-line">{t.line}</span>
-              </li>
-            </Reveal>
-          ))}
-        </ol>
-      </div>
     </div>
 
     <div class="ab-side">
@@ -126,7 +103,7 @@ const vitals = [
     </div>
   </div>
 
-  <AISummary>
+  <AISummary srOnly>
     <p>
       Gozzy Nwogbo is an AI systems builder based in Toronto, Canada. He holds an MSc in Digital
       Management from Ivey Business School and a BSc in Business Administration from Boston
@@ -290,71 +267,6 @@ const vitals = [
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--color-text-tertiary);
-  }
-
-  .ab-years {
-    margin-top: var(--spacing-8);
-  }
-
-  .ab-years-label {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--color-text-tertiary);
-  }
-
-  .ab-years-list {
-    margin: var(--spacing-6) 0 0;
-    padding: 0;
-    list-style: none;
-    position: relative;
-  }
-
-  /* The deck, turned vertical: one line through the years. */
-  .ab-years-list::before {
-    content: "";
-    position: absolute;
-    left: 3px;
-    top: 0.5em;
-    bottom: 0.75em;
-    width: 1px;
-    background: linear-gradient(180deg, var(--color-accent), var(--color-interactive));
-    opacity: 0.5;
-  }
-
-  .ab-year {
-    position: relative;
-    display: grid;
-    grid-template-columns: 2.75rem minmax(0, 1fr);
-    gap: var(--spacing-4);
-    padding: var(--spacing-3) 0 var(--spacing-3) var(--spacing-6);
-  }
-
-  .ab-year-dot {
-    position: absolute;
-    left: 0;
-    top: 1.15em;
-    width: 7px;
-    height: 7px;
-    border-radius: 999px;
-    background-color: var(--color-accent);
-  }
-
-  .ab-year-dot.is-live {
-    background-color: var(--color-interactive-bright);
-  }
-
-  .ab-year-when {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    letter-spacing: 0.06em;
-    color: var(--color-accent);
-  }
-
-  .ab-year-line {
-    font-size: var(--text-base);
-    color: var(--color-text-secondary);
   }
 
   .ab-side {

@@ -1,31 +1,223 @@
 ---
+// Cards carry a correlating backdrop: a generated motif image where one
+// exists for the project, otherwise the site's own procedural structural
+// drawing for that slug. Kept faint so the text stays the star.
+import ProjectVisual from "./ProjectVisual.astro";
+
 interface Props {
   slug: string;
   title: string;
   description: string;
   domain: string;
+  status?: string;
+  philosophy?: string;
   metric: { value: string; label: string };
   technologies: string[];
+  image?: string;
 }
 
-const { slug, title, description, domain, metric, technologies } = Astro.props;
+const { slug, title, description, domain, status, philosophy, metric, technologies, image } = Astro.props;
 ---
 
-<a href={`/projects/${slug}`} class="block p-6 border border-[var(--color-border)] rounded-[var(--radius-md)] hover:border-[var(--color-border-strong)] hover:shadow-[var(--shadow-md)] transition-all group">
-  <span class="text-xs font-medium text-[var(--color-text-tertiary)] uppercase tracking-wide">
-    {domain}
+<a href={`/projects/${slug}`} class="card group">
+  <span class="card-bg" aria-hidden="true">
+    {image ? (
+      <img src={image} alt="" loading="lazy" width="800" height="600" />
+    ) : (
+      <ProjectVisual slug={slug} class="card-bg-drawing" />
+    )}
   </span>
-  <h2 class="text-xl font-semibold mt-2 mb-2 group-hover:text-[var(--color-accent)] transition-colors">
-    {title}
-  </h2>
-  <p class="text-sm text-[var(--color-text-secondary)] mb-4">{description}</p>
-  <p class="text-2xl font-bold" style="color: var(--color-accent);">{metric.value}</p>
-  <p class="text-xs text-[var(--color-text-tertiary)] mt-0.5">{metric.label}</p>
-  <div class="flex flex-wrap gap-1.5 mt-4">
+  <span class="card-domain">
+    {domain}{status && <span class="card-status"> &middot; {status}</span>}
+  </span>
+  {philosophy && <p class="card-philosophy">{philosophy}</p>}
+  <h3 class="card-title">{title}</h3>
+  <p class="card-desc">{description}</p>
+  <div class="card-metric">
+    <p class="card-metric-value">{metric.value}</p>
+    <p class="card-metric-label">{metric.label}</p>
+  </div>
+  <div class="card-tech">
     {technologies.map((tech) => (
-      <span class="text-xs text-[var(--color-text-tertiary)] px-1.5 py-0.5 border border-[var(--color-border)] rounded-sm">
-        {tech}
-      </span>
+      <span class="card-chip">{tech}</span>
     ))}
   </div>
+  <span class="card-arrow" aria-hidden="true">&rarr;</span>
 </a>
+
+<style>
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: var(--spacing-8);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    overflow: hidden;
+    isolation: isolate;
+    transition:
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast),
+      transform var(--transition-fast);
+  }
+
+  .card-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.09;
+    transition: opacity var(--transition-normal), transform var(--transition-slow);
+  }
+
+  .card-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-bg :global(.card-bg-drawing) {
+    background-color: transparent;
+    border-radius: 0;
+    min-height: 100%;
+    height: 100%;
+  }
+
+  /* Keep the lower half of the card clean where metric + chips live. */
+  .card-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 20%, var(--color-surface) 78%);
+  }
+
+  .card:hover .card-bg {
+    opacity: 0.16;
+    transform: scale(1.03);
+  }
+
+  .card:hover {
+    color: var(--color-text-primary);
+    border-color: var(--color-interactive);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .card-domain {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  .card-status {
+    color: var(--color-positive);
+    text-transform: none;
+    letter-spacing: 0.06em;
+  }
+
+  .card-philosophy {
+    margin-top: var(--spacing-4);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-lg);
+    line-height: 1.4;
+    color: var(--color-text-primary);
+    border-left: 2px solid var(--color-accent);
+    padding-left: var(--spacing-4);
+  }
+
+  .card-title {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-top: var(--spacing-3);
+    margin-bottom: var(--spacing-2);
+    transition: color var(--transition-fast);
+  }
+
+  .card:hover .card-title {
+    color: var(--color-interactive);
+  }
+
+  .card-desc {
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .card-metric {
+    margin-top: auto;
+    padding-top: var(--spacing-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .card-metric-value {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--color-accent);
+  }
+
+  .card-metric-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+    margin-top: var(--spacing-1);
+  }
+
+  .card-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+    margin-top: var(--spacing-4);
+  }
+
+  .card-chip {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: 1;
+    padding: 0.3125rem 0.5rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-tertiary);
+  }
+
+  .card-arrow {
+    position: absolute;
+    top: var(--spacing-8);
+    right: var(--spacing-8);
+    color: var(--color-text-tertiary);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition:
+      opacity var(--transition-fast),
+      transform var(--transition-fast),
+      color var(--transition-fast);
+  }
+
+  .card:hover .card-arrow {
+    opacity: 1;
+    transform: translateX(0);
+    color: var(--color-interactive);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card,
+    .card-arrow,
+    .card-bg {
+      transition: none;
+    }
+    .card:hover {
+      transform: none;
+    }
+    .card:hover .card-bg {
+      transform: none;
+    }
+  }
+</style>

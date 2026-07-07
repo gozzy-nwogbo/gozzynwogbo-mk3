@@ -6,13 +6,11 @@ interface Props {
 const { skills } = Astro.props;
 ---
 
-<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
+<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
   {skills.map((group) => (
-    <div>
-      <h3 class="text-sm font-semibold text-[var(--color-text-secondary)] uppercase tracking-wide mb-3">
-        {group.category}
-      </h3>
-      <ul class="space-y-1.5 list-none m-0 p-0">
+    <div class="skill-group">
+      <h3 class="skill-cat">{group.category}</h3>
+      <ul class="space-y-2 list-none m-0 p-0">
         {group.items.map((item) => (
           <li class="text-sm">{item}</li>
         ))}
@@ -20,3 +18,20 @@ const { skills } = Astro.props;
     </div>
   ))}
 </div>
+
+<style>
+  .skill-group {
+    border-top: 1px solid var(--color-border-strong);
+    padding-top: var(--spacing-4);
+  }
+
+  .skill-cat {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-4);
+  }
+</style>

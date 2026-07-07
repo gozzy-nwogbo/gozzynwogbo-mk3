@@ -9,20 +9,33 @@ interface Props {
   description: string;
   ogImage?: string;
   schemaJsonLd?: Record<string, unknown>[];
+  markdownUrl?: string;
 }
 
-const { title, description, ogImage, schemaJsonLd } = Astro.props;
+const { title, description, ogImage, schemaJsonLd, markdownUrl } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem("theme");
+          if (t !== "dark" && t !== "light") {
+            t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          }
+          document.documentElement.dataset.theme = t;
+        } catch (e) {}
+      })();
+    </script>
     <Head
       title={title}
       description={description}
       ogImage={ogImage}
       schemaJsonLd={schemaJsonLd}
+      markdownUrl={markdownUrl}
     />
   </head>
   <body class="min-h-screen flex flex-col">

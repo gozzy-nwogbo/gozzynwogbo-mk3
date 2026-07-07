@@ -1,0 +1,211 @@
+---
+// 05 · What I bring: the stack under the hood. Six discipline cards; each
+// leads with a working principle (drawn from how these systems are actually
+// built and run) and lists the concrete tools and methods underneath it.
+// Everything here is in live use; nothing is aspirational.
+import Reveal from "./Reveal.astro";
+import SpanHeader from "./SpanHeader.astro";
+
+const cards = [
+  {
+    index: "T.01",
+    label: "AI systems design",
+    insight: "A system you cannot score is a demo. Evals come before features.",
+    chips: ["Claude API", "MCP servers", "Agent orchestration", "Evals", "Spec contracts", "Observability"],
+  },
+  {
+    index: "T.02",
+    label: "Retrieval & knowledge systems",
+    insight: "Answers should come from knowledge you own and can trace, not model memory.",
+    chips: ["pgvector", "Supabase", "Semantic search", "Embeddings", "LangChain", "Markdown corpora"],
+  },
+  {
+    index: "T.03",
+    label: "Agent & workflow automation",
+    insight: "An agent gets the minimum context and authority the task needs, scoped before it runs.",
+    chips: ["n8n", "Python", "Cron agents", "Relevance AI", "Webhooks", "Telegram bots"],
+  },
+  {
+    index: "T.04",
+    label: "AI transformation strategy",
+    insight: "Measure in time saved first, then convert to money. Technology that cannot answer that is a hobby.",
+    chips: ["Workflow mapping", "Pilot design", "Change management", "Adoption plans"],
+  },
+  {
+    index: "T.05",
+    label: "Business model analysis",
+    insight: "What it sells, where the margin lives, which problems are worth solving and for whom.",
+    chips: ["Unit economics", "Market analysis", "Competitive analysis", "Financial modeling"],
+  },
+  {
+    index: "T.06",
+    label: "Investment & bid analysis",
+    insight: "The numbers get rebuilt, not accepted.",
+    chips: ["Tender strategy", "Bid pricing", "Bottom-up estimates", "Diligence"],
+  },
+];
+---
+
+<section class="comp">
+  <SpanHeader index="05" label="What I bring">
+    The stack <em>under the hood</em>.
+  </SpanHeader>
+  <p class="comp-note">
+    Six working disciplines. Every tool below is in live use; none of it is
+    aspirational.
+  </p>
+
+  <div class="comp-grid">
+    {cards.map((c, i) => (
+      <Reveal delay={(i % 3) * 90}>
+        <article class="comp-card">
+          <div class="comp-card-top">
+            <span class="comp-num">{c.index}</span>
+            <span class="comp-live">In live use</span>
+          </div>
+          <h3 class="comp-label">{c.label}</h3>
+          <p class="comp-insight">{c.insight}</p>
+          <ul class="comp-chips" role="list">
+            {c.chips.map((chip) => (
+              <li class="comp-chip">{chip}</li>
+            ))}
+          </ul>
+        </article>
+      </Reveal>
+    ))}
+  </div>
+</section>
+
+<style>
+  .comp {
+    padding-block: var(--spacing-16);
+  }
+
+  .comp-note {
+    margin-top: var(--spacing-6);
+    max-width: 44ch;
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+  }
+
+  .comp-grid {
+    margin-top: var(--spacing-10, 2.5rem);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--spacing-6);
+  }
+
+  @media (max-width: 60rem) {
+    .comp-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .comp-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .comp-grid :global([data-reveal]) {
+    display: grid;
+  }
+
+  .comp-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-6);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+  }
+
+  .comp-card:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .comp-card-top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--spacing-4);
+  }
+
+  .comp-num {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+  }
+
+  .comp-live {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  .comp-label {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-top: var(--spacing-4);
+  }
+
+  .comp-insight {
+    margin-top: var(--spacing-4);
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-style: italic;
+    font-size: var(--text-lg);
+    line-height: 1.45;
+    color: var(--color-text-primary);
+    border-left: 2px solid var(--color-accent);
+    padding-left: var(--spacing-4);
+  }
+
+  .comp-chips {
+    margin: var(--spacing-6) 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+    margin-top: auto;
+    padding-top: var(--spacing-6);
+  }
+
+  .comp-chip {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    padding: 0.4375rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    color: var(--color-text-secondary);
+    transition: border-color var(--transition-fast), color var(--transition-fast), background-color var(--transition-fast);
+  }
+
+  .comp-chip:hover {
+    border-color: var(--color-accent);
+    color: var(--color-text-primary);
+    background-color: var(--color-accent-subtle);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .comp-card,
+    .comp-chip {
+      transition: none;
+    }
+    .comp-card:hover {
+      transform: none;
+    }
+  }
+</style>

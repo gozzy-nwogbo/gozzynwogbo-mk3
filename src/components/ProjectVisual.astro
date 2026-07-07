@@ -1,0 +1,105 @@
+---
+// Abstract structural visual for project plates. Drawn from the bridge
+// vocabulary (spans, arcs, nodes, ticks) on the warm palette — never a
+// literal product screenshot. Variant is derived from the slug so each
+// project gets a stable, distinct composition.
+interface Props {
+  slug: string;
+  class?: string;
+}
+const { slug, class: className } = Astro.props;
+
+const hash = [...slug].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 997, 7);
+const variant = hash % 3;
+
+// Deterministic pseudo-random sequence from the slug hash.
+const seq = (n: number) =>
+  Array.from({ length: n }, (_, i) => ((hash * (i + 3) * 2654435761) % 1000) / 1000);
+
+const bars = seq(7);
+const nodes = seq(6);
+---
+
+<div class:list={["pv", className]} aria-hidden="true">
+  <svg viewBox="0 0 400 300" fill="none" preserveAspectRatio="xMidYMid slice">
+    {variant === 0 && (
+      <>
+        {[0, 1, 2, 3].map((i) => (
+          <path
+            d={`M 20 ${250 - i * 44} Q 200 ${140 - i * 44} 380 ${250 - i * 44}`}
+            stroke={i === 1 ? "var(--color-accent)" : i === 2 ? "var(--color-interactive)" : "var(--color-border-strong)"}
+            stroke-width={i === 1 || i === 2 ? 1.5 : 1}
+            opacity={i === 1 || i === 2 ? 0.9 : 0.6}
+          ></path>
+        ))}
+        <circle cx="20" cy="250" r="4" fill="var(--color-accent)"></circle>
+        <circle cx="380" cy="250" r="4" fill="var(--color-interactive)"></circle>
+        <line x1="20" y1="250" x2="380" y2="250" stroke="var(--color-border-strong)" stroke-width="1"></line>
+      </>
+    )}
+    {variant === 1 && (
+      <>
+        {bars.map((b, i) => (
+          <rect
+            x={40 + i * 48}
+            y={240 - b * 150}
+            width="14"
+            height={b * 150}
+            rx="7"
+            fill={i % 3 === 0 ? "var(--color-accent)" : i % 3 === 1 ? "var(--color-interactive)" : "var(--color-border-strong)"}
+            opacity={i % 3 === 2 ? 0.55 : 0.85}
+          ></rect>
+        ))}
+        <line x1="30" y1="240" x2="370" y2="240" stroke="var(--color-border-strong)" stroke-width="1"></line>
+        <circle cx="30" cy="240" r="4" fill="var(--color-accent)"></circle>
+        <circle cx="370" cy="240" r="4" fill="var(--color-interactive)"></circle>
+      </>
+    )}
+    {variant === 2 && (
+      <>
+        {nodes.map((n, i) => {
+          const x = 50 + i * 60;
+          const y = 90 + n * 130;
+          return (
+            <>
+              {i > 0 && (
+                <line
+                  x1={50 + (i - 1) * 60}
+                  y1={90 + nodes[i - 1] * 130}
+                  x2={x}
+                  y2={y}
+                  stroke="var(--color-border-strong)"
+                  stroke-width="1"
+                ></line>
+              )}
+              <circle
+                cx={x}
+                cy={y}
+                r={i === 0 || i === nodes.length - 1 ? 5 : 3.5}
+                fill={i === 0 ? "var(--color-accent)" : i === nodes.length - 1 ? "var(--color-interactive)" : "var(--color-surface)"}
+                stroke={i === 0 || i === nodes.length - 1 ? "none" : "var(--color-border-strong)"}
+                stroke-width="1"
+              ></circle>
+            </>
+          );
+        })}
+      </>
+    )}
+  </svg>
+</div>
+
+<style>
+  .pv {
+    background-color: var(--color-surface-subtle);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    min-height: 16rem;
+    display: grid;
+  }
+
+  .pv svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+</style>

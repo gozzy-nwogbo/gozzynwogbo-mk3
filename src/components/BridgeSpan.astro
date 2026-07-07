@@ -1,0 +1,124 @@
+---
+// The bridge motif (art-direction Appendix A): an abstract structural span.
+// Deck line runs terracotta (business bank) to teal (AI bank), with pier ticks
+// and anchor nodes. Pure CSS + one inline SVG arc (hero only); themed via
+// tokens, renders with no JS, no external asset.
+interface Props {
+  catenary?: boolean;
+  traveler?: boolean;
+  class?: string;
+}
+const { catenary = false, traveler = false, class: className } = Astro.props;
+---
+
+<div class:list={["bridge-span", catenary && "has-catenary", className]} aria-hidden="true">
+  {catenary && (
+    <svg class="catenary" viewBox="0 0 100 32" preserveAspectRatio="none" fill="none">
+      <path
+        d="M 0 32 Q 50 0 100 32"
+        stroke="var(--color-border-strong)"
+        stroke-width="1"
+        vector-effect="non-scaling-stroke"
+      ></path>
+    </svg>
+  )}
+  <div class="deck">
+    <span class="anchor anchor-left"></span>
+    <span class="pier" style="left: 25%"></span>
+    <span class="pier" style="left: 50%"></span>
+    <span class="pier" style="left: 75%"></span>
+    {traveler && <span class="traveler"></span>}
+    <span class="anchor anchor-right"></span>
+  </div>
+</div>
+
+<style>
+  .bridge-span {
+    position: relative;
+    width: 100%;
+  }
+
+  .has-catenary {
+    padding-top: 32px;
+  }
+
+  .catenary {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 32px;
+    display: block;
+    opacity: 0.5;
+  }
+
+  .deck {
+    position: relative;
+    height: 12px;
+  }
+
+  /* The crossing: terracotta bank to teal bank. */
+  .deck::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1.5px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-interactive));
+  }
+
+  .pier {
+    position: absolute;
+    top: 1.5px;
+    width: 1px;
+    height: 8px;
+    background-color: var(--color-border-strong);
+  }
+
+  .anchor {
+    position: absolute;
+    top: 0.75px;
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    transform: translateY(-50%);
+  }
+
+  .anchor-left {
+    left: 0;
+    background-color: var(--color-accent);
+  }
+
+  .anchor-right {
+    right: 0;
+    background-color: var(--color-interactive);
+  }
+
+  /* One quiet crossing: a dot travels the deck, business bank to AI bank. */
+  .traveler {
+    position: absolute;
+    top: 0.75px;
+    left: 0;
+    width: 4px;
+    height: 4px;
+    border-radius: 999px;
+    transform: translateY(-50%);
+    animation: traveler-cross 9s linear 2s infinite;
+    opacity: 0;
+  }
+
+  @keyframes traveler-cross {
+    0%   { left: 0%;   background-color: var(--color-accent); opacity: 0; }
+    6%   { opacity: 0.7; }
+    50%  { background-color: var(--color-interactive); }
+    94%  { opacity: 0.7; }
+    100% { left: 100%; background-color: var(--color-interactive); opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .traveler {
+      display: none;
+    }
+  }
+</style>

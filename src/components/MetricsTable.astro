@@ -22,7 +22,7 @@ const { metrics, caption } = Astro.props;
         <tr class="border-b border-[var(--color-border)]">
           <td class="py-3 pr-4">{row.label}</td>
           <td class="py-3 pr-4 font-semibold">{row.value}</td>
-          <td class="py-3 text-[var(--color-text-tertiary)]">{row.benchmark ?? "—"}</td>
+          <td class="py-3 text-[var(--color-text-tertiary)]">{row.benchmark ?? "n/a"}</td>
         </tr>
       ))}
     </tbody>

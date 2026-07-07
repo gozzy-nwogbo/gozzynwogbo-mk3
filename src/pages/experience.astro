@@ -1,0 +1,83 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import SpanHeader from "../components/SpanHeader.astro";
+import Experience from "../components/Experience.astro";
+import { PERSON } from "../lib/constants";
+import { generatePersonSchema } from "../schemas/person";
+
+const schemas = [generatePersonSchema()];
+---
+
+<BaseLayout
+  title="Experience"
+  description={`${PERSON.name}'s experience: co-founded a health-tech venture with enterprise engagements for Bupa Global, the NHS, and Boston Medical Center; strategy consulting at Ivey IDIS; software engineering at MI-C3; research at Yale.`}
+  schemaJsonLd={schemas}
+  markdownUrl="/experience.md"
+>
+  <Breadcrumbs items={[{ label: "Experience", href: "/experience" }]} />
+
+  <h1 class="xp-title">Experience<span class="xp-dot" aria-hidden="true"></span></h1>
+
+  <p class="xp-lede">
+    Laying the foundation of a <em>hybrid</em> practice. Business rooms and build
+    rooms, one throughline: systems that ship, and the business sense to know
+    which ones were worth building.
+  </p>
+
+  <section class="xp-section">
+    <SpanHeader index="01" label="Roles">
+      The rooms that <em>built</em> the practice.
+    </SpanHeader>
+    <Experience />
+  </section>
+
+  <p class="xp-back">
+    <a href="/projects">See the systems those years produced <span aria-hidden="true">&rarr;</span></a>
+  </p>
+</BaseLayout>
+
+<style>
+  .xp-title {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 520;
+    letter-spacing: -0.015em;
+    margin: var(--spacing-8) 0 var(--spacing-6);
+  }
+
+  .xp-dot {
+    display: inline-block;
+    width: 0.13em;
+    height: 0.13em;
+    border-radius: 999px;
+    background-color: var(--color-accent);
+    margin-left: 0.08em;
+  }
+
+  .xp-lede {
+    max-width: 56ch;
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+  }
+
+  .xp-lede em {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--color-accent);
+  }
+
+  .xp-section {
+    margin-top: var(--spacing-16);
+  }
+
+  .xp-back {
+    margin: var(--spacing-16) 0 var(--spacing-24);
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  .xp-back a {
+    color: var(--color-interactive);
+  }
+</style>

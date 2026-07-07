@@ -8,22 +8,105 @@ interface FAQItem {
 
 interface Props {
   items: FAQItem[];
+  hideTitle?: boolean;
 }
 
-const { items } = Astro.props;
+const { items, hideTitle = false } = Astro.props;
 const schema = generateFAQSchema(items);
 ---
 
-<section class="mt-16">
-  <h2>Frequently Asked Questions</h2>
-  <dl class="mt-6 space-y-6">
+<section class:list={[!hideTitle && "mt-16"]}>
+  {!hideTitle && <h2>Frequently Asked Questions</h2>}
+  <div class="mt-6">
     {items.map((item) => (
-      <div class="border-b border-[var(--color-border)] pb-6">
-        <dt class="font-medium">{item.question}</dt>
-        <dd class="text-sm text-[var(--color-text-secondary)] mt-2">{item.answer}</dd>
-      </div>
+      <details class="faq-row">
+        <summary class="faq-q">
+          {item.question}
+          <span class="faq-toggle" aria-hidden="true">+</span>
+        </summary>
+        <p class="faq-a">{item.answer}</p>
+      </details>
     ))}
-  </dl>
+  </div>
 </section>
+
+<style>
+  .faq-row {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .faq-q {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--spacing-6);
+    padding-block: var(--spacing-6);
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-size: var(--text-xl);
+    font-weight: 540;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    list-style: none;
+    transition: color var(--transition-fast);
+  }
+
+  .faq-q::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-q:hover {
+    color: var(--color-accent);
+  }
+
+  .faq-q:focus-visible {
+    outline: 2px solid var(--color-interactive);
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
+
+  .faq-toggle {
+    flex: none;
+    font-family: var(--font-mono);
+    font-size: var(--text-lg);
+    color: var(--color-text-tertiary);
+    transition: transform var(--transition-normal), color var(--transition-fast);
+  }
+
+  .faq-row[open] .faq-toggle {
+    transform: rotate(45deg);
+    color: var(--color-accent);
+  }
+
+  .faq-a {
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+    max-width: 58ch;
+    padding-bottom: var(--spacing-6);
+  }
+
+  .faq-row[open] .faq-a {
+    animation: faq-open var(--duration-slow) var(--ease-out) both;
+  }
+
+  @keyframes faq-open {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .faq-q,
+    .faq-toggle {
+      transition: none;
+    }
+    .faq-row[open] .faq-toggle {
+      transform: none;
+    }
+    .faq-row[open] .faq-a {
+      animation: none;
+    }
+  }
+</style>
 
 <script type="application/ld+json" set:html={JSON.stringify({ "@context": "https://schema.org", ...schema })} />

@@ -1,62 +1,215 @@
 ---
-import PageLayout from "../layouts/PageLayout.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
 import FAQSection from "../components/FAQSection.astro";
+import HelpAreas from "../components/HelpAreas.astro";
+import NoteForm from "../components/NoteForm.astro";
+import SpanHeader from "../components/SpanHeader.astro";
+import BridgeProgressRail from "../components/BridgeProgressRail.astro";
 import { PERSON } from "../lib/constants";
+
+const railItems = [
+  { id: "reach", index: "00", label: "Reach me" },
+  { id: "note", index: "01", label: "Send a note" },
+  { id: "help", index: "02", label: "Where I can help" },
+  { id: "faq", index: "03", label: "FAQ" },
+];
+
+const email = `${PERSON.familyName.toLowerCase()}.${PERSON.givenName.toLowerCase()}@gmail.com`;
+
+const helpAreas = [
+  {
+    label: "AI transformation strategy",
+    line: "Where AI fits in an organization and where it does not.",
+  },
+  {
+    label: "Knowledge & retrieval systems",
+    line: "Systems that give AI real context.",
+  },
+  {
+    label: "Agent & workflow automation",
+    line: "Automation that runs hands-off.",
+  },
+  {
+    label: "Business analysis",
+    line: "The numbers rebuilt, not accepted.",
+  },
+];
 
 const faq = [
   {
-    question: "What is Gozzy's consulting availability?",
+    question: "What kind of conversations are you open to?",
     answer:
-      "Currently pursuing full-time management consulting positions. Advisory and project-based engagements considered selectively.",
+      "Anything real in AI systems and transformation: a problem you think AI should be solving, a system you want built or pressure-tested, work in that space, or a good argument about where these tools are heading.",
   },
   {
-    question: "What types of engagements does Gozzy take on?",
+    question: "What is the best way to reach you?",
     answer:
-      "Strategy engagements with a technology component, platform architecture reviews, market entry assessments for African markets, and AI automation consulting for SMBs.",
+      "Email. Say what you are working on and where you think the fit is, and you will get a straight answer, including when the honest answer is that I am not the right person.",
   },
   {
-    question: "Where is Gozzy based?",
-    answer:
-      "Toronto, Ontario, Canada. Available for remote engagements globally and in-person across North America.",
+    question: "Where are you based?",
+    answer: "Toronto, Ontario, Canada. Remote works fine for most things.",
   },
 ];
 ---
 
-<PageLayout
+<BaseLayout
   title="Contact"
-  description={`Get in touch with ${PERSON.name} for consulting, advisory, or technology engagements.`}
-  breadcrumbs={[{ label: "Contact", href: "/contact" }]}
+  description={`Get in touch with ${PERSON.name} about AI systems, transformation work, or a problem worth building against.`}
+  markdownUrl="/contact.md"
 >
-  <h1 class="mb-8">Contact</h1>
+  <Breadcrumbs items={[{ label: "Contact", href: "/contact" }]} />
+  <BridgeProgressRail items={railItems} />
 
-  <section class="mb-12">
-    <p class="leading-relaxed">
-      I am currently exploring full-time management consulting roles and selectively
-      taking on advisory engagements. If you are working on something in Nigerian
-      fintech, healthcare technology, or AI automation and think there is a fit,
-      I would like to hear about it.
-    </p>
+  <h1 class="contact-title">Let&rsquo;s <em>talk</em><span class="contact-dot" aria-hidden="true"></span></h1>
 
-    <h2 class="mt-12 mb-4">Focus Areas</h2>
-    <ul class="space-y-2 text-[var(--color-text-secondary)]">
-      <li>Management consulting (strategy, digital transformation, market entry)</li>
-      <li>Nigerian fintech and payments infrastructure</li>
-      <li>Healthcare workflow automation</li>
-      <li>AI agent architecture and automation for SMBs</li>
-    </ul>
+  <p class="contact-lede">
+    I am open to interesting problems and good conversations across AI systems
+    and transformation. If you are working on something where AI should be
+    creating leverage and is not yet, or you want to talk through how these
+    systems actually get built, I would like to hear about it.
+  </p>
 
-    <h2 class="mt-12 mb-4">Get in Touch</h2>
-    <p>
-      Email: <a href={`mailto:${PERSON.familyName.toLowerCase()}.${PERSON.givenName.toLowerCase()}@gmail.com`}>
-        {PERSON.familyName.toLowerCase()}.{PERSON.givenName.toLowerCase()}@gmail.com
+  <div class="contact-panel" id="reach">
+    <p class="panel-kicker">Get in touch</p>
+    <a class="panel-email" href={`mailto:${email}`}>{email.split(/(?=@)/).map((seg, i) => (<>{i > 0 && <wbr />}{seg}</>))}</a>
+    <div class="panel-links">
+      <a href="https://www.linkedin.com/in/gozzy-nwogbo/" target="_blank" rel="noopener noreferrer" class="panel-link">
+        LinkedIn <span aria-hidden="true">&rarr;</span>
       </a>
-    </p>
-    <p class="mt-2">
-      LinkedIn: <a href="https://www.linkedin.com/in/gozzy-nwogbo/" target="_blank" rel="noopener noreferrer">
-        linkedin.com/in/gozzy-nwogbo
+      <a href="https://github.com/gozzy-nwogbo" target="_blank" rel="noopener noreferrer" class="panel-link">
+        GitHub <span aria-hidden="true">&rarr;</span>
       </a>
-    </p>
+      <span class="panel-loc">Toronto, Ontario &middot; remote works</span>
+    </div>
+  </div>
+
+  <section class="contact-section" id="note">
+    <SpanHeader index="01" label="Send a note">
+      Or write it <em>here</em>.
+    </SpanHeader>
+    <div class="note-wrap">
+      <NoteForm tone="light" />
+    </div>
   </section>
 
-  <FAQSection items={faq} />
-</PageLayout>
+  <section class="contact-section" id="help">
+    <SpanHeader index="02" label="Where I can help">
+      Four kinds of <em>useful</em>.
+    </SpanHeader>
+    <HelpAreas areas={helpAreas} />
+  </section>
+
+  <section class="contact-section" id="faq">
+    <SpanHeader index="03" label="FAQ">
+      Before you <em>write</em>.
+    </SpanHeader>
+    <FAQSection items={faq} hideTitle />
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-title {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 520;
+    letter-spacing: -0.015em;
+    margin: var(--spacing-8) 0 var(--spacing-8);
+  }
+
+  .contact-title em {
+    font-style: italic;
+    font-weight: 480;
+    color: var(--color-accent);
+  }
+
+  .contact-dot {
+    display: inline-block;
+    width: 0.13em;
+    height: 0.13em;
+    border-radius: 999px;
+    background-color: var(--color-accent);
+    margin-left: 0.08em;
+  }
+
+  .contact-lede {
+    max-width: 56ch;
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+  }
+
+  .contact-panel {
+    margin-top: var(--spacing-12);
+    padding: clamp(2rem, 5vw, 3.5rem);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-md);
+  }
+
+  .panel-kicker {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .panel-email {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-size: clamp(1.5rem, 3.6vw, 2.75rem);
+    font-weight: 520;
+    letter-spacing: -0.01em;
+    color: var(--color-text-primary);
+    word-break: normal;
+    overflow-wrap: normal;
+    transition: color var(--transition-fast);
+  }
+
+  .panel-email:hover {
+    color: var(--color-interactive);
+  }
+
+  .panel-links {
+    margin-top: var(--spacing-6);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--spacing-6);
+  }
+
+  .panel-link {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-interactive);
+  }
+
+  .panel-link:hover {
+    color: var(--color-interactive-hover);
+  }
+
+  .panel-loc {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  .contact-section {
+    margin-top: var(--spacing-24);
+  }
+
+  .note-wrap {
+    margin-top: var(--spacing-10, 2.5rem);
+    max-width: 42rem;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+  }
+</style>

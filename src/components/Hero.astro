@@ -1,0 +1,359 @@
+---
+import { PERSON } from "../lib/constants";
+import Explorer from "./Explorer.astro";
+import BridgeSpan from "./BridgeSpan.astro";
+---
+
+<section class="hero">
+  <div class="hero-atmo" aria-hidden="true" data-hero-atmo>
+    <span class="atmo-blob atmo-bank-a"></span>
+    <span class="atmo-blob atmo-bank-b"></span>
+  </div>
+
+  <div class="hero-kicker enter" style="--enter-delay: 0ms">
+    <hr class="bridge-rule kicker-rule" />
+    <p class="kicker-text">
+      <span class="kicker-name">{PERSON.name}</span>
+      <span class="kicker-sep" aria-hidden="true">&middot;</span>
+      {PERSON.jobTitle}
+    </p>
+  </div>
+
+  <h1 class="hero-title">
+    <span class="title-setup enter" style="--enter-delay: 100ms">Most AI never<br />leaves the demo.</span>
+    <span class="title-payoff enter" style="--enter-delay: 220ms">I build the version that runs<span class="anchor-dot" aria-hidden="true"></span></span>
+  </h1>
+
+  <p class="hero-support enter" style="--enter-delay: 340ms">
+    I come at it from business, not computer science, and that is what makes
+    it useful. Based in Toronto.
+  </p>
+
+  <div class="hero-band enter" style="--enter-delay: 440ms">
+    <Explorer />
+  </div>
+
+  <div class="hero-foot enter" style="--enter-delay: 540ms">
+    <p class="hero-corpus">Every item in the fit demo maps to something I have built. Drawn from 483 automations and the systems on this site.</p>
+    <div class="hero-actions">
+      <a href="/projects" class="btn btn-primary">See the work</a>
+      <a href="/contact" class="btn btn-ghost">Let&rsquo;s talk <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+    </div>
+  </div>
+
+  <div class="hero-bridge enter" style="--enter-delay: 640ms">
+    <BridgeSpan catenary traveler />
+  </div>
+</section>
+
+<script>
+  // Cursor-reactive drift for the two bank glows: a whisper of parallax,
+  // JS-armed only, lerped so it never jumps. Static floor: the glows sit
+  // still and the CSS drift below carries the ambient motion.
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const atmo = document.querySelector<HTMLElement>("[data-hero-atmo]");
+  if (!reduced && atmo && matchMedia("(pointer: fine)").matches) {
+    const blobs = atmo.querySelectorAll<HTMLElement>(".atmo-blob");
+    let tx = 0, ty = 0, x = 0, y = 0, raf = 0;
+    const tick = () => {
+      x += (tx - x) * 0.06;
+      y += (ty - y) * 0.06;
+      blobs.forEach((b, i) => {
+        const dir = i === 0 ? 1 : -1;
+        b.style.translate = `${x * dir}px ${y * dir}px`;
+      });
+      if (Math.abs(tx - x) + Math.abs(ty - y) > 0.1) raf = requestAnimationFrame(tick);
+      else raf = 0;
+    };
+    window.addEventListener("pointermove", (e) => {
+      tx = (e.clientX / window.innerWidth - 0.5) * 36;
+      ty = (e.clientY / window.innerHeight - 0.5) * 24;
+      if (!raf) raf = requestAnimationFrame(tick);
+    }, { passive: true });
+  }
+</script>
+
+<style>
+  .hero {
+    position: relative;
+    padding-block: clamp(3.5rem, 10vh, 6rem) 0;
+  }
+
+  /* The two banks as ambient light: terracotta upstream, teal downstream.
+     Painted as radial gradients that reach full transparency well inside
+     their layer, so there is never a clipped edge or visible seam; the
+     container bleeds past the hero top and bottom. */
+  .hero-atmo {
+    position: absolute;
+    top: -30%;
+    bottom: -45%;
+    left: calc(50% - 50vw);
+    width: 100vw;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .atmo-blob {
+    position: absolute;
+    inset: -15%;
+    will-change: transform, translate;
+  }
+
+  .atmo-bank-a {
+    background: radial-gradient(
+      ellipse 55% 42% at 16% 24%,
+      var(--color-accent),
+      transparent 68%
+    );
+    opacity: 0.1;
+    animation: atmo-drift-a 26s ease-in-out infinite alternate;
+  }
+
+  .atmo-bank-b {
+    background: radial-gradient(
+      ellipse 52% 40% at 82% 56%,
+      var(--color-interactive-bright),
+      transparent 68%
+    );
+    opacity: 0.07;
+    animation: atmo-drift-b 32s ease-in-out infinite alternate;
+  }
+
+  :global(html[data-theme="dark"]) .atmo-bank-a {
+    opacity: 0.12;
+  }
+
+  :global(html[data-theme="dark"]) .atmo-bank-b {
+    opacity: 0.09;
+  }
+
+  @keyframes atmo-drift-a {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(3rem, 2rem) scale(1.08); }
+  }
+
+  @keyframes atmo-drift-b {
+    from { transform: translate(0, 0) scale(1.06); }
+    to   { transform: translate(-2.5rem, -1.5rem) scale(0.98); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .atmo-bank-a,
+    .atmo-bank-b {
+      animation: none;
+    }
+  }
+
+  .hero-kicker {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-10, 2.5rem);
+  }
+
+  .kicker-rule {
+    width: 3rem;
+    flex: none;
+    margin: 0;
+  }
+
+  .kicker-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  .kicker-name {
+    position: relative;
+    color: var(--color-text-primary);
+    font-weight: 500;
+  }
+
+  /* The name draws its own span: terracotta into teal, once, on load. */
+  .kicker-name::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.35em;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-interactive));
+    transform-origin: left;
+    animation: name-draw 700ms var(--ease-out) 1100ms both;
+  }
+
+  @keyframes name-draw {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .kicker-name::after {
+      animation: none;
+      transform: none;
+    }
+  }
+
+  .kicker-sep {
+    margin-inline: 0.5em;
+    color: var(--color-text-tertiary);
+  }
+
+  .hero-title {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-size: clamp(2.625rem, 6.4vw, 5.125rem);
+    font-weight: 540;
+    letter-spacing: -0.015em;
+    line-height: 1.08;
+    margin: 0;
+  }
+
+  .title-setup {
+    display: block;
+    color: var(--color-text-secondary);
+  }
+
+  .title-payoff {
+    display: block;
+    color: var(--color-text-primary);
+  }
+
+  /* Geometric bridge-anchor dot in place of the payoff period. */
+  .anchor-dot {
+    display: inline-block;
+    width: 0.13em;
+    height: 0.13em;
+    border-radius: 999px;
+    background-color: var(--color-accent);
+    margin-left: 0.08em;
+  }
+
+  .hero-support {
+    margin-top: var(--spacing-8);
+    max-width: 52ch;
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+  }
+
+  .hero-band {
+    margin-top: var(--spacing-10, 2.5rem);
+  }
+
+  .hero-foot {
+    margin-top: var(--spacing-8);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacing-8);
+    flex-wrap: wrap;
+  }
+
+  .hero-corpus {
+    max-width: 46ch;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    line-height: 1.7;
+    letter-spacing: 0.04em;
+    color: var(--color-text-tertiary);
+    padding-left: var(--spacing-4);
+    border-left: 2px solid var(--color-border-strong);
+  }
+
+  .hero-bridge {
+    margin-top: clamp(2.5rem, 6vh, 4rem);
+  }
+
+  @media (max-width: 56rem) {
+    .hero {
+      padding-top: var(--spacing-8);
+    }
+    .hero-kicker {
+      margin-bottom: var(--spacing-6);
+    }
+    .hero-band {
+      margin-top: var(--spacing-8);
+    }
+    .hero-foot {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-6);
+    }
+    .hero-actions .btn {
+      padding: 1rem 1.75rem;
+    }
+    .hero-bridge {
+      margin-top: var(--spacing-8);
+    }
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-4);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: 0.875rem 1.75rem;
+    border-radius: 999px;
+    font-size: var(--text-base);
+    font-weight: 500;
+    line-height: 1;
+    transition:
+      background-color var(--transition-fast),
+      color var(--transition-fast),
+      border-color var(--transition-fast),
+      transform var(--transition-fast),
+      box-shadow var(--transition-fast);
+  }
+
+  .btn-primary {
+    background-color: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-accent-hover);
+    color: var(--color-on-accent);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .btn-ghost {
+    border: 1px solid var(--color-interactive);
+    color: var(--color-interactive);
+  }
+
+  .btn-ghost:hover {
+    background-color: var(--color-interactive-subtle);
+    color: var(--color-interactive-hover);
+    border-color: var(--color-interactive-hover);
+  }
+
+  .btn-arrow {
+    transition: transform var(--transition-fast);
+  }
+
+  .btn-ghost:hover .btn-arrow {
+    transform: translateX(3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn,
+    .btn-arrow {
+      transition: none;
+    }
+    .btn-primary:hover {
+      transform: none;
+    }
+  }
+</style>

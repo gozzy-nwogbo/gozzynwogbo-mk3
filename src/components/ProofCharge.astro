@@ -1,0 +1,368 @@
+---
+// 03 · Selected proof, reworked: a scrolling "by the work" stat banner and
+// click-to-expand cards. Every number is a count from the working system
+// (verified file counts), not an estimate. The expandables describe scope
+// and thinking only; system internals stay off the page.
+import SpanHeader from "./SpanHeader.astro";
+
+const stats = [
+  { value: "483", label: "automation workflows" },
+  { value: "11,000+", label: "knowledge entries" },
+  { value: "59", label: "knowledge domains" },
+  { value: "107", label: "session logs" },
+  { value: "2.3x", label: "client workflow throughput" },
+  { value: "3 days", label: "full priced tender" },
+];
+
+const cards = [
+  {
+    index: "P.01",
+    value: "483",
+    label: "The automation library",
+    teaser: "Working workflows across verticals, not slideware.",
+    body: "483 workflows spanning contract review, freight invoice auditing, finance operations, real estate, logistics, and tax. Each carries evals and a preferred trigger and storage pattern per use case, so a new build starts from a proven shape instead of a blank canvas.",
+  },
+  {
+    index: "P.02",
+    value: "11,000+",
+    label: "The knowledge corpus",
+    teaser: "Entries I can read, search, and audit.",
+    body: "11,000+ knowledge entries across 59 domains, kept as plain text and cross-linked Karpathy-style so context crosses fields: a persuasion principle can inform an ad pipeline, a maintenance philosophy can shape an agent design. 107 session logs record how the system actually gets used, day after day.",
+  },
+  {
+    index: "P.03",
+    value: "50+",
+    label: "Experts, distilled",
+    teaser: "Working methods pulled out of video and into reach.",
+    body: "The corpus holds distilled working methods from 50+ MasterClass instructors, broken down and cross-linked so their frameworks surface in the middle of real work instead of staying trapped in a lecture.",
+  },
+  {
+    index: "P.04",
+    value: "3 days",
+    label: "The tender engine",
+    teaser: "A priced package against a 4 to 6 week baseline.",
+    body: "A complete priced tender package for a six-country infrastructure group, delivered in 3 days against a 4 to 6 week team baseline. The speed is the same knowledge and automation base as everything else on this page, pointed at one deadline.",
+  },
+];
+---
+
+<div class="pc">
+  <SpanHeader index="03" label="By the work">
+    Charging the <em>frontier</em>.
+  </SpanHeader>
+
+  <div class="pc-band-wrap">
+    <div class="pc-band" data-stat-marquee>
+      <div class="pc-track">
+        {stats.map((s) => (
+          <span class="pc-stat">
+            <span class="pc-stat-value">{s.value}</span>
+            <span class="pc-stat-label">{s.label}</span>
+            <span class="pc-stat-sep" aria-hidden="true">&#9670;</span>
+          </span>
+        ))}
+      </div>
+      <div class="pc-track" data-stat-clone aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <div class="pc-cards">
+    {cards.map((c) => (
+      <details class="pc-card">
+        <summary class="pc-summary">
+          <span class="pc-card-index">{c.index}</span>
+          <span class="pc-card-value">{c.value}</span>
+          <span class="pc-card-head">
+            <span class="pc-card-label">{c.label}</span>
+            <span class="pc-card-teaser">{c.teaser}</span>
+          </span>
+          <span class="pc-card-toggle" aria-hidden="true">+</span>
+        </summary>
+        <p class="pc-card-body">{c.body}</p>
+      </details>
+    ))}
+  </div>
+
+  <p class="pc-note">Counts are live file counts from the working system, not estimates.</p>
+</div>
+
+<script>
+  // Progressive enhancement: the stat band scrolls only when JS runs and
+  // reduced motion is not requested. No-JS floor: a wrapped static row.
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const band = document.querySelector("[data-stat-marquee]");
+  const clone = document.querySelector("[data-stat-clone]");
+  if (!reduced && band instanceof HTMLElement && clone instanceof HTMLElement) {
+    const track = band.querySelector(".pc-track");
+    if (track) {
+      clone.innerHTML = track.innerHTML;
+      band.classList.add("is-marquee");
+    }
+  }
+</script>
+
+<style>
+  /* Full-bleed inverted band: the one dark stripe on the page, so proof
+     reads nothing like the Experience section above it. */
+  .pc-band-wrap {
+    margin-top: var(--spacing-10, 2.5rem);
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    background-color: var(--color-surface-invert);
+    position: relative;
+  }
+
+  .pc-band-wrap::before,
+  .pc-band-wrap::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-interactive));
+  }
+
+  .pc-band-wrap::before { top: 0; }
+  .pc-band-wrap::after { bottom: 0; }
+
+  .pc-band {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--spacing-4) var(--spacing-8);
+    max-width: 64rem;
+    margin-inline: auto;
+    padding: var(--spacing-6);
+  }
+
+  .pc-track {
+    display: contents;
+  }
+
+  .pc-stat {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--spacing-3);
+    white-space: nowrap;
+  }
+
+  .pc-stat-value {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-size: clamp(1.5rem, 2.6vw, 2.125rem);
+    font-weight: 540;
+    letter-spacing: -0.01em;
+    color: var(--color-text-on-dark);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .pc-stat-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(250, 248, 245, 0.6);
+  }
+
+  .pc-stat-sep {
+    color: var(--color-accent);
+    font-size: 0.5rem;
+    margin-left: var(--spacing-4);
+  }
+
+  /* Marquee enhancement (JS-armed only). */
+  .pc-band.is-marquee {
+    flex-wrap: nowrap;
+    overflow: hidden;
+    max-width: none;
+    padding-inline: 0;
+    -webkit-mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+    mask-image: linear-gradient(90deg, transparent, black 6%, black 94%, transparent);
+  }
+
+  .pc-band.is-marquee .pc-track {
+    display: inline-flex;
+    flex: none;
+    align-items: baseline;
+    column-gap: var(--spacing-8);
+    padding-right: var(--spacing-8);
+    animation: pc-scroll 36s linear infinite;
+  }
+
+  .pc-band.is-marquee:hover .pc-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes pc-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-100%); }
+  }
+
+  /* Expandable proof cards: <details>, so opt-in works with no JS at all. */
+  .pc-cards {
+    margin-top: var(--spacing-10, 2.5rem);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--spacing-6);
+  }
+
+  @media (max-width: 56rem) {
+    .pc-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .pc-card {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .pc-card:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pc-card[open] {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
+  }
+
+  .pc-summary {
+    display: grid;
+    grid-template-columns: auto auto minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: var(--spacing-4);
+    padding: var(--spacing-6);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .pc-summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .pc-summary:focus-visible {
+    outline: 2px solid var(--color-interactive);
+    outline-offset: 2px;
+    border-radius: var(--radius-lg);
+  }
+
+  .pc-card-index {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    color: var(--color-text-tertiary);
+  }
+
+  .pc-card-value {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 540;
+    line-height: 1;
+    color: var(--color-accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .pc-card-head {
+    display: grid;
+    gap: var(--spacing-1);
+    min-width: 0;
+  }
+
+  .pc-card-label {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--color-text-primary);
+  }
+
+  .pc-card-teaser {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .pc-card-toggle {
+    align-self: center;
+    width: 2rem;
+    height: 2rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 999px;
+    color: var(--color-text-secondary);
+    font-size: var(--text-lg);
+    line-height: 1;
+    transition: transform var(--transition-normal), border-color var(--transition-fast), color var(--transition-fast);
+  }
+
+  .pc-card:hover .pc-card-toggle {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .pc-card[open] .pc-card-toggle {
+    transform: rotate(45deg);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+
+  .pc-card-body {
+    padding: 0 var(--spacing-6) var(--spacing-6);
+    font-size: var(--text-base);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+    max-width: 58ch;
+  }
+
+  .pc-card[open] .pc-card-body {
+    animation: pc-open var(--duration-slow) var(--ease-out) both;
+  }
+
+  @keyframes pc-open {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .pc-note {
+    margin-top: var(--spacing-8);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.06em;
+    color: var(--color-text-tertiary);
+    border-left: 2px solid var(--color-border-strong);
+    padding-left: var(--spacing-4);
+  }
+
+  @media (max-width: 40rem) {
+    .pc-summary {
+      grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-areas:
+        "index toggle"
+        "value toggle"
+        "head head";
+    }
+    .pc-card-index { grid-area: index; }
+    .pc-card-value { grid-area: value; }
+    .pc-card-head { grid-area: head; }
+    .pc-card-toggle { grid-area: toggle; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pc-card,
+    .pc-card-toggle {
+      transition: none;
+    }
+    .pc-card[open] .pc-card-toggle {
+      transform: none;
+    }
+    .pc-card[open] .pc-card-body {
+      animation: none;
+    }
+    .pc-band.is-marquee .pc-track {
+      animation: none;
+    }
+  }
+</style>

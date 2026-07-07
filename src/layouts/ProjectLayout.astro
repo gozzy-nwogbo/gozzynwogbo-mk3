@@ -2,12 +2,15 @@
 import BaseLayout from "./BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import MetricsTable from "../components/MetricsTable.astro";
-import AISummary from "../components/AISummary.astro";
+import ProjectVisual from "../components/ProjectVisual.astro";
+import BridgeSpan from "../components/BridgeSpan.astro";
 
 interface Props {
+  slug: string;
   title: string;
   description: string;
   domain: string;
+  status: string;
   technologies: string[];
   datePublished: Date;
   metrics: { label: string; value: string; benchmark?: string }[];
@@ -15,31 +18,67 @@ interface Props {
   schemaJsonLd?: Record<string, unknown>[];
 }
 
-const { title, description, domain, technologies, datePublished, metrics, ogImage, schemaJsonLd } = Astro.props;
+const {
+  slug,
+  title,
+  description,
+  domain,
+  status,
+  technologies,
+  datePublished,
+  metrics,
+  ogImage,
+  schemaJsonLd,
+} = Astro.props;
 ---
 
 <BaseLayout title={title} description={description} ogImage={ogImage} schemaJsonLd={schemaJsonLd}>
   <Breadcrumbs items={[{ label: "Projects", href: "/projects" }, { label: title, href: "#" }]} />
-  <article class="max-w-[65ch] mx-auto">
-    <header class="mb-12">
-      <h1 class="mb-3">{title}</h1>
-      <div class="flex flex-wrap gap-3 items-center text-sm text-[var(--color-text-secondary)]">
-        <span class="px-2 py-0.5 bg-[var(--color-accent-subtle)] text-[var(--color-accent)] rounded-sm font-medium">
-          {domain}
-        </span>
-        <time datetime={datePublished.toISOString().split("T")[0]}>
-          {datePublished.toLocaleDateString("en-US", { year: "numeric", month: "long" })}
-        </time>
-      </div>
-      <div class="flex flex-wrap gap-2 mt-3">
-        {technologies.map((tech) => (
-          <span class="text-xs text-[var(--color-text-tertiary)] px-2 py-0.5 border border-[var(--color-border)] rounded-sm">
-            {tech}
-          </span>
-        ))}
-      </div>
-    </header>
 
+  <!-- The plate: split card, text beside structural visual -->
+  <header class="plate">
+    <div class="plate-text">
+      <p class="plate-meta">
+        <span class="plate-domain">{domain}</span>
+        <span class="plate-sep" aria-hidden="true">&middot;</span>
+        <span class="plate-status">
+          <span class="status-dot" aria-hidden="true"></span>
+          {status}
+        </span>
+        <span class="plate-sep" aria-hidden="true">&middot;</span>
+        <time datetime={datePublished.toISOString().split("T")[0]}>
+          {datePublished.toLocaleDateString("en-US", { year: "numeric", month: "long", timeZone: "UTC" })}
+        </time>
+      </p>
+
+      <h1 class="plate-title">{title}</h1>
+
+      <blockquote class="plate-quote">{description}</blockquote>
+
+      <dl class="plate-grid">
+        <div class="plate-cell">
+          <dt>Role</dt>
+          <dd>Designed &amp; built solo</dd>
+        </div>
+        <div class="plate-cell">
+          <dt>Stack</dt>
+          <dd>{technologies.join(", ")}</dd>
+        </div>
+        <div class="plate-cell">
+          <dt>Outcome</dt>
+          <dd>{metrics[0]?.value}</dd>
+        </div>
+      </dl>
+    </div>
+
+    <ProjectVisual slug={slug} class="plate-visual" />
+  </header>
+
+  <div class="plate-after">
+    <BridgeSpan />
+  </div>
+
+  <article class="prose-col">
     <slot />
 
     {metrics.length > 0 && (
@@ -50,3 +89,153 @@ const { title, description, domain, technologies, datePublished, metrics, ogImag
     )}
   </article>
 </BaseLayout>
+
+<style>
+  .plate {
+    margin-top: var(--spacing-8);
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+  }
+
+  .plate-text {
+    padding: clamp(2rem, 4.5vw, 3.5rem);
+  }
+
+  .plate :global(.plate-visual) {
+    border-radius: 0;
+    min-height: 100%;
+  }
+
+  @media (max-width: 56rem) {
+    .plate {
+      grid-template-columns: 1fr;
+    }
+    .plate :global(.plate-visual) {
+      min-height: 14rem;
+      order: -1;
+    }
+  }
+
+  .plate-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+  }
+
+  .plate-domain {
+    color: var(--color-accent);
+  }
+
+  .plate-sep {
+    color: var(--color-text-tertiary);
+  }
+
+  .plate-status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+  }
+
+  .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background-color: var(--color-positive);
+  }
+
+  .plate-title {
+    margin-top: var(--spacing-6);
+    font-size: clamp(2.25rem, 4.6vw, 3.75rem);
+    font-weight: 520;
+    letter-spacing: -0.015em;
+    line-height: 1.05;
+  }
+
+  .plate-quote {
+    margin: var(--spacing-8) 0 0;
+    padding-left: var(--spacing-6);
+    border-left: 2px solid var(--color-accent);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-lg);
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    max-width: 48ch;
+  }
+
+  .plate-grid {
+    margin: var(--spacing-10, 2.5rem) 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--spacing-6);
+  }
+
+  @media (max-width: 40rem) {
+    .plate-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .plate-cell {
+    border-top: 1px solid var(--color-border-strong);
+    padding-top: var(--spacing-3);
+  }
+
+  .plate-cell dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  .plate-cell dd {
+    margin: var(--spacing-2) 0 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--color-text-primary);
+  }
+
+  .plate-after {
+    margin-block: var(--spacing-16);
+  }
+
+  .prose-col {
+    max-width: 65ch;
+    margin-inline: auto;
+    margin-bottom: var(--spacing-24);
+  }
+
+  .prose-col :global(p) {
+    margin-block: var(--spacing-4);
+    line-height: var(--leading-relaxed);
+  }
+
+  .prose-col :global(h2) {
+    margin-top: var(--spacing-12);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .prose-col :global(ul),
+  .prose-col :global(ol) {
+    margin-block: var(--spacing-4);
+    padding-left: var(--spacing-6);
+    line-height: var(--leading-relaxed);
+  }
+
+  .prose-col :global(li) {
+    margin-block: var(--spacing-2);
+  }
+</style>

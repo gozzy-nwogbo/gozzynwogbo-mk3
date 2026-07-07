@@ -108,6 +108,12 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* Decorative layers (hero glows, full-bleed bands) may exceed the viewport;
+     clip instead of growing the document sideways. */
+  body {
+    overflow-x: clip;
+  }
+
   /* Warm dark theme — same family, tuned for AA contrast. Light is default. */
   html[data-theme="dark"] {
     color-scheme: dark;

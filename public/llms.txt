@@ -56,6 +56,7 @@ Automation & delivery: n8n, Python, cron agents and pipelines, Supabase, Astro
 ## Site Structure
 
 - /about — Full profile and expertise (markdown mirror: /about.md)
+- /experience — Full work history and roles (markdown mirror: /experience.md)
 - /projects — All projects with outcomes (markdown mirror: /projects/index.md)
 - /writing — Articles and analysis
 - /contact — How to get in touch (markdown mirror: /contact.md)

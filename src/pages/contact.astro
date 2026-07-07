@@ -2,14 +2,17 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import FAQSection from "../components/FAQSection.astro";
+import HelpAreas from "../components/HelpAreas.astro";
+import NoteForm from "../components/NoteForm.astro";
 import SpanHeader from "../components/SpanHeader.astro";
 import BridgeProgressRail from "../components/BridgeProgressRail.astro";
 import { PERSON } from "../lib/constants";
 
 const railItems = [
   { id: "reach", index: "00", label: "Reach me" },
-  { id: "help", index: "01", label: "Where I can help" },
-  { id: "faq", index: "02", label: "FAQ" },
+  { id: "note", index: "01", label: "Send a note" },
+  { id: "help", index: "02", label: "Where I can help" },
+  { id: "faq", index: "03", label: "FAQ" },
 ];
 
 const email = `${PERSON.familyName.toLowerCase()}.${PERSON.givenName.toLowerCase()}@gmail.com`;
@@ -75,27 +78,31 @@ const faq = [
       <a href="https://www.linkedin.com/in/gozzy-nwogbo/" target="_blank" rel="noopener noreferrer" class="panel-link">
         LinkedIn <span aria-hidden="true">&rarr;</span>
       </a>
+      <a href="https://github.com/gozzy-nwogbo" target="_blank" rel="noopener noreferrer" class="panel-link">
+        GitHub <span aria-hidden="true">&rarr;</span>
+      </a>
       <span class="panel-loc">Toronto, Ontario &middot; remote works</span>
     </div>
   </div>
 
-  <section class="contact-section" id="help">
-    <SpanHeader index="01" label="Where I can help">
-      Four kinds of <em>useful</em>.
+  <section class="contact-section" id="note">
+    <SpanHeader index="01" label="Send a note">
+      Or write it <em>here</em>.
     </SpanHeader>
-    <div class="help-grid">
-      {helpAreas.map((area, i) => (
-        <div class="help-item">
-          <span class="help-num">{String(i + 1).padStart(2, "0")}</span>
-          <h3 class="help-label">{area.label}</h3>
-          <p class="help-line">{area.line}</p>
-        </div>
-      ))}
+    <div class="note-wrap">
+      <NoteForm tone="light" />
     </div>
   </section>
 
+  <section class="contact-section" id="help">
+    <SpanHeader index="02" label="Where I can help">
+      Four kinds of <em>useful</em>.
+    </SpanHeader>
+    <HelpAreas areas={helpAreas} />
+  </section>
+
   <section class="contact-section" id="faq">
-    <SpanHeader index="02" label="FAQ">
+    <SpanHeader index="03" label="FAQ">
       Before you <em>write</em>.
     </SpanHeader>
     <FAQSection items={faq} hideTitle />
@@ -195,41 +202,13 @@ const faq = [
     margin-top: var(--spacing-24);
   }
 
-  .help-grid {
+  .note-wrap {
     margin-top: var(--spacing-10, 2.5rem);
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--spacing-8);
-  }
-
-  @media (max-width: 40rem) {
-    .help-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .help-item {
-    border-top: 1px solid var(--color-border-strong);
-    padding-top: var(--spacing-4);
-  }
-
-  .help-num {
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: 0.08em;
-    color: var(--color-accent);
-  }
-
-  .help-label {
-    font-size: var(--text-xl);
-    font-weight: 540;
-    letter-spacing: -0.01em;
-    margin-top: var(--spacing-3);
-  }
-
-  .help-line {
-    margin-top: var(--spacing-2);
-    font-size: var(--text-sm);
-    color: var(--color-text-secondary);
+    max-width: 42rem;
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-sm);
   }
 </style>

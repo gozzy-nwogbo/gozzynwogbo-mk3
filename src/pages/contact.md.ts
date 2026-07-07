@@ -16,6 +16,8 @@ I am open to interesting problems and good conversations across AI systems and t
 
 - Email: nwogbo.gozzy@gmail.com
 - LinkedIn: https://www.linkedin.com/in/gozzy-nwogbo/
+- GitHub: https://github.com/gozzy-nwogbo
+- A send-a-note form (role / contract / design / other) lives at /contact
 - Based in Toronto, Ontario, Canada. Remote works fine for most things.
 
 ---

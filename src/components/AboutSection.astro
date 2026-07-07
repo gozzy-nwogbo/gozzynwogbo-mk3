@@ -111,12 +111,11 @@ const vitals = [
             height="1366"
             loading="lazy"
           />
-          <figcaption class="ab-photo-cap">Generated with my own stack &middot; '26</figcaption>
         </figure>
       </Reveal>
 
       <dl class="ab-vitals">
-        <p class="ab-vitals-label">Vitals</p>
+        <p class="ab-vitals-label">At a glance</p>
         {vitals.map((v) => (
           <div class="ab-vitals-row">
             <dt>{v.term}</dt>
@@ -373,15 +372,6 @@ const vitals = [
     height: auto;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-lg);
-  }
-
-  .ab-photo-cap {
-    margin-top: var(--spacing-3);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-tertiary);
   }
 
   .ab-vitals {

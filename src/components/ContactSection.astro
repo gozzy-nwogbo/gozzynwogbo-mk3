@@ -12,6 +12,9 @@ const channels = [
   { label: "LinkedIn", value: "linkedin.com/in/gozzy-nwogbo", href: "https://www.linkedin.com/in/gozzy-nwogbo/", external: true },
   { label: "GitHub", value: "github.com/gozzy-nwogbo", href: "https://github.com/gozzy-nwogbo", external: true },
 ];
+
+// Addresses and URLs may only break before "@" or "/", never mid-token.
+const breakable = (value: string) => value.split(/(?=[@/])/);
 ---
 
 <div class="ct">
@@ -48,8 +51,8 @@ const channels = [
             rel={c.external ? "noopener noreferrer" : undefined}
           >
             <span class="ct-channel-label">{c.label}</span>
-            <span class="ct-channel-value">{c.value}</span>
             <span class="ct-channel-arrow" aria-hidden="true">{c.external ? "↗" : "→"}</span>
+            <span class="ct-channel-value">{breakable(c.value).map((seg, i) => (<>{i > 0 && <wbr />}<span class="ct-seg">{seg}</span></>))}</span>
           </a>
         ))}
       </div>
@@ -205,11 +208,13 @@ const channels = [
     color: rgba(250, 248, 245, 0.5);
   }
 
+  /* Label + arrow on the first line, the address on its own full-width
+     line beneath, so values never squeeze into a narrow column. */
   .ct-channel {
     display: grid;
-    grid-template-columns: 6rem minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: baseline;
-    gap: var(--spacing-4);
+    gap: var(--spacing-2) var(--spacing-4);
     padding: var(--spacing-4) var(--spacing-2);
     border-top: 1px solid rgba(250, 248, 245, 0.12);
     color: var(--color-text-on-dark);
@@ -230,12 +235,20 @@ const channels = [
   }
 
   .ct-channel-value {
+    grid-column: 1 / -1;
     font-family: var(--font-serif);
     font-optical-sizing: auto;
     font-size: var(--text-lg);
     font-weight: 480;
     letter-spacing: -0.005em;
-    word-break: break-all;
+    word-break: normal;
+    overflow-wrap: normal;
+  }
+
+  /* Tokens never break internally (hyphens included); lines may only
+     turn at the <wbr> marks before "@" or "/". */
+  .ct-seg {
+    white-space: nowrap;
   }
 
   .ct-channel-arrow {
@@ -245,15 +258,6 @@ const channels = [
 
   .ct-channel:hover .ct-channel-arrow {
     transform: translate(2px, -1px);
-  }
-
-  @media (max-width: 34rem) {
-    .ct-channel {
-      grid-template-columns: minmax(0, 1fr) auto;
-    }
-    .ct-channel-label {
-      grid-column: 1 / -1;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -9,7 +9,7 @@ const year = new Date().getFullYear();
     <div>
       <p class="footer-name">{PERSON.name}<span class="footer-dot" aria-hidden="true"></span></p>
       <p class="text-sm text-[var(--color-text-tertiary)] mt-1">{PERSON.jobTitle}</p>
-      <p class="footer-credit">This site was built from my own knowledge corpus.</p>
+      <p class="footer-credit">This site was built from my own knowledge corpus. Its structure was inspired by James Breedlove's portfolio, with thanks.</p>
     </div>
     <div class="flex gap-6">
       {SOCIAL_LINKS.map((link) => (
@@ -69,9 +69,11 @@ const year = new Date().getFullYear();
 
   .footer-credit {
     margin-top: var(--spacing-4);
+    max-width: 44ch;
     font-family: var(--font-mono);
     font-size: var(--text-xs);
     letter-spacing: 0.06em;
+    line-height: 1.7;
     color: var(--color-text-tertiary);
   }
 </style>

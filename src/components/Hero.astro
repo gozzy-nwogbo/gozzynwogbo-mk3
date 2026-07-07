@@ -79,10 +79,16 @@ import BridgeSpan from "./BridgeSpan.astro";
     padding-block: clamp(3.5rem, 10vh, 6rem) 0;
   }
 
-  /* The two banks as ambient light: terracotta upstream, teal downstream. */
+  /* The two banks as ambient light: terracotta upstream, teal downstream.
+     Painted as radial gradients that reach full transparency well inside
+     their layer, so there is never a clipped edge or visible seam; the
+     container bleeds past the hero top and bottom. */
   .hero-atmo {
     position: absolute;
-    inset: -20% 0;
+    top: -30%;
+    bottom: -45%;
+    left: calc(50% - 50vw);
+    width: 100vw;
     z-index: -1;
     pointer-events: none;
     overflow: hidden;
@@ -90,47 +96,46 @@ import BridgeSpan from "./BridgeSpan.astro";
 
   .atmo-blob {
     position: absolute;
-    border-radius: 999px;
-    filter: blur(90px);
+    inset: -15%;
     will-change: transform, translate;
   }
 
   .atmo-bank-a {
-    width: clamp(18rem, 42vw, 34rem);
-    height: clamp(18rem, 42vw, 34rem);
-    top: 4%;
-    left: -4%;
-    background: var(--color-accent);
-    opacity: 0.11;
+    background: radial-gradient(
+      ellipse 55% 42% at 16% 24%,
+      var(--color-accent),
+      transparent 68%
+    );
+    opacity: 0.1;
     animation: atmo-drift-a 26s ease-in-out infinite alternate;
   }
 
   .atmo-bank-b {
-    width: clamp(16rem, 36vw, 30rem);
-    height: clamp(16rem, 36vw, 30rem);
-    top: 30%;
-    right: -6%;
-    background: var(--color-interactive-bright);
-    opacity: 0.08;
+    background: radial-gradient(
+      ellipse 52% 40% at 82% 56%,
+      var(--color-interactive-bright),
+      transparent 68%
+    );
+    opacity: 0.07;
     animation: atmo-drift-b 32s ease-in-out infinite alternate;
   }
 
   :global(html[data-theme="dark"]) .atmo-bank-a {
-    opacity: 0.14;
+    opacity: 0.12;
   }
 
   :global(html[data-theme="dark"]) .atmo-bank-b {
-    opacity: 0.1;
+    opacity: 0.09;
   }
 
   @keyframes atmo-drift-a {
     from { transform: translate(0, 0) scale(1); }
-    to   { transform: translate(4rem, 2.5rem) scale(1.12); }
+    to   { transform: translate(3rem, 2rem) scale(1.08); }
   }
 
   @keyframes atmo-drift-b {
-    from { transform: translate(0, 0) scale(1.08); }
-    to   { transform: translate(-3.5rem, -2rem) scale(0.96); }
+    from { transform: translate(0, 0) scale(1.06); }
+    to   { transform: translate(-2.5rem, -1.5rem) scale(0.98); }
   }
 
   @media (prefers-reduced-motion: reduce) {

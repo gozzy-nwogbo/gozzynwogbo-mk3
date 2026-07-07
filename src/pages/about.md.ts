@@ -7,7 +7,7 @@ A hybrid operator: a business head with frontier-AI hands.
 
 ${PERSON.description}
 
-## Vitals
+## At a glance
 
 - Currently: Building Atomos and independent AI systems
 - Previously: Loop Tech Systems, Co-founder, Head of Strategy & Expansion (2023 to 2025)

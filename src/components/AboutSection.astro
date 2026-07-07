@@ -115,7 +115,7 @@ const vitals = [
       </Reveal>
 
       <dl class="ab-vitals">
-        <p class="ab-vitals-label">At a glance</p>
+        <p class="ab-vitals-label">At a <span class="ab-vitals-accent">glance</span></p>
         {vitals.map((v) => (
           <div class="ab-vitals-row">
             <dt>{v.term}</dt>
@@ -389,6 +389,10 @@ const vitals = [
     font-size: var(--text-xl);
     font-weight: 540;
     padding: var(--spacing-4) var(--spacing-6) var(--spacing-3);
+  }
+
+  .ab-vitals-accent {
+    color: var(--color-accent);
   }
 
   .ab-vitals-row {

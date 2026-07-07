@@ -1,0 +1,268 @@
+---
+// 06 · Contact & availability: the closing panel. One big inverted plate
+// holding the note form and the correspondence column, breedlove structure
+// on our coffee skin.
+import NoteForm from "./NoteForm.astro";
+import BridgeSpan from "./BridgeSpan.astro";
+
+const email = "nwogbo.gozzy@gmail.com";
+
+const channels = [
+  { label: "Email", value: email, href: `mailto:${email}`, external: false },
+  { label: "LinkedIn", value: "linkedin.com/in/gozzy-nwogbo", href: "https://www.linkedin.com/in/gozzy-nwogbo/", external: true },
+  { label: "GitHub", value: "github.com/gozzy-nwogbo", href: "https://github.com/gozzy-nwogbo", external: true },
+];
+---
+
+<div class="ct">
+  <div class="ct-panel">
+    <div class="ct-header">
+      <span class="ct-index">06</span>
+      <BridgeSpan class="ct-span" />
+      <span class="ct-label">Contact &amp; availability</span>
+    </div>
+
+    <h2 class="ct-title">Let&rsquo;s build <em>something real</em>.</h2>
+
+    <p class="ct-lede">
+      Open to founding and greenfield AI roles, forward-deployed and solutions
+      engineering, and AI transformation work. Based in Toronto, remote works
+      fine. Say what you are working on and you will get a straight answer.
+    </p>
+
+    <div class="ct-grid">
+      <div class="ct-form">
+        <NoteForm tone="dark" />
+      </div>
+
+      <div class="ct-channels">
+        <div class="ct-channels-head">
+          <p class="ct-channels-kicker">&para; Correspondence</p>
+          <p class="ct-channels-count">Three channels</p>
+        </div>
+        {channels.map((c) => (
+          <a
+            class="ct-channel"
+            href={c.href}
+            target={c.external ? "_blank" : undefined}
+            rel={c.external ? "noopener noreferrer" : undefined}
+          >
+            <span class="ct-channel-label">{c.label}</span>
+            <span class="ct-channel-value">{c.value}</span>
+            <span class="ct-channel-arrow" aria-hidden="true">{c.external ? "↗" : "→"}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .ct {
+    margin-block: var(--spacing-8) var(--spacing-16);
+  }
+
+  .ct-panel {
+    background-color: var(--color-surface-invert);
+    color: var(--color-text-on-dark);
+    border-radius: var(--radius-lg);
+    padding: clamp(2rem, 5vw, 4rem);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Quiet bank glows in the panel corners: terracotta left, teal right. */
+  .ct-panel::before,
+  .ct-panel::after {
+    content: "";
+    position: absolute;
+    width: 24rem;
+    height: 24rem;
+    border-radius: 999px;
+    filter: blur(90px);
+    pointer-events: none;
+    opacity: 0.16;
+  }
+
+  .ct-panel::before {
+    background: var(--color-accent);
+    top: -10rem;
+    left: -8rem;
+  }
+
+  .ct-panel::after {
+    background: var(--color-interactive-bright);
+    bottom: -12rem;
+    right: -8rem;
+    opacity: 0.1;
+  }
+
+  .ct-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-4);
+    position: relative;
+    z-index: 1;
+  }
+
+  .ct-index {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+  }
+
+  .ct-header :global(.ct-span) {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ct-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(250, 248, 245, 0.6);
+  }
+
+  .ct-title {
+    position: relative;
+    z-index: 1;
+    margin: var(--spacing-10, 2.5rem) 0 0;
+    font-size: clamp(2.5rem, 5.6vw, 4.5rem);
+    font-weight: 520;
+    letter-spacing: -0.015em;
+    line-height: 1.05;
+    color: var(--color-text-on-dark);
+  }
+
+  .ct-title em {
+    font-style: italic;
+    font-weight: 480;
+    color: var(--color-accent);
+  }
+
+  .ct-lede {
+    position: relative;
+    z-index: 1;
+    margin-top: var(--spacing-6);
+    max-width: 56ch;
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: rgba(250, 248, 245, 0.75);
+  }
+
+  .ct-grid {
+    position: relative;
+    z-index: 1;
+    margin-top: var(--spacing-12);
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: var(--spacing-8);
+    align-items: start;
+  }
+
+  @media (max-width: 56rem) {
+    .ct-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .ct-form,
+  .ct-channels {
+    border: 1px dashed rgba(250, 248, 245, 0.2);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.5rem, 3vw, 2.25rem);
+  }
+
+  .ct-channels {
+    display: grid;
+    gap: var(--spacing-2);
+    align-content: start;
+  }
+
+  .ct-channels-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--spacing-4);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .ct-channels-kicker {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(250, 248, 245, 0.72);
+  }
+
+  .ct-channels-count {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(250, 248, 245, 0.5);
+  }
+
+  .ct-channel {
+    display: grid;
+    grid-template-columns: 6rem minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: var(--spacing-4);
+    padding: var(--spacing-4) var(--spacing-2);
+    border-top: 1px solid rgba(250, 248, 245, 0.12);
+    color: var(--color-text-on-dark);
+    transition: background-color var(--transition-fast);
+  }
+
+  .ct-channel:hover {
+    background-color: rgba(250, 248, 245, 0.05);
+    color: var(--color-text-on-dark);
+  }
+
+  .ct-channel-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(250, 248, 245, 0.5);
+  }
+
+  .ct-channel-value {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-size: var(--text-lg);
+    font-weight: 480;
+    letter-spacing: -0.005em;
+    word-break: break-all;
+  }
+
+  .ct-channel-arrow {
+    color: var(--color-accent);
+    transition: transform var(--transition-fast);
+  }
+
+  .ct-channel:hover .ct-channel-arrow {
+    transform: translate(2px, -1px);
+  }
+
+  @media (max-width: 34rem) {
+    .ct-channel {
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+    .ct-channel-label {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ct-channel,
+    .ct-channel-arrow {
+      transition: none;
+    }
+    .ct-channel:hover .ct-channel-arrow {
+      transform: none;
+    }
+  }
+</style>

@@ -1,6 +1,5 @@
 ---
 import ProjectCard from "./ProjectCard.astro";
-import ProjectVisual from "./ProjectVisual.astro";
 import SpanHeader from "./SpanHeader.astro";
 import type { CollectionEntry } from "astro:content";
 
@@ -9,10 +8,17 @@ interface Props {
 }
 const { projects } = Astro.props;
 const [flagship, ...rest] = projects;
+
+// Generated motif imagery per project where a correlating image exists;
+// the remaining cards fall back to the site's own procedural drawings.
+const cardImages: Record<string, string> = {
+  obscura: "/projects/obscura-motif.jpg",
+  scribe: "/projects/atomos-motif.jpg",
+};
 ---
 
 <section class="bench">
-  <SpanHeader index="05" label="Selected work">
+  <SpanHeader index="04" label="Selected work">
     Work that <em>runs</em>.
   </SpanHeader>
 
@@ -25,7 +31,16 @@ const [flagship, ...rest] = projects;
         <p class="feature-desc">{flagship.data.description}</p>
         <span class="feature-link">Read the case study <span aria-hidden="true">&rarr;</span></span>
       </div>
-      <ProjectVisual slug={flagship.id} class="feature-visual" />
+      <figure class="feature-visual feature-photo">
+        <img
+          src="/projects/atomos-motif.jpg"
+          alt="Generated print-style motif of a knowledge graph: linked terracotta nodes across a cream page"
+          loading="lazy"
+          width="1600"
+          height="1200"
+        />
+        <figcaption class="feature-photo-cap">Knowledge-graph motif &middot; generated in-house</figcaption>
+      </figure>
     </a>
   )}
 
@@ -49,6 +64,7 @@ const [flagship, ...rest] = projects;
           philosophy={project.data.philosophy}
           metric={{ value: project.data.metrics[0].value, label: project.data.metrics[0].label }}
           technologies={project.data.technologies.slice(0, 4)}
+          image={cardImages[project.id]}
         />
       </div>
     ))}
@@ -122,6 +138,39 @@ const [flagship, ...rest] = projects;
   .feature :global(.feature-visual) {
     border-radius: 0;
     min-height: 100%;
+  }
+
+  .feature-photo {
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-surface-subtle);
+  }
+
+  .feature-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--transition-slow);
+  }
+
+  .feature:hover .feature-photo img {
+    transform: scale(1.03);
+  }
+
+  .feature-photo-cap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--spacing-3) var(--spacing-4);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    background: linear-gradient(180deg, transparent, var(--color-surface-subtle));
   }
 
   .feature-meta {
@@ -235,5 +284,14 @@ const [flagship, ...rest] = projects;
     margin-top: var(--spacing-6);
     font-size: var(--text-sm);
     font-weight: 500;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .feature-photo img {
+      transition: none;
+    }
+    .feature:hover .feature-photo img {
+      transform: none;
+    }
   }
 </style>

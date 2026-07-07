@@ -5,6 +5,11 @@ import BridgeSpan from "./BridgeSpan.astro";
 ---
 
 <section class="hero">
+  <div class="hero-atmo" aria-hidden="true" data-hero-atmo>
+    <span class="atmo-blob atmo-bank-a"></span>
+    <span class="atmo-blob atmo-bank-b"></span>
+  </div>
+
   <div class="hero-kicker enter" style="--enter-delay: 0ms">
     <hr class="bridge-rule kicker-rule" />
     <p class="kicker-text">
@@ -41,9 +46,98 @@ import BridgeSpan from "./BridgeSpan.astro";
   </div>
 </section>
 
+<script>
+  // Cursor-reactive drift for the two bank glows: a whisper of parallax,
+  // JS-armed only, lerped so it never jumps. Static floor: the glows sit
+  // still and the CSS drift below carries the ambient motion.
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const atmo = document.querySelector<HTMLElement>("[data-hero-atmo]");
+  if (!reduced && atmo && matchMedia("(pointer: fine)").matches) {
+    const blobs = atmo.querySelectorAll<HTMLElement>(".atmo-blob");
+    let tx = 0, ty = 0, x = 0, y = 0, raf = 0;
+    const tick = () => {
+      x += (tx - x) * 0.06;
+      y += (ty - y) * 0.06;
+      blobs.forEach((b, i) => {
+        const dir = i === 0 ? 1 : -1;
+        b.style.translate = `${x * dir}px ${y * dir}px`;
+      });
+      if (Math.abs(tx - x) + Math.abs(ty - y) > 0.1) raf = requestAnimationFrame(tick);
+      else raf = 0;
+    };
+    window.addEventListener("pointermove", (e) => {
+      tx = (e.clientX / window.innerWidth - 0.5) * 36;
+      ty = (e.clientY / window.innerHeight - 0.5) * 24;
+      if (!raf) raf = requestAnimationFrame(tick);
+    }, { passive: true });
+  }
+</script>
+
 <style>
   .hero {
+    position: relative;
     padding-block: clamp(3.5rem, 10vh, 6rem) 0;
+  }
+
+  /* The two banks as ambient light: terracotta upstream, teal downstream. */
+  .hero-atmo {
+    position: absolute;
+    inset: -20% -15%;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .atmo-blob {
+    position: absolute;
+    border-radius: 999px;
+    filter: blur(90px);
+    will-change: transform, translate;
+  }
+
+  .atmo-bank-a {
+    width: clamp(18rem, 42vw, 34rem);
+    height: clamp(18rem, 42vw, 34rem);
+    top: 4%;
+    left: -4%;
+    background: var(--color-accent);
+    opacity: 0.11;
+    animation: atmo-drift-a 26s ease-in-out infinite alternate;
+  }
+
+  .atmo-bank-b {
+    width: clamp(16rem, 36vw, 30rem);
+    height: clamp(16rem, 36vw, 30rem);
+    top: 30%;
+    right: -6%;
+    background: var(--color-interactive-bright);
+    opacity: 0.08;
+    animation: atmo-drift-b 32s ease-in-out infinite alternate;
+  }
+
+  :global(html[data-theme="dark"]) .atmo-bank-a {
+    opacity: 0.14;
+  }
+
+  :global(html[data-theme="dark"]) .atmo-bank-b {
+    opacity: 0.1;
+  }
+
+  @keyframes atmo-drift-a {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(4rem, 2.5rem) scale(1.12); }
+  }
+
+  @keyframes atmo-drift-b {
+    from { transform: translate(0, 0) scale(1.08); }
+    to   { transform: translate(-3.5rem, -2rem) scale(0.96); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .atmo-bank-a,
+    .atmo-bank-b {
+      animation: none;
+    }
   }
 
   .hero-kicker {

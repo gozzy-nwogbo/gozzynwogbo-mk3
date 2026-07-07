@@ -1,0 +1,441 @@
+---
+// 01 · About: the resume zone. Disciplines up front for the scanning
+// recruiter, first-person story beside the photo + vitals, the
+// through-the-years timeline, and the credibility bands closing it out.
+import SpanHeader from "./SpanHeader.astro";
+import CredibilityStrip from "./CredibilityStrip.astro";
+import AISummary from "./AISummary.astro";
+import Reveal from "./Reveal.astro";
+import { PERSON } from "../lib/constants";
+
+const disciplines = [
+  "Business model analysis",
+  "AI transformation strategy",
+  "AI systems design",
+  "Agent orchestration",
+  "Retrieval & knowledge systems",
+  "n8n",
+  "Python",
+  "LangChain",
+  "Supabase / pgvector",
+];
+
+const timeline = [
+  { year: "'20", line: "Yale University · research on incentive design" },
+  { year: "'22", line: "MI-C3 International · software engineer" },
+  { year: "'23", line: "Loop Tech Systems · co-founder, strategy & expansion" },
+  { year: "'25", line: "Ivey Business School · MSc + IDIS strategy consulting" },
+  { year: "now", line: "Building Atomos and independent AI systems", live: true },
+];
+
+const vitals = [
+  { term: "Currently", detail: "Building Atomos and independent AI systems" },
+  { term: "Previously", detail: "Loop Tech Systems, Co-founder, Head of Strategy & Expansion (2023 to 2025)" },
+  { term: "Based in", detail: "Toronto, Ontario, Canada" },
+  { term: "Open to", detail: "Founding and greenfield AI roles, forward-deployed and solutions engineering, AI transformation" },
+];
+---
+
+<div class="ab">
+  <SpanHeader index="01" label="About" />
+
+  <h2 class="ab-title">
+    A business head<br />with <em>frontier-AI</em> hands.
+  </h2>
+
+  <div class="ab-disc" role="list" aria-label="Disciplines">
+    <span class="ab-disc-lead" aria-hidden="true">&rarr; Disciplines</span>
+    {disciplines.map((d, i) => (
+      <>
+        {i > 0 && <span class="ab-disc-sep" aria-hidden="true">&middot;</span>}
+        <span class="ab-disc-item" role="listitem">{d}</span>
+      </>
+    ))}
+  </div>
+
+  <div class="ab-grid">
+    <div class="ab-story">
+      <p class="ab-p ab-p-first">
+        I came at AI from business, not computer science. Business school taught
+        me how to take a messy organization apart on paper: what it sells, where
+        the margin lives, which problems are worth solving and for whom. That
+        training runs underneath every system I build.
+      </p>
+      <p class="ab-p">
+        Two years ago these tools stopped being toys and became amplifiers, so I
+        went deep while the frontier was still forming. Since then I have built
+        daily: knowledge systems, agents, automation pipelines, real
+        deliverables for real organizations. The systems I rely on every day
+        were built the same way, which is why I can show them instead of
+        describing them.
+      </p>
+      <p class="ab-p">
+        That combination is rare in one person, and it is the whole point. I sit
+        between what AI can do and how organizations actually work, and I close
+        that gap myself instead of handing off a requirements document and
+        hoping.
+      </p>
+      <p class="ab-more">
+        <a href="/about" class="ab-more-btn">The longer story <span aria-hidden="true">&rarr;</span></a>
+      </p>
+
+      <div class="ab-name">
+        <span class="ab-name-slash" aria-hidden="true">/</span>
+        <span class="ab-name-text">{PERSON.name}</span>
+        <span class="ab-name-role">&middot; AI systems builder</span>
+      </div>
+
+      <div class="ab-years">
+        <p class="ab-years-label">Through the years</p>
+        <ol class="ab-years-list">
+          {timeline.map((t, i) => (
+            <Reveal delay={i * 90}>
+              <li class="ab-year">
+                <span class:list={["ab-year-dot", t.live && "is-live"]} aria-hidden="true"></span>
+                <span class="ab-year-when">{t.year}</span>
+                <span class="ab-year-line">{t.line}</span>
+              </li>
+            </Reveal>
+          ))}
+        </ol>
+      </div>
+    </div>
+
+    <div class="ab-side">
+      <Reveal>
+        <figure class="ab-photo">
+          <img
+            src="/about/gozzy-basketball.jpg"
+            alt={`${PERSON.name} rising for a layup on an outdoor court`}
+            width="1100"
+            height="1366"
+            loading="lazy"
+          />
+          <figcaption class="ab-photo-cap">Generated with my own stack &middot; '26</figcaption>
+        </figure>
+      </Reveal>
+
+      <dl class="ab-vitals">
+        <p class="ab-vitals-label">Vitals</p>
+        {vitals.map((v) => (
+          <div class="ab-vitals-row">
+            <dt>{v.term}</dt>
+            <dd>{v.detail}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </div>
+
+  <AISummary>
+    <p>
+      Gozzy Nwogbo is an AI systems builder based in Toronto, Canada. He holds an MSc in Digital
+      Management from Ivey Business School and a BSc in Business Administration from Boston
+      University, concentrating in Management Strategy and Management Information Systems.
+      He builds AI systems that give organizations leverage they do not have yet: knowledge systems,
+      automations, and agents made to run inside a real business. His work spans a personal knowledge
+      OS holding 11,000+ entries across 59 domains, an automated ad pipeline shipped end to end, a
+      bid and investment screening engine for a six-country infrastructure group, and a catalog of
+      483 automation workflows. He came at AI from business, and the business lens is what makes his
+      systems useful.
+    </p>
+  </AISummary>
+
+  <CredibilityStrip />
+</div>
+
+<style>
+  .ab :global(aside[role="note"]) {
+    margin-top: var(--spacing-12);
+    margin-bottom: 0;
+  }
+
+  .ab-title {
+    margin: var(--spacing-8) 0 0;
+    font-size: clamp(2.5rem, 5.4vw, 4.25rem);
+    font-weight: 540;
+    letter-spacing: -0.015em;
+    line-height: 1.06;
+  }
+
+  .ab-title em {
+    font-style: italic;
+    font-weight: 480;
+    color: var(--color-accent);
+  }
+
+  .ab-disc {
+    margin-top: var(--spacing-10, 2.5rem);
+    padding-block: var(--spacing-4);
+    border-block: 1px solid var(--color-border);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--spacing-3) var(--spacing-4);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .ab-disc-lead {
+    color: var(--color-accent);
+    margin-right: var(--spacing-4);
+  }
+
+  .ab-disc-item {
+    color: var(--color-text-secondary);
+    transition: color var(--transition-fast);
+  }
+
+  .ab-disc-item:hover {
+    color: var(--color-text-primary);
+  }
+
+  .ab-disc-sep {
+    color: var(--color-text-tertiary);
+  }
+
+  .ab-grid {
+    margin-top: var(--spacing-12);
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: var(--spacing-16);
+    align-items: start;
+  }
+
+  @media (max-width: 56rem) {
+    .ab-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-10, 2.5rem);
+    }
+  }
+
+  .ab-story {
+    max-width: 58ch;
+  }
+
+  .ab-p {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--color-text-secondary);
+  }
+
+  .ab-p + .ab-p {
+    margin-top: var(--spacing-6);
+  }
+
+  /* The opening paragraph carries the terracotta pier, like a drop cap. */
+  .ab-p-first {
+    color: var(--color-text-primary);
+    border-left: 3px solid var(--color-accent);
+    padding-left: var(--spacing-6);
+  }
+
+  .ab-more {
+    margin-top: var(--spacing-8);
+  }
+
+  .ab-more-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: 0.75rem 1.5rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-interactive);
+    color: var(--color-interactive);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    line-height: 1;
+    transition:
+      background-color var(--transition-fast),
+      color var(--transition-fast),
+      border-color var(--transition-fast);
+  }
+
+  .ab-more-btn:hover {
+    background-color: var(--color-interactive-subtle);
+    color: var(--color-interactive-hover);
+    border-color: var(--color-interactive-hover);
+  }
+
+  .ab-name {
+    margin-top: var(--spacing-12);
+    padding-top: var(--spacing-6);
+    border-top: 1px dashed var(--color-border-strong);
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-3);
+  }
+
+  .ab-name-slash {
+    color: var(--color-accent);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--text-2xl);
+  }
+
+  .ab-name-text {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-style: italic;
+    font-size: var(--text-3xl);
+    font-weight: 540;
+    letter-spacing: -0.01em;
+    color: var(--color-text-primary);
+  }
+
+  .ab-name-role {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  .ab-years {
+    margin-top: var(--spacing-8);
+  }
+
+  .ab-years-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  .ab-years-list {
+    margin: var(--spacing-6) 0 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+  }
+
+  /* The deck, turned vertical: one line through the years. */
+  .ab-years-list::before {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 0.5em;
+    bottom: 0.75em;
+    width: 1px;
+    background: linear-gradient(180deg, var(--color-accent), var(--color-interactive));
+    opacity: 0.5;
+  }
+
+  .ab-year {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2.75rem minmax(0, 1fr);
+    gap: var(--spacing-4);
+    padding: var(--spacing-3) 0 var(--spacing-3) var(--spacing-6);
+  }
+
+  .ab-year-dot {
+    position: absolute;
+    left: 0;
+    top: 1.15em;
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background-color: var(--color-accent);
+  }
+
+  .ab-year-dot.is-live {
+    background-color: var(--color-interactive-bright);
+  }
+
+  .ab-year-when {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+  }
+
+  .ab-year-line {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+  }
+
+  .ab-side {
+    display: grid;
+    gap: var(--spacing-6);
+  }
+
+  .ab-photo {
+    margin: 0;
+  }
+
+  .ab-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .ab-photo-cap {
+    margin-top: var(--spacing-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+  }
+
+  .ab-vitals {
+    margin: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .ab-vitals-label {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-size: var(--text-xl);
+    font-weight: 540;
+    padding: var(--spacing-4) var(--spacing-6) var(--spacing-3);
+  }
+
+  .ab-vitals-row {
+    display: grid;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    gap: var(--spacing-4);
+    padding: var(--spacing-4) var(--spacing-6);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .ab-vitals-row dt {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    padding-top: 0.2em;
+  }
+
+  .ab-vitals-row dd {
+    margin: 0;
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--color-text-primary);
+  }
+
+  @media (max-width: 40rem) {
+    .ab-vitals-row {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ab-disc-item,
+    .ab-more-btn {
+      transition: none;
+    }
+  }
+</style>

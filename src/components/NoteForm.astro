@@ -1,0 +1,334 @@
+---
+// Send-a-note form. UI for the inquiry flow; the working backend is a
+// fast-follow. For now the note opens in the sender's own mail app,
+// pre-addressed and pre-filled: a real path, nothing fabricated.
+// No-JS floor: the form posts to mailto: as plain text.
+interface Props {
+  /** "dark" when the form sits on the inverted contact panel. */
+  tone?: "light" | "dark";
+}
+const { tone = "dark" } = Astro.props;
+
+const email = "nwogbo.gozzy@gmail.com";
+const types = ["Role", "Contract", "Design", "Other"];
+---
+
+<form
+  class:list={["note", `note-${tone}`]}
+  method="post"
+  action={`mailto:${email}`}
+  enctype="text/plain"
+  data-note-form
+  data-email={email}
+>
+  <div class="note-head">
+    <p class="note-kicker">&para; Send a note</p>
+    <p class="note-mode">Direct to my inbox</p>
+  </div>
+
+  <fieldset class="note-types">
+    <legend class="sr-only">What is this about?</legend>
+    {types.map((t, i) => (
+      <label class="note-type">
+        <input type="radio" name="Inquiry" value={t} checked={i === 0} />
+        <span>{t}</span>
+      </label>
+    ))}
+  </fieldset>
+
+  <div class="note-row">
+    <label class="note-field">
+      <span class="note-label">Name</span>
+      <input type="text" name="Name" autocomplete="name" required />
+    </label>
+    <label class="note-field">
+      <span class="note-label">Email</span>
+      <input type="email" name="Email" autocomplete="email" required />
+    </label>
+  </div>
+
+  <label class="note-field">
+    <span class="note-label">Note</span>
+    <textarea
+      name="Note"
+      rows="5"
+      required
+      placeholder="Tell me about the role, the team, or the problem you want built against."></textarea>
+  </label>
+
+  <div class="note-actions">
+    <button type="submit" class="note-send">Send the note <span aria-hidden="true">&rarr;</span></button>
+    <button type="button" class="note-copy" data-copy-email hidden>Copy email</button>
+    <a class="note-copy" href={`mailto:${email}`} data-mail-fallback>Email directly</a>
+  </div>
+
+  <p class="note-stub">
+    The working inbox pipeline is on its way. Until then this opens the note in
+    your own mail app, already addressed. Direct email works just as well.
+  </p>
+</form>
+
+<script>
+  // Enhancement: compose the mailto from the fields so the note arrives
+  // structured; swap the plain mail link for a copy-email button.
+  for (const form of document.querySelectorAll<HTMLFormElement>("[data-note-form]")) {
+    const email = form.dataset.email ?? "";
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const type = String(data.get("Inquiry") ?? "Other");
+      const name = String(data.get("Name") ?? "").trim();
+      const from = String(data.get("Email") ?? "").trim();
+      const note = String(data.get("Note") ?? "").trim();
+      const subject = `${type} inquiry from ${name || "your site"}`;
+      const body = `${note}\n\nFrom: ${name}\nReply to: ${from}`;
+      window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+
+    const copy = form.querySelector<HTMLButtonElement>("[data-copy-email]");
+    const fallback = form.querySelector<HTMLAnchorElement>("[data-mail-fallback]");
+    if (copy && navigator.clipboard) {
+      copy.hidden = false;
+      if (fallback) fallback.hidden = true;
+      copy.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(email);
+          copy.textContent = "Copied";
+          setTimeout(() => (copy.textContent = "Copy email"), 1800);
+        } catch {
+          copy.textContent = email;
+        }
+      });
+    }
+  }
+</script>
+
+<style>
+  .note {
+    --note-border: var(--color-border);
+    --note-ink: var(--color-text-primary);
+    --note-muted: var(--color-text-secondary);
+    --note-faint: var(--color-text-tertiary);
+    --note-field-bg: var(--color-surface);
+    display: grid;
+    gap: var(--spacing-6);
+  }
+
+  .note-dark {
+    --note-border: rgba(250, 248, 245, 0.16);
+    --note-ink: var(--color-text-on-dark);
+    --note-muted: rgba(250, 248, 245, 0.72);
+    --note-faint: rgba(250, 248, 245, 0.5);
+    --note-field-bg: rgba(250, 248, 245, 0.04);
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .note-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--spacing-4);
+  }
+
+  .note-kicker {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--note-muted);
+  }
+
+  .note-mode {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--note-faint);
+  }
+
+  .note-types {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-2);
+  }
+
+  .note-type input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .note-type span {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--note-border);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--note-muted);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast), background-color var(--transition-fast);
+  }
+
+  .note-type input:checked + span {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  .note-type input:focus-visible + span {
+    outline: 2px solid var(--color-interactive);
+    outline-offset: 2px;
+  }
+
+  .note-type:hover span {
+    border-color: var(--color-accent);
+  }
+
+  .note-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--spacing-4);
+  }
+
+  @media (max-width: 34rem) {
+    .note-row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .note-field {
+    display: grid;
+    gap: var(--spacing-2);
+  }
+
+  .note-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--note-faint);
+  }
+
+  .note-field input,
+  .note-field textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--note-border);
+    border-radius: var(--radius-md);
+    background-color: var(--note-field-bg);
+    color: var(--note-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    transition: border-color var(--transition-fast);
+  }
+
+  .note-field textarea {
+    resize: vertical;
+    min-height: 8rem;
+  }
+
+  .note-field input:focus-visible,
+  .note-field textarea:focus-visible {
+    outline: none;
+    border-color: var(--color-interactive);
+    box-shadow: 0 0 0 1px var(--color-interactive);
+  }
+
+  .note-field ::placeholder {
+    color: var(--note-faint);
+  }
+
+  .note-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-4);
+  }
+
+  .note-send {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    padding: 0.875rem 1.75rem;
+    border: 0;
+    border-radius: 999px;
+    background-color: var(--color-accent);
+    color: var(--color-on-accent);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    font-weight: 500;
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .note-send:hover {
+    background-color: var(--color-accent-hover);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .note-send:focus-visible {
+    outline: 2px solid var(--color-interactive);
+    outline-offset: 2px;
+  }
+
+  .note-copy {
+    padding: 0.875rem 1.5rem;
+    border: 1px solid var(--note-border);
+    border-radius: 999px;
+    background: none;
+    color: var(--note-muted);
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    line-height: 1;
+    cursor: pointer;
+    transition: border-color var(--transition-fast), color var(--transition-fast);
+  }
+
+  .note-copy:hover {
+    border-color: var(--color-interactive);
+    color: var(--color-interactive);
+  }
+
+  .note-stub {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+    color: var(--note-faint);
+    max-width: 52ch;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .note-type span,
+    .note-field input,
+    .note-field textarea,
+    .note-send,
+    .note-copy {
+      transition: none;
+    }
+    .note-send:hover {
+      transform: none;
+    }
+  }
+</style>

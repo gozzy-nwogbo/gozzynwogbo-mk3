@@ -1,17 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
-import CredibilityStrip from "../components/CredibilityStrip.astro";
-import ProofStats from "../components/ProofStats.astro";
-import NowDigest from "../components/NowDigest.astro";
+import MovingBanner from "../components/MovingBanner.astro";
+import AboutSection from "../components/AboutSection.astro";
+import Experience from "../components/Experience.astro";
+import ProofCharge from "../components/ProofCharge.astro";
 import ProjectBench from "../components/ProjectBench.astro";
 import CompetencyGrid from "../components/CompetencyGrid.astro";
-import Experience from "../components/Experience.astro";
-import VisualStudies from "../components/VisualStudies.astro";
+import ContactSection from "../components/ContactSection.astro";
 import SpanHeader from "../components/SpanHeader.astro";
-import AISummary from "../components/AISummary.astro";
 import BridgeProgressRail from "../components/BridgeProgressRail.astro";
-import { SITE, PERSON } from "../lib/constants";
+import { SITE } from "../lib/constants";
 import { generatePersonSchema } from "../schemas/person";
 import { generateWebSiteSchema } from "../schemas/website";
 import { getCollection } from "astro:content";
@@ -21,14 +20,12 @@ const projects = (await getCollection("projects"))
   .sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 
 const railItems = [
-  { id: "record", index: "01", label: "The record" },
-  { id: "numbers", index: "02", label: "The numbers" },
-  { id: "now", index: "03", label: "Now" },
-  { id: "experience", index: "04", label: "Experience" },
-  { id: "work", index: "05", label: "Selected work" },
-  { id: "bring", index: "06", label: "What I bring" },
-  { id: "studies", index: "07", label: "Visual studies" },
-  { id: "about", index: "08", label: "About" },
+  { id: "about", index: "01", label: "About" },
+  { id: "experience", index: "02", label: "Experience" },
+  { id: "proof", index: "03", label: "By the work" },
+  { id: "work", index: "04", label: "Selected work" },
+  { id: "bring", index: "05", label: "What I bring" },
+  { id: "contact", index: "06", label: "Contact" },
 ];
 
 const schemas = [generateWebSiteSchema(), generatePersonSchema()];
@@ -40,189 +37,39 @@ const schemas = [generateWebSiteSchema(), generatePersonSchema()];
   <!-- Hero -->
   <Hero />
 
-  <!-- 01 · Credibility -->
-  <section class="pt-12 scroll-mt-16" id="record">
-    <SpanHeader index="01" label="The record" />
-    <CredibilityStrip />
+  <!-- What's moving: unnumbered, hangs straight off the hero's bridge deck -->
+  <MovingBanner />
+
+  <!-- 01 · About -->
+  <section class="pt-8 pb-12 scroll-mt-16" id="about">
+    <AboutSection />
   </section>
 
-  <!-- 02 · Stats -->
-  <section class="pt-8 pb-12" id="numbers">
-    <SpanHeader index="02" label="The numbers">
-      Selected <em>proof</em>.
-    </SpanHeader>
-    <ProofStats />
-  </section>
-
-  <!-- 03 · Now -->
-  <section class="pt-8 pb-12 scroll-mt-16" id="now">
-    <SpanHeader index="03" label="Now">
-      What is moving <em>this month</em>.
-    </SpanHeader>
-    <NowDigest />
-  </section>
-
-  <!-- 04 · Experience -->
+  <!-- 02 · Experience -->
   <section class="pt-8 pb-12 scroll-mt-16" id="experience">
-    <SpanHeader index="04" label="Experience">
+    <SpanHeader index="02" label="Experience">
       Laying the foundation of a <em>hybrid</em> practice.
     </SpanHeader>
     <Experience />
   </section>
 
-  <!-- 05 · Featured Projects -->
+  <!-- 03 · Selected proof -->
+  <section class="pt-8 pb-12 scroll-mt-16" id="proof">
+    <ProofCharge />
+  </section>
+
+  <!-- 04 · Featured projects -->
   <div id="work" class="scroll-mt-16">
     <ProjectBench projects={projects} />
   </div>
 
-  <!-- 06 · Competencies -->
+  <!-- 05 · What I bring -->
   <div id="bring" class="scroll-mt-16">
     <CompetencyGrid />
   </div>
 
-  <!-- 07 · Visual studies -->
-  <section class="pt-8 pb-12 scroll-mt-16" id="studies">
-    <SpanHeader index="07" label="Visual studies">
-      The tools, pointed <em>back at the portfolio</em>.
-    </SpanHeader>
-    <VisualStudies />
-  </section>
-
-  <!-- 08 · About Preview -->
-  <section class="home-about scroll-mt-16" id="about">
-    <SpanHeader index="08" label="About" />
-    <div class="home-about-spacer"></div>
-    <p class="home-about-lede">
-      Two things rarely sit in one person: a business head and frontier-AI hands.
-      I have <em>both</em>.
-    </p>
-    <AISummary>
-      <p>
-        Gozzy Nwogbo is an AI systems builder based in Toronto, Canada. He holds an MSc in Digital
-        Management from Ivey Business School and a BSc in Business Administration from Boston
-        University, concentrating in Management Strategy and Management Information Systems.
-        He builds AI systems that give organizations leverage they do not have yet: knowledge systems,
-        automations, and agents made to run inside a real business. His work spans a personal knowledge
-        OS holding 70+ domains, an automated ad pipeline shipped end to end, a bid and investment
-        screening engine for a six-country infrastructure group, and a catalog of 483 automation
-        workflows. He came at AI from business, and the business lens is what makes his systems useful.
-      </p>
-    </AISummary>
-    <p class="home-about-link">
-      <a href="/about">The longer story &rarr;</a>
-    </p>
-  </section>
-
-  <!-- Closing CTA -->
-  <section class="home-cta">
-    <div class="home-cta-inner">
-      <h2 class="home-cta-title">Let&rsquo;s talk<span class="home-cta-dot">.</span></h2>
-      <p class="home-cta-body">
-        I am open to interesting problems and good conversations across AI systems
-        and transformation.
-      </p>
-      <a href="/contact" class="btn-cta">Get in touch</a>
-    </div>
+  <!-- 06 · Contact & availability -->
+  <section id="contact" class="scroll-mt-16">
+    <ContactSection />
   </section>
 </BaseLayout>
-
-<style>
-  .home-about {
-    padding-block: var(--spacing-16);
-  }
-
-  .home-about-spacer {
-    height: var(--spacing-10, 2.5rem);
-  }
-
-  .home-about-lede {
-    font-family: var(--font-serif);
-    font-optical-sizing: auto;
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
-    font-weight: 520;
-    letter-spacing: -0.01em;
-    line-height: 1.25;
-    max-width: 30ch;
-    text-wrap: balance;
-  }
-
-  .home-about-lede em {
-    font-style: italic;
-    font-weight: 480;
-    color: var(--color-accent);
-  }
-
-  .home-about-body {
-    margin-top: var(--spacing-6);
-    max-width: 52ch;
-    font-size: var(--text-lg);
-    line-height: var(--leading-relaxed);
-    color: var(--color-text-secondary);
-  }
-
-  .home-about-link {
-    margin-top: var(--spacing-6);
-    font-size: var(--text-sm);
-    font-weight: 500;
-  }
-
-  .home-cta {
-    margin-block: var(--spacing-8) var(--spacing-24);
-  }
-
-  .home-cta-inner {
-    background-color: var(--color-surface-invert);
-    color: var(--color-text-on-dark);
-    border-radius: var(--radius-lg);
-    padding: clamp(3rem, 7vw, 5rem);
-  }
-
-  .home-cta-title {
-    color: var(--color-text-on-dark);
-    font-size: var(--text-5xl);
-    letter-spacing: -0.03em;
-    margin: 0;
-  }
-
-  .home-cta-dot {
-    color: var(--color-accent);
-  }
-
-  .home-cta-body {
-    margin-top: var(--spacing-4);
-    max-width: 44ch;
-    font-size: var(--text-lg);
-    line-height: var(--leading-relaxed);
-    color: var(--color-text-on-dark);
-    opacity: 0.75;
-  }
-
-  .btn-cta {
-    display: inline-block;
-    margin-top: var(--spacing-8);
-    padding: 0.875rem 1.75rem;
-    border-radius: 999px;
-    background-color: var(--color-accent);
-    color: var(--color-on-accent);
-    font-weight: 500;
-    line-height: 1;
-    transition:
-      background-color var(--transition-fast),
-      transform var(--transition-fast);
-  }
-
-  .btn-cta:hover {
-    background-color: var(--color-accent-hover);
-    color: var(--color-on-accent);
-    transform: translateY(-1px);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .btn-cta {
-      transition: none;
-    }
-    .btn-cta:hover {
-      transform: none;
-    }
-  }
-</style>

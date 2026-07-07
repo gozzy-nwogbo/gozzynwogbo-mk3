@@ -1,0 +1,177 @@
+---
+// What's moving: the unnumbered now-strip. Hangs directly off the hero's
+// bridge deck (no section divider before it) and reads in one scan:
+// building / reading / listening / last shipped. Content is real and
+// maintained by hand; the pulse dot marks the live thread.
+import Reveal from "./Reveal.astro";
+
+const stamp = "Now · Jul '26";
+
+const cells = [
+  {
+    label: "Building",
+    title: "Atomos",
+    line: "A governed AI knowledge layer where every output traces back to the rule that allowed it.",
+    live: true,
+    href: null,
+  },
+  {
+    label: "Reading",
+    title: "Rewired",
+    line: "McKinsey's AI playbook.",
+    live: false,
+    href: null,
+  },
+  {
+    label: "Listening",
+    title: "Icon",
+    line: "Brent Faiyaz.",
+    live: false,
+    href: null,
+  },
+  {
+    label: "Last shipped",
+    title: "Tender Radar",
+    line: "A hands-off agent that reads new federal tenders and emits a weekly can-bid / can't-bid digest.",
+    live: false,
+    href: "/projects/tender-radar",
+  },
+];
+---
+
+<section class="moving" aria-label="What is moving right now">
+  <div class="moving-grid">
+    <div class="moving-stamp">
+      <p class="stamp-text">{stamp}</p>
+      <hr class="bridge-rule stamp-rule" />
+    </div>
+    {cells.map((cell, i) => (
+      <Reveal delay={i * 80} class="moving-reveal">
+        <div class="moving-cell">
+          <p class="moving-label">
+            {cell.live && <span class="moving-pulse" aria-hidden="true"></span>}
+            {cell.label}
+          </p>
+          <p class="moving-title">
+            {cell.href ? <a href={cell.href}>{cell.title} <span aria-hidden="true">&rarr;</span></a> : cell.title}
+          </p>
+          <p class="moving-line">{cell.line}</p>
+        </div>
+      </Reveal>
+    ))}
+  </div>
+</section>
+
+<style>
+  .moving {
+    padding-block: var(--spacing-8) var(--spacing-12);
+  }
+
+  .moving-grid {
+    display: grid;
+    grid-template-columns: 9rem repeat(4, minmax(0, 1fr));
+    gap: var(--spacing-8);
+    align-items: start;
+  }
+
+  .moving-stamp {
+    padding-top: 0.1em;
+  }
+
+  .stamp-text {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+  }
+
+  .stamp-rule {
+    margin-top: var(--spacing-3);
+    width: 2.5rem;
+  }
+
+  .moving-reveal {
+    min-width: 0;
+  }
+
+  .moving-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .moving-pulse {
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background-color: var(--color-interactive-bright);
+    animation: moving-pulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes moving-pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--color-interactive-subtle); }
+    50% { opacity: 0.55; box-shadow: 0 0 0 5px var(--color-interactive-subtle); }
+  }
+
+  .moving-title {
+    margin-top: var(--spacing-3);
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    font-style: italic;
+    font-size: var(--text-2xl);
+    font-weight: 520;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+
+  .moving-title a {
+    color: var(--color-text-primary);
+  }
+
+  .moving-title a:hover {
+    color: var(--color-interactive);
+  }
+
+  .moving-line {
+    margin-top: var(--spacing-3);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+    color: var(--color-text-secondary);
+    max-width: 34ch;
+  }
+
+  @media (max-width: 64rem) {
+    .moving-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .moving-stamp {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-4);
+    }
+    .stamp-rule {
+      margin-top: 0;
+      flex: 1;
+    }
+  }
+
+  @media (max-width: 34rem) {
+    .moving-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .moving-pulse {
+      animation: none;
+    }
+  }
+</style>

@@ -1,4 +1,9 @@
 ---
+// Cards carry a correlating backdrop: a generated motif image where one
+// exists for the project, otherwise the site's own procedural structural
+// drawing for that slug. Kept faint so the text stays the star.
+import ProjectVisual from "./ProjectVisual.astro";
+
 interface Props {
   slug: string;
   title: string;
@@ -8,12 +13,20 @@ interface Props {
   philosophy?: string;
   metric: { value: string; label: string };
   technologies: string[];
+  image?: string;
 }
 
-const { slug, title, description, domain, status, philosophy, metric, technologies } = Astro.props;
+const { slug, title, description, domain, status, philosophy, metric, technologies, image } = Astro.props;
 ---
 
 <a href={`/projects/${slug}`} class="card group">
+  <span class="card-bg" aria-hidden="true">
+    {image ? (
+      <img src={image} alt="" loading="lazy" width="800" height="600" />
+    ) : (
+      <ProjectVisual slug={slug} class="card-bg-drawing" />
+    )}
+  </span>
   <span class="card-domain">
     {domain}{status && <span class="card-status"> &middot; {status}</span>}
   </span>
@@ -43,10 +56,47 @@ const { slug, title, description, domain, status, philosophy, metric, technologi
     border-radius: var(--radius-lg);
     background-color: var(--color-surface);
     color: var(--color-text-primary);
+    overflow: hidden;
+    isolation: isolate;
     transition:
       border-color var(--transition-fast),
       box-shadow var(--transition-fast),
       transform var(--transition-fast);
+  }
+
+  .card-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.09;
+    transition: opacity var(--transition-normal), transform var(--transition-slow);
+  }
+
+  .card-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .card-bg :global(.card-bg-drawing) {
+    background-color: transparent;
+    border-radius: 0;
+    min-height: 100%;
+    height: 100%;
+  }
+
+  /* Keep the lower half of the card clean where metric + chips live. */
+  .card-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 20%, var(--color-surface) 78%);
+  }
+
+  .card:hover .card-bg {
+    opacity: 0.16;
+    transform: scale(1.03);
   }
 
   .card:hover {
@@ -159,10 +209,14 @@ const { slug, title, description, domain, status, philosophy, metric, technologi
 
   @media (prefers-reduced-motion: reduce) {
     .card,
-    .card-arrow {
+    .card-arrow,
+    .card-bg {
       transition: none;
     }
     .card:hover {
+      transform: none;
+    }
+    .card:hover .card-bg {
       transform: none;
     }
   }

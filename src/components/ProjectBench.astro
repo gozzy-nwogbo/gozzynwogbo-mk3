@@ -9,11 +9,13 @@ interface Props {
 const { projects } = Astro.props;
 const [flagship, ...rest] = projects;
 
-// Generated motif imagery per project where a correlating image exists;
-// the remaining cards fall back to the site's own procedural drawings.
+// Generated motif imagery per project; every bench card carries its own.
 const cardImages: Record<string, string> = {
   obscura: "/projects/obscura-motif.jpg",
   scribe: "/projects/atomos-motif.jpg",
+  "tender-radar": "/projects/tender-radar-motif.jpg",
+  "infrastructure-bid-engine": "/projects/infra-bid-engine-motif.jpg",
+  "healthcare-workflow": "/projects/healthcare-workflow-motif.jpg",
 };
 ---
 

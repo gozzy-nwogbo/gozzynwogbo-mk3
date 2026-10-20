@@ -34,7 +34,7 @@ Management Information Systems.
 
 ## By the Work (verified counts from the working system)
 
-- 483 automation workflows across verticals, each with evals and a preferred trigger and storage pattern
+- 430 automation workflows deployed in a live n8n instance, built on a core catalog where each workflow carries evals and a preferred trigger and storage pattern
 - 11,000+ knowledge entries across 59 domains, cross-linked, with 107 session logs of daily use
 - Distilled working methods from 50+ MasterClass instructors inside the corpus
 - 2.3x client workflow throughput at Loop Tech Systems

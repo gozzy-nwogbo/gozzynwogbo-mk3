@@ -35,7 +35,7 @@ Python, MCP, PostgreSQL / pgvector, Supabase, n8n, LangChain, Astro
 - Earlier: Strategy Consultant Intern at Ivey IDIS (CIBC, Autism Society of America, Boys & Girls Club of London); Software Engineer at MI-C3 International; Research Assistant at Yale
 - Education: MSc Digital Management (Ivey Business School), BSc Business Administration (Boston University), concentrating in Management Strategy and Management Information Systems
 - Flagship project: Second Brain / Open Brain, a personal knowledge OS holding 11,000+ entries across 59 domains
-- Other work: Obscura ad pipeline, bid and investment screening for a six-country infrastructure group, Tender Radar, Scribe, a catalog of 483 automation workflows
+- Other work: Obscura ad pipeline, bid and investment screening for a six-country infrastructure group, Tender Radar, Scribe, 430 automation workflows deployed in a live n8n instance
 - Open to: Founding and greenfield AI roles, forward-deployed and solutions engineering, AI transformation
 - LinkedIn: linkedin.com/in/gozzy-nwogbo
 - GitHub: github.com/gozzy-nwogbo

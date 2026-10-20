@@ -1,5 +1,5 @@
 {
-  "note": "Curated from the real corpus: the n8n workflow catalog (483 workflows across 8 domains) and shipped systems (Tender Radar, the infrastructure bid engine, the clinical workflow pilot). Every item maps to something actually built.",
+  "note": "Curated from the real corpus: the n8n workflow library (430 workflows deployed live, catalogued across 8 domains) and shipped systems (Tender Radar, the infrastructure bid engine, the clinical workflow pilot). Every item maps to something actually built.",
   "industries": [
     {
       "id": "healthcare",

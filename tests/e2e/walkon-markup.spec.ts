@@ -46,3 +46,24 @@ test("walk-on hidden in dark theme", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("[data-walkon]")).toHaveCSS("display", "none");
 });
+
+test("walk-on never widens the page", async ({ page }) => {
+  await page.setViewportSize(DESKTOP);
+  await page.goto("/");
+  const [scroll, inner] = await page.evaluate(() => [document.documentElement.scrollWidth, window.innerWidth]);
+  expect(scroll).toBeLessThanOrEqual(inner);
+});
+
+test("label and toggle sit inside the viewport", async ({ page }) => {
+  for (const width of [1280, 1440, 1920]) {
+    await page.setViewportSize({ width, height: Math.round(width * 0.625) });
+    await page.goto("/");
+    for (const sel of ["[data-walkon-label]", "button[data-walkon-toggle]"]) {
+      const right = await page.locator(sel).last().evaluate((el) => {
+        (el as HTMLElement).hidden = false;
+        return el.getBoundingClientRect().right;
+      });
+      expect(right, `${sel} at ${width}`).toBeLessThanOrEqual(width);
+    }
+  }
+});

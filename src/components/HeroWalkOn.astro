@@ -36,11 +36,14 @@ import walkon from "../data/walkon.json";
   .walkon {
     --walkon-opacity: 0.5;
     --walkon-shift-x: 0%;
-    --stage-left: 60vw;
-    --stage-top: 30svh;
-    --stage-w: 54vw;
+    /* Stage box anchored to the 61rem content column: from 57% across it to
+       past its right edge, from the headline's top down into the demo card. */
+    --stage-left: calc((100vw - 61rem) / 2 + 34.75rem);
+    --stage-top: 9.5rem;
+    --stage-w: 34.75rem;
+    --stage-h: 30.5rem;
     /* Zoom about the hold-frame face so the crop lands near the elbows. */
-    --walkon-zoom: 1.3;
+    --walkon-zoom: 1.2;
     position: absolute;
     top: 0;
     left: calc(50% - 50vw);
@@ -49,7 +52,7 @@ import walkon from "../data/walkon.json";
     pointer-events: none;
     overflow: clip;
     /* Where his face lands during the hold (footage mark 0.49, 0.29). */
-    --face-x: calc(var(--stage-left) + var(--stage-w) * 0.49);
+    --face-x: calc(var(--stage-left) + var(--stage-w) * 0.5);
   }
 
   /* Only the footage and labels sit behind the copy; the toggle stays
@@ -64,11 +67,11 @@ import walkon from "../data/walkon.json";
     left: var(--stage-left);
     top: var(--stage-top);
     width: var(--stage-w);
-    aspect-ratio: 16 / 9;
+    height: var(--stage-h);
     overflow: hidden;
     opacity: var(--walkon-opacity);
-    -webkit-mask-image: radial-gradient(ellipse 50% 55% at 50% 42%, #000 45%, transparent 100%);
-    mask-image: radial-gradient(ellipse 50% 55% at 50% 42%, #000 45%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 45%, #000 55%, transparent 100%);
+    mask-image: radial-gradient(ellipse 50% 50% at 50% 45%, #000 55%, transparent 100%);
   }
 
   /* Cream scrim under the headline column: text contrast never depends on
@@ -87,7 +90,7 @@ import walkon from "../data/walkon.json";
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: 49% center;
     transform: translateX(var(--walkon-shift-x)) scale(var(--walkon-zoom));
     transform-origin: 49% 29%;
   }

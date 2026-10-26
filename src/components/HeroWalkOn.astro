@@ -1,0 +1,163 @@
+---
+// The walk-on: four sides of Gozzy crossing the hero background. Server HTML
+// ships no video source; the runtime (src/scripts/walkon.ts) attaches sources
+// only for desktop, light theme, motion allowed, data saver off.
+import walkon from "../data/walkon.json";
+---
+
+<div
+  class="walkon"
+  data-walkon
+  data-sources={JSON.stringify(walkon.sources)}
+  data-walks={JSON.stringify(walkon.walks)}
+>
+  <div class="walkon-media" aria-hidden="true">
+    <img class="walkon-poster" data-walkon-poster src={walkon.poster} alt="" decoding="async" />
+    <video class="walkon-video" data-walkon-video muted loop playsinline preload="none"></video>
+  </div>
+
+  <ul class="walkon-labels">
+    {walkon.walks.map((w) => <li><span class="walkon-label" data-walkon-label>{w.label}</span></li>)}
+  </ul>
+
+  <button type="button" class="walkon-toggle" data-walkon-toggle aria-label="Pause background video" hidden>
+    <span class="walkon-toggle-icon" aria-hidden="true"></span>
+  </button>
+</div>
+
+<style>
+  /* Stage box: a 16:9 window right of the copy. The footage holds his face
+     near (50%, 20%) of the frame, which lands it right of the subtitle. */
+  .walkon {
+    --walkon-opacity: 0.5;
+    --walkon-shift-x: 0%;
+    --stage-left: 51vw;
+    --stage-top: 41svh;
+    --stage-w: 54vw;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 50vw);
+    width: 100vw;
+    height: 100svh;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .walkon-media {
+    position: absolute;
+    left: var(--stage-left);
+    top: var(--stage-top);
+    width: var(--stage-w);
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    opacity: var(--walkon-opacity);
+    -webkit-mask-image: radial-gradient(ellipse 50% 55% at 50% 42%, #000 45%, transparent 100%);
+    mask-image: radial-gradient(ellipse 50% 55% at 50% 42%, #000 45%, transparent 100%);
+  }
+
+  /* Cream scrim under the headline column: text contrast never depends on
+     what the footage shows. */
+  .walkon-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, var(--color-surface) 0%, transparent 18%);
+  }
+
+  .walkon-poster,
+  .walkon-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transform: translateX(var(--walkon-shift-x));
+  }
+
+  .walkon-video {
+    opacity: 0;
+    transition: opacity 900ms var(--ease-out);
+  }
+
+  .walkon.is-playing .walkon-video {
+    opacity: 1;
+  }
+
+  .walkon-labels {
+    position: absolute;
+    left: calc(var(--stage-left) + var(--stage-w) * 0.6);
+    top: calc(var(--stage-top) + var(--stage-w) * 0.5625 * 0.16);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .walkon-labels li {
+    position: absolute;
+    white-space: nowrap;
+  }
+
+  .walkon-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: var(--color-text-secondary);
+    opacity: 0;
+    transition: opacity 600ms var(--ease-out);
+  }
+
+  .walkon-label.is-active {
+    opacity: 1;
+  }
+
+  .walkon-toggle {
+    position: absolute;
+    right: 1.5rem;
+    top: calc(100svh - 3.5rem);
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border-strong);
+    background: var(--color-surface);
+    color: var(--color-text-primary);
+    pointer-events: auto;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+  }
+
+  .walkon-toggle[hidden] {
+    display: none;
+  }
+
+  .walkon-toggle:focus-visible {
+    outline: 2px solid var(--color-interactive);
+    outline-offset: 3px;
+  }
+
+  /* Pause glyph: two bars; play glyph when paused. */
+  .walkon-toggle-icon {
+    width: 0.6rem;
+    height: 0.7rem;
+    border-inline: 0.18rem solid currentColor;
+  }
+
+  .walkon-toggle[aria-label="Play background video"] .walkon-toggle-icon {
+    border: 0;
+    width: 0;
+    height: 0;
+    border-block: 0.38rem solid transparent;
+    border-left: 0.6rem solid currentColor;
+  }
+
+  :global(html[data-theme="dark"]) .walkon {
+    display: none;
+  }
+
+  @media (max-width: 56rem) {
+    .walkon {
+      display: none;
+    }
+  }
+</style>

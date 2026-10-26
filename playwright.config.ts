@@ -6,7 +6,7 @@ export default defineConfig({
   webServer: {
     command: "pnpm build && pnpm preview --port 4329",
     port: 4329,
-    reuseExistingServer: true,
+    reuseExistingServer: false,
     timeout: 180_000,
   },
   projects: [

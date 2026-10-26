@@ -1,0 +1,31 @@
+{
+  "sources": [
+    {
+      "src": "/hero/walkon-placeholder.mp4",
+      "type": "video/mp4"
+    }
+  ],
+  "poster": "/hero/walkon-poster.webp",
+  "walks": [
+    {
+      "label": "01 · BUSINESS",
+      "turnAt": 3.0,
+      "holdEnd": 7.2
+    },
+    {
+      "label": "02 · BUILDER",
+      "turnAt": 13.04,
+      "holdEnd": 17.24
+    },
+    {
+      "label": "03 · ATHLETE",
+      "turnAt": 23.08,
+      "holdEnd": 27.28
+    },
+    {
+      "label": "04 · DIASPORA",
+      "turnAt": 33.12,
+      "holdEnd": 37.32
+    }
+  ]
+}

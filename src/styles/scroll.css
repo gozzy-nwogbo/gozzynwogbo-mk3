@@ -1,0 +1,41 @@
+/* V3.5 scroll layer: homepage only (imported by src/pages/index.astro).
+   Progressive enhancement: the finished state is the default; scroll-linked
+   motion is layered on only where scroll timelines exist, on desktop, with
+   motion allowed. Only opacity and transform animate. */
+
+@keyframes sl-rise {
+  0% { opacity: 0; transform: translateY(28px); }
+  40% { opacity: 0.85; transform: translateY(6px); }
+  100% { opacity: 1; transform: none; }
+}
+
+@keyframes sl-drift {
+  to { transform: translateY(-10%); }
+}
+
+@supports (animation-timeline: view()) {
+  @media (min-width: 56rem) and (prefers-reduced-motion: no-preference) {
+    .span-title,
+    .pc-card,
+    .comp-card,
+    .feature {
+      animation: sl-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 35%;
+    }
+
+    .hero-atmo {
+      animation: sl-drift linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+
+    /* One mechanism per element: the competency cards rise on the scroll
+       timeline, so their Reveal wrappers stop fading. */
+    .comp-grid [data-reveal].is-armed,
+    .comp-grid [data-reveal].is-visible {
+      opacity: 1;
+      animation: none;
+    }
+  }
+}

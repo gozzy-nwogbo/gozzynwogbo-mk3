@@ -25,6 +25,11 @@ import walkon from "../data/walkon.json";
   </button>
 </div>
 
+<script>
+  import { initWalkOn } from "../scripts/walkon";
+  initWalkOn();
+</script>
+
 <style>
   /* Stage box: a 16:9 window right of the copy. The footage holds his face
      near (50%, 20%) of the frame, which lands it right of the subtitle. */
@@ -39,8 +44,14 @@ import walkon from "../data/walkon.json";
     left: calc(50% - 50vw);
     width: 100vw;
     height: 100svh;
-    z-index: -1;
     pointer-events: none;
+  }
+
+  /* Only the footage and labels sit behind the copy; the toggle stays
+     above it so it can be clicked. */
+  .walkon-media,
+  .walkon-labels {
+    z-index: -1;
   }
 
   .walkon-media {
@@ -113,8 +124,9 @@ import walkon from "../data/walkon.json";
 
   .walkon-toggle {
     position: absolute;
-    right: 1.5rem;
-    top: calc(100svh - 3.5rem);
+    z-index: 1;
+    left: calc(var(--stage-left) + var(--stage-w) * 0.82);
+    top: calc(var(--stage-top) + var(--stage-w) * 0.5625 * 0.16 - 0.75rem);
     width: 2.25rem;
     height: 2.25rem;
     border-radius: 999px;

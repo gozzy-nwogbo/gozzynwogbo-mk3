@@ -38,12 +38,12 @@ import walkon from "../data/walkon.json";
     --walkon-shift-x: 0%;
     /* Stage box anchored to the 61rem content column: from 57% across it to
        past its right edge, from the headline's top down into the demo card. */
-    --stage-left: calc((100vw - 61rem) / 2 + 34.75rem);
-    --stage-top: 9.5rem;
-    --stage-w: 34.75rem;
-    --stage-h: 30.5rem;
+    --stage-left: calc((100vw - 61rem) / 2 + 28.75rem);
+    --stage-top: 3.5rem;
+    --stage-w: 40.75rem;
+    --stage-h: 36.5rem;
     /* Zoom about the hold-frame face so the crop lands near the elbows. */
-    --walkon-zoom: 1.2;
+    --walkon-zoom: 1.35;
     position: absolute;
     top: 0;
     left: calc(50% - 50vw);
@@ -107,7 +107,8 @@ import walkon from "../data/walkon.json";
   .walkon-labels {
     position: absolute;
     left: var(--face-x);
-    top: calc(var(--stage-top) - 0.75rem);
+    /* Just above his head: face centre 0.287 of the frame, face height 0.247, scaled by the zoom. */
+    top: calc(var(--stage-top) + var(--stage-h) * (0.287 - 0.247 * var(--walkon-zoom) * 0.62) - 1.75rem);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -136,7 +137,7 @@ import walkon from "../data/walkon.json";
     position: absolute;
     z-index: 1;
     left: calc(var(--face-x) + 4.5rem);
-    top: calc(var(--stage-top) - 1.5rem);
+    top: calc(var(--stage-top) + var(--stage-h) * (0.287 - 0.247 * var(--walkon-zoom) * 0.62) - 2.5rem);
     width: 2.25rem;
     height: 2.25rem;
     border-radius: 999px;

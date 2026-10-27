@@ -19,7 +19,7 @@ interface Props {
 const { slug, title, description, domain, status, philosophy, metric, technologies, image } = Astro.props;
 ---
 
-<a href={`/projects/${slug}`} class="card group">
+<a href={`/projects/${slug}/`} class="card group">
   <span class="card-bg" aria-hidden="true">
     {image ? (
       <img src={image} alt="" loading="lazy" width="800" height="600" />

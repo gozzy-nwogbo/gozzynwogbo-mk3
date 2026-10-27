@@ -9,7 +9,7 @@ Laying the foundation of a hybrid practice. Business rooms and build rooms, one 
 
 Boston, MA (Remote) · Jul 2023 to Nov 2025 · Venture, closed
 
-Co-founded a health-tech startup and ran strategy and expansion until the venture closed in 2025. Led enterprise client engagements for Bupa Global, the NHS, and Boston Medical Center. Designed the transformation roadmap and clinical workflow for a telehealth platform serving roughly 500 users, and shipped 4 features against it. Built the AI orchestration layer on n8n, Relevance AI, and Python. The orchestration layer lifted client workflow throughput 2.3x.
+Co-founded a health-tech startup, launched as Loop Health, and ran strategy and expansion until the venture closed in 2025. Led enterprise client engagements for Bupa Global, the NHS, and Boston Medical Center. Designed the transformation roadmap and clinical workflow for a telehealth platform serving roughly 500 users, and shipped 4 features against it. Built the AI orchestration layer on n8n, Relevance AI, and Python. The orchestration layer lifted client workflow throughput 2.3x.
 
 ## Ivey Business School, IDIS — Strategy Consultant Intern
 

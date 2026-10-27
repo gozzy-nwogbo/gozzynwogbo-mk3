@@ -6,6 +6,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://gozzynwogbo.com',
+  trailingSlash: 'always',
   output: 'static',
   adapter: vercel(),
   integrations: [sitemap()],

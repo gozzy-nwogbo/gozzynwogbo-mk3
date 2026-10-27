@@ -31,7 +31,7 @@ Python, MCP, PostgreSQL / pgvector, Supabase, n8n, LangChain, Astro
 - Location: Toronto, Ontario, Canada
 - Nationality: Nigerian
 - Currently building: Atomos, a governed AI knowledge layer
-- Previously: Loop Tech Systems, Co-founder, Head of Strategy & Expansion (2023 to 2025, venture closed); client work for Bupa Global, NHS, Boston Medical Center
+- Previously: Loop Tech Systems (launched as Loop Health), Co-founder, Head of Strategy & Expansion (2023 to 2025, venture closed); client work for Bupa Global, NHS, Boston Medical Center
 - Earlier: Strategy Consultant Intern at Ivey IDIS (CIBC, Autism Society of America, Boys & Girls Club of London); Software Engineer at MI-C3 International; Research Assistant at Yale
 - Education: MSc Digital Management (Ivey Business School), BSc Business Administration (Boston University), concentrating in Management Strategy and Management Information Systems
 - Flagship project: Second Brain / Open Brain, a personal knowledge OS holding 11,000+ entries across 59 domains

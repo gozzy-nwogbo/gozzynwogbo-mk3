@@ -10,7 +10,7 @@ ${PERSON.description}
 ## At a glance
 
 - Currently: Building Atomos and independent AI systems
-- Previously: Loop Tech Systems, Co-founder, Head of Strategy & Expansion (2023 to 2025)
+- Previously: Loop Tech Systems (launched as Loop Health), Co-founder, Head of Strategy & Expansion (2023 to 2025)
 - Based in: Toronto, Ontario, Canada
 - Open to: Founding and greenfield AI roles, forward-deployed and solutions engineering, AI transformation
 - Education: MSc in Digital Management (Ivey Business School); BSc in Business Administration (Boston University), concentrating in Management Strategy and Management Information Systems

@@ -22,7 +22,7 @@ const schema = generateArticleSchema(article.id, article.data);
   title={article.data.title}
   description={article.data.description}
   breadcrumbs={[
-    { label: "Writing", href: "/writing" },
+    { label: "Writing", href: "/writing/" },
     { label: article.data.title, href: "#" },
   ]}
   schemaJsonLd={[schema]}

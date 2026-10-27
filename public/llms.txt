@@ -18,19 +18,19 @@ Management Information Systems.
 
 ## Experience
 
-- Loop Tech Systems (Jul 2023 to Nov 2025, venture closed): Co-founder, Head of Strategy & Expansion. Enterprise client engagements for Bupa Global, the NHS, and Boston Medical Center; telehealth transformation roadmap and workflow (~500 users, 4 features shipped); AI orchestration on n8n, Relevance AI, and Python that lifted client workflow throughput 2.3x.
+- Loop Tech Systems (launched as Loop Health; Jul 2023 to Nov 2025, venture closed): Co-founder, Head of Strategy & Expansion. Enterprise client engagements for Bupa Global, the NHS, and Boston Medical Center; telehealth transformation roadmap and workflow (~500 users, 4 features shipped); AI orchestration on n8n, Relevance AI, and Python that lifted client workflow throughput 2.3x.
 - Ivey Business School, IDIS (May to Jul 2025): Strategy Consultant Intern. AI and digital-transformation strategy for CIBC, Autism Society of America, and Boys & Girls Club of London; built an agentic donor-engagement automation.
 - MI-C3 International (Sep 2022 to Aug 2023): Software Engineer. Workflow-optimization features: SQL data models, monitoring dashboards, operational pipelines.
 - Yale University (Jul to Sep 2020): Research Assistant. Incentive-design research; KPIs and study-parameter database; findings in the final paper.
 
 ## Projects
 
-- [Second Brain / Open Brain](/projects/second-brain): A working personal knowledge OS. MCP server, semantic search over pgvector, daily pipelines, 11,000+ entries across 59 knowledge domains. It runs his daily practice.
-- [Obscura](/projects/obscura): Automated ad pipeline. A blurb becomes a storyboard, drift-free character renders, and a scored MP4, gated by an ad-comprehension audit. Shipped end to end.
-- [Bid & Investment Screening](/projects/infrastructure-bid-engine): A full priced tender package in 3 days for a six-country infrastructure group, plus an investment screen that caught a falsified growth claim.
-- [Tender Radar](/projects/tender-radar): Hands-off cron agent screening federal tenders, can-bid or cannot-bid with the decisive clause, weekly digest.
-- [Scribe / Scribe Scout](/projects/scribe): Content engine drafting from an atom graph, with discovery scored by argument intensity.
-- [Healthcare Workflow Automation](/projects/healthcare-workflow): Early-stage clinical workflow automation piloted across three Nigerian clinics.
+- [Second Brain / Open Brain](/projects/second-brain/): A working personal knowledge OS. MCP server, semantic search over pgvector, daily pipelines, 11,000+ entries across 59 knowledge domains. It runs his daily practice.
+- [Obscura](/projects/obscura/): Automated ad pipeline. A blurb becomes a storyboard, drift-free character renders, and a scored MP4, gated by an ad-comprehension audit. Shipped end to end.
+- [Bid & Investment Screening](/projects/infrastructure-bid-engine/): A full priced tender package in 3 days for a six-country infrastructure group, plus an investment screen that caught a falsified growth claim.
+- [Tender Radar](/projects/tender-radar/): Hands-off cron agent screening federal tenders, can-bid or cannot-bid with the decisive clause, weekly digest.
+- [Scribe / Scribe Scout](/projects/scribe/): Content engine drafting from an atom graph, with discovery scored by argument intensity.
+- [Healthcare Workflow Automation](/projects/healthcare-workflow/): Early-stage clinical workflow automation piloted across three Nigerian clinics.
 
 ## By the Work (verified counts from the working system)
 

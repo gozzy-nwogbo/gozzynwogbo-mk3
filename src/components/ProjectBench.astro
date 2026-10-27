@@ -17,7 +17,7 @@ const [flagship, ...rest] = projects;
   </SpanHeader>
 
   {flagship && (
-    <a href={`/projects/${flagship.id}`} class="feature">
+    <a href={`/projects/${flagship.id}/`} class="feature">
       <div class="feature-text">
         <span class="feature-meta">{flagship.data.domain} &middot; {flagship.data.status} &middot; the flagship</span>
         {flagship.data.philosophy && <p class="feature-philosophy">{flagship.data.philosophy}</p>}
@@ -65,7 +65,7 @@ const [flagship, ...rest] = projects;
   </div>
 
   <p class="bench-more">
-    <a href="/projects">View all projects &rarr;</a>
+    <a href="/projects/">View all projects &rarr;</a>
   </p>
 </section>
 

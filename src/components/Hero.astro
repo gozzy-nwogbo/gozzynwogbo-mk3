@@ -11,8 +11,6 @@ import HeroWalkOn from "./HeroWalkOn.astro";
     <span class="atmo-blob atmo-bank-b"></span>
   </div>
 
-  <HeroWalkOn />
-
   <div class="hero-kicker enter" style="--enter-delay: 0ms">
     <hr class="bridge-rule kicker-rule" />
     <p class="kicker-text">
@@ -32,6 +30,11 @@ import HeroWalkOn from "./HeroWalkOn.astro";
     it useful. Based in Toronto.
   </p>
 
+  <!-- After the copy so text extraction and screen readers reach the name and
+       headline before the persona labels; it is absolutely positioned and
+       z-indexed, so DOM order does not change the paint. -->
+  <HeroWalkOn />
+
   <div class="hero-band enter" style="--enter-delay: 440ms">
     <Explorer />
   </div>
@@ -39,8 +42,8 @@ import HeroWalkOn from "./HeroWalkOn.astro";
   <div class="hero-foot enter" style="--enter-delay: 540ms">
     <p class="hero-corpus">Every item in the fit demo maps to something I have built. Drawn from 430 live automations and the systems on this site.</p>
     <div class="hero-actions">
-      <a href="/projects" class="btn btn-primary">See the work</a>
-      <a href="/contact" class="btn btn-ghost">Let&rsquo;s talk <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+      <a href="/projects/" class="btn btn-primary">See the work</a>
+      <a href="/contact/" class="btn btn-ghost">Let&rsquo;s talk <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
     </div>
   </div>
 

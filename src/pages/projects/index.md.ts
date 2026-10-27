@@ -11,7 +11,7 @@ export const GET: APIRoute = async () => {
     const metrics = p.data.metrics
       .map((m) => `  - ${m.label}: ${m.value}`)
       .join("\n");
-    return `## [${p.data.title}](${SITE.url}/projects/${p.id})\n\n${p.data.description}\n\n- Status: ${p.data.status}\n- Technologies: ${p.data.technologies.join(", ")}\n${metrics}`;
+    return `## [${p.data.title}](${SITE.url}/projects/${p.id}/)\n\n${p.data.description}\n\n- Status: ${p.data.status}\n- Technologies: ${p.data.technologies.join(", ")}\n${metrics}`;
   });
 
   const md = `# Projects — Gozzy Nwogbo

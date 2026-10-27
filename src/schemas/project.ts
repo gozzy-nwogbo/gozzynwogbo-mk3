@@ -20,7 +20,7 @@ export function generateProjectSchema(slug: string, data: ProjectFrontmatter) {
     "@id": `${SITE.url}/projects/${slug}#project`,
     name: data.title,
     description: data.description,
-    url: `${SITE.url}/projects/${slug}`,
+    url: `${SITE.url}/projects/${slug}/`,
     creator: { "@id": PERSON.id },
     author: { "@id": PERSON.id },
     datePublished: data.datePublished.toISOString().split("T")[0],

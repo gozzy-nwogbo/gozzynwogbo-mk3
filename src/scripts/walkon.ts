@@ -50,6 +50,18 @@ export function initWalkOn(root = document.querySelector<HTMLElement>("[data-wal
     showLabel();
   };
 
+  // Gate closed (dark theme, narrow window, reduced motion): abort any transfer in flight.
+  const detach = () => {
+    attached = false;
+    if (!video.paused) video.pause();
+    video.replaceChildren();
+    video.removeAttribute("src");
+    video.load();
+    root.classList.remove("is-playing");
+    toggle.hidden = true;
+    showLabel();
+  };
+
   const attach = () => {
     attached = true;
     for (const s of sources) {
@@ -75,6 +87,7 @@ export function initWalkOn(root = document.querySelector<HTMLElement>("[data-wal
     const allowed = canPlay();
     root.classList.toggle("is-live", allowed);
     if (allowed && !attached) return attach();
+    if (!allowed && attached) return detach();
     if (allowed && onScreen && !userPaused && document.visibilityState === "visible") {
       if (video.readyState >= 3 && video.paused) video.play().catch(() => {});
     } else if (!video.paused) {

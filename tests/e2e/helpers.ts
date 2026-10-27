@@ -21,3 +21,24 @@ export async function setTheme(page: Page, theme: "light" | "dark"): Promise<voi
     } catch {}
   }, theme);
 }
+
+/** Chromium only: total bytes received for URLs matching `pattern`, via CDP. */
+export async function countBytes(page: Page, pattern: RegExp): Promise<() => number> {
+  const cdp = await page.context().newCDPSession(page);
+  await cdp.send("Network.enable");
+  const urls = new Map<string, string>();
+  let bytes = 0;
+  cdp.on("Network.requestWillBeSent", (e) => urls.set(e.requestId, e.request.url));
+  cdp.on("Network.dataReceived", (e) => {
+    if (pattern.test(urls.get(e.requestId) ?? "")) bytes += e.dataLength;
+  });
+  return () => bytes;
+}
+
+/** Chromium only: slow the network so a transfer is still in flight when we act. */
+export async function throttle(page: Page, kbps: number): Promise<void> {
+  const cdp = await page.context().newCDPSession(page);
+  await cdp.send("Network.emulateNetworkConditions", {
+    offline: false, latency: 40, downloadThroughput: (kbps * 1024) / 8, uploadThroughput: (kbps * 1024) / 8,
+  });
+}

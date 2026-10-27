@@ -1,5 +1,5 @@
 import { test, expect, type Page } from "@playwright/test";
-import { DESKTOP, PHONE, countMediaRequests, setTheme } from "./helpers";
+import { DESKTOP, PHONE, countBytes, countMediaRequests, setTheme, throttle } from "./helpers";
 
 const root = (page: Page) => page.locator("[data-walkon]");
 const video = (page: Page) => page.locator("video[data-walkon-video]");
@@ -161,4 +161,18 @@ test("broken source keeps poster", async ({ page }) => {
   await expect(root(page)).not.toHaveClass(/is-playing/);
   await expect(page.locator("[data-walkon-label].is-active")).toHaveCount(0);
   await expect(toggle(page)).toBeHidden();
+});
+
+test("dark mid-download stops the transfer", async ({ page, browserName }) => {
+  test.skip(browserName !== "chromium", "CDP byte counting");
+  const bytes = await countBytes(page, /\/hero\/.*\.mp4/);
+  await throttle(page, 2000);
+  await page.setViewportSize(DESKTOP);
+  await page.goto("/");
+  await expect.poll(() => bytes(), { timeout: 15_000 }).toBeGreaterThan(20_000);
+  await page.evaluate(() => (document.documentElement.dataset.theme = "dark"));
+  await page.waitForTimeout(800);
+  const after = bytes();
+  await page.waitForTimeout(4000);
+  expect(bytes() - after).toBeLessThan(64 * 1024);
 });

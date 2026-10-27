@@ -1,31 +1,36 @@
 {
   "sources": [
     {
-      "src": "/hero/walkon-placeholder.mp4",
+      "src": "/hero/walkon-av1.mp4",
+      "type": "video/mp4; codecs=\"av01.0.08M.08\""
+    },
+    {
+      "src": "/hero/walkon-h264.mp4",
       "type": "video/mp4"
     }
   ],
   "poster": "/hero/walkon-poster.webp",
+  "posterAvif": "/hero/walkon-poster.avif",
   "walks": [
     {
       "label": "01 · BUSINESS",
-      "turnAt": 3.0,
-      "holdEnd": 7.2
+      "turnAt": 2.25,
+      "holdEnd": 6.12
     },
     {
       "label": "02 · BUILDER",
-      "turnAt": 13.04,
-      "holdEnd": 17.24
+      "turnAt": 11.75,
+      "holdEnd": 15.12
     },
     {
       "label": "03 · ATHLETE",
-      "turnAt": 23.08,
-      "holdEnd": 27.28
+      "turnAt": 20.0,
+      "holdEnd": 24.12
     },
     {
       "label": "04 · DIASPORA",
-      "turnAt": 33.12,
-      "holdEnd": 37.32
+      "turnAt": 28.88,
+      "holdEnd": 32.75
     }
   ]
 }

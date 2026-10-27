@@ -12,7 +12,10 @@ import walkon from "../data/walkon.json";
   data-walks={JSON.stringify(walkon.walks)}
 >
   <div class="walkon-media" aria-hidden="true">
-    <img class="walkon-poster" data-walkon-poster src={walkon.poster} alt="" decoding="async" />
+    <picture>
+      <source srcset={walkon.posterAvif} type="image/avif" />
+      <img class="walkon-poster" data-walkon-poster src={walkon.poster} alt="" decoding="async" />
+    </picture>
     <video class="walkon-video" data-walkon-video muted loop playsinline preload="none"></video>
   </div>
 
@@ -34,7 +37,7 @@ import walkon from "../data/walkon.json";
   /* Stage box: a 16:9 window right of the copy. The footage holds his face
      near (50%, 20%) of the frame, which lands it right of the subtitle. */
   .walkon {
-    --walkon-opacity: 0.5;
+    --walkon-opacity: 0.46;
     --walkon-shift-x: 0%;
     /* Stage box anchored to the 61rem content column: from 57% across it to
        past its right edge, from the headline's top down into the demo card. */
@@ -70,8 +73,14 @@ import walkon from "../data/walkon.json";
     height: var(--stage-h);
     overflow: hidden;
     opacity: var(--walkon-opacity);
-    -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 45%, #000 55%, transparent 100%);
-    mask-image: radial-gradient(ellipse 50% 50% at 50% 45%, #000 55%, transparent 100%);
+    /* Radial feather, intersected with a left-edge fade: he walks in out of the wings, and
+       nothing of him sits under the subtitle (WCAG contrast, tests/e2e/contrast.spec.ts). */
+    -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 45%, #000 55%, transparent 100%),
+      linear-gradient(90deg, transparent 0%, #000 44%);
+    -webkit-mask-composite: source-in;
+    mask-image: radial-gradient(ellipse 50% 50% at 50% 45%, #000 55%, transparent 100%),
+      linear-gradient(90deg, transparent 0%, #000 44%);
+    mask-composite: intersect;
   }
 
   /* Cream scrim under the headline column: text contrast never depends on
@@ -90,9 +99,9 @@ import walkon from "../data/walkon.json";
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 49% center;
+    object-position: 51% center;
     transform: translateX(var(--walkon-shift-x)) scale(var(--walkon-zoom));
-    transform-origin: 49% 29%;
+    transform-origin: 51% 29%;
   }
 
   .walkon-video {

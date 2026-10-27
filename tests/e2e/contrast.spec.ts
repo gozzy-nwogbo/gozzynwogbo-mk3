@@ -44,7 +44,7 @@ async function sample(page: Page, box: { x: number; y: number; width: number; he
         .map((s) => (s <= 0.03928 ? s / 12.92 : ((s + 0.055) / 1.055) ** 2.4))
         .reduce((acc, s, i) => acc + s * [0.2126, 0.7152, 0.0722][i], 0);
     let lo = 1, hi = 0;
-    for (let i = 0; i < d.length; i += 16) {
+    for (let i = 0; i < d.length; i += 4) {
       const l = L(d[i], d[i + 1], d[i + 2]);
       lo = Math.min(lo, l);
       hi = Math.max(hi, l);
@@ -53,9 +53,9 @@ async function sample(page: Page, box: { x: number; y: number; width: number; he
   }, png.toString("base64"));
 }
 
-test("headline stays readable over every hold and pass", async ({ page, browserName }) => {
+for (const width of [1280, 1440]) test(`headline stays readable over every hold and pass at ${width}`, async ({ page, browserName }) => {
   test.skip(browserName !== "chromium", "pixel sampling runs once");
-  await page.setViewportSize(DESKTOP);
+  await page.setViewportSize({ width, height: Math.round(width * 0.625) });
   await page.goto("/");
   await expect(page.locator("[data-walkon]")).toHaveClass(/is-playing/, { timeout: 10_000 });
   const walks: { turnAt: number; holdEnd: number }[] = JSON.parse(
@@ -64,9 +64,10 @@ test("headline stays readable over every hold and pass", async ({ page, browserN
   const textColor = (sel: string) =>
     page.locator(sel).evaluate((el) => getComputedStyle(el).color.match(/\d+/g)!.slice(0, 3).map(Number));
   const title = lum(await textColor(".title-payoff"));
+  const setup = lum(await textColor(".title-setup"));
   const support = lum(await textColor(".hero-support"));
   await page.addStyleTag({ content: ".hero-title, .hero-title *, .hero-support { color: transparent !important; }" });
-  const times = walks.flatMap((w) => [w.turnAt + 0.5, w.holdEnd - 0.5]);
+  const times = walks.flatMap((w) => [w.turnAt + 0.5, (w.turnAt + w.holdEnd) / 2, w.holdEnd - 0.5]);
   for (const t of [...times, 1, 9, 18, 27, 34]) {
     await page.locator("video[data-walkon-video]").evaluate(
       (v: HTMLVideoElement, t) =>
@@ -78,7 +79,7 @@ test("headline stays readable over every hold and pass", async ({ page, browserN
       t,
     );
     await page.waitForTimeout(150);
-    for (const [sel, text, min] of [[".hero-title", title, 3], [".hero-support", support, 4.5]] as const) {
+    for (const [sel, text, min] of [[".title-payoff", title, 3], [".title-setup", setup, 3], [".hero-support", support, 4.5]] as const) {
       const [lo, hi] = await bgRange(page, sel);
       const worst = Math.min(ratio(text, lo), ratio(text, hi));
       console.log(`${sel} @${t.toFixed(2)}s contrast ${worst.toFixed(2)}`);

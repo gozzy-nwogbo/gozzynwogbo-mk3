@@ -19,13 +19,15 @@ test("phone downloads no poster", async ({ page }) => {
   expect(posters()).toBe(0);
 });
 
-test("dark theme downloads no poster", async ({ page }) => {
-  const posters = countPoster(page);
+test("dark theme downloads only the dark poster", async ({ page }) => {
+  const urls: string[] = [];
+  page.on("request", (r) => /walkon-poster/.test(r.url()) && urls.push(r.url()));
   await setTheme(page, "dark");
   await page.setViewportSize(DESKTOP);
   await page.goto("/");
   await settle(page);
-  expect(posters()).toBe(0);
+  expect(urls.length).toBe(1);
+  expect(urls[0]).toContain("-dark.");
 });
 
 test.describe("reduced motion", () => {

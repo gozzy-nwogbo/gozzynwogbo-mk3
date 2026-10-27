@@ -1,5 +1,5 @@
 import { test, expect, type Page } from "@playwright/test";
-import { DESKTOP } from "./helpers";
+import { setTheme } from "./helpers";
 
 const lum = ([r, g, b]: number[]) => {
   const c = [r, g, b].map((v) => {
@@ -53,8 +53,9 @@ async function sample(page: Page, box: { x: number; y: number; width: number; he
   }, png.toString("base64"));
 }
 
-for (const width of [1280, 1440]) test(`headline stays readable over every hold and pass at ${width}`, async ({ page, browserName }) => {
+for (const theme of ["light", "dark"] as const) for (const width of [1280, 1440]) test(`headline stays readable over every hold and pass at ${width} (${theme})`, async ({ page, browserName }) => {
   test.skip(browserName !== "chromium", "pixel sampling runs once");
+  await setTheme(page, theme);
   await page.setViewportSize({ width, height: Math.round(width * 0.625) });
   await page.goto("/");
   await expect(page.locator("[data-walkon]")).toHaveClass(/is-playing/, { timeout: 10_000 });
@@ -66,7 +67,7 @@ for (const width of [1280, 1440]) test(`headline stays readable over every hold 
   const title = lum(await textColor(".title-payoff"));
   const setup = lum(await textColor(".title-setup"));
   const support = lum(await textColor(".hero-support"));
-  await page.addStyleTag({ content: ".hero-title, .hero-title *, .hero-support { color: transparent !important; }" });
+  await page.addStyleTag({ content: ".hero-title, .hero-title *, .hero-support { color: transparent !important; } .anchor-dot { visibility: hidden !important; }" });
   const times = walks.flatMap((w) => [w.turnAt + 0.5, (w.turnAt + w.holdEnd) / 2, w.holdEnd - 0.5]);
   for (const t of [...times, 1, 9, 18, 27, 34]) {
     await page.locator("video[data-walkon-video]").evaluate(

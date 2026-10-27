@@ -10,11 +10,7 @@ const GATE = "(min-width: 56rem) and (pointer: fine) and (prefers-reduced-motion
 
 export function canPlay(): boolean {
   const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
-  return (
-    matchMedia(GATE).matches &&
-    conn?.saveData !== true &&
-    document.documentElement.dataset.theme !== "dark"
-  );
+  return matchMedia(GATE).matches && conn?.saveData !== true;
 }
 
 export function activeWalk(t: number, walks: Walk[]): number {
@@ -27,7 +23,10 @@ export function initWalkOn(root = document.querySelector<HTMLElement>("[data-wal
   const toggle = root.querySelector<HTMLButtonElement>("button[data-walkon-toggle]")!;
   const labels = [...root.querySelectorAll<HTMLElement>("[data-walkon-label]")];
   const walks: Walk[] = JSON.parse(root.dataset.walks ?? "[]");
-  const sources: { src: string; type: string }[] = JSON.parse(root.dataset.sources ?? "[]");
+  const isDark = () => document.documentElement.dataset.theme === "dark";
+  const sourcesFor = (dark: boolean): { src: string; type: string }[] =>
+    JSON.parse((dark ? root.dataset.sourcesDark : root.dataset.sources) ?? "[]");
+  let attachedDark = false;
 
   let attached = false;
   let failed = false;
@@ -64,7 +63,8 @@ export function initWalkOn(root = document.querySelector<HTMLElement>("[data-wal
 
   const attach = () => {
     attached = true;
-    for (const s of sources) {
+    attachedDark = isDark();
+    for (const s of sourcesFor(attachedDark)) {
       const el = document.createElement("source");
       el.src = s.src;
       el.type = s.type;
@@ -81,15 +81,15 @@ export function initWalkOn(root = document.querySelector<HTMLElement>("[data-wal
     video.load();
   };
 
-  // The poster ships without URLs; fill them in once desktop + light theme applies.
+  // The poster ships without URLs; fill in the current theme's variant on desktop.
   const loadPoster = () => {
     const pic = root.querySelector("picture");
-    if (!pic || pic.querySelector("img")?.getAttribute("src")) return;
-    if (!matchMedia("(min-width: 56rem) and (pointer: fine)").matches) return;
-    if (document.documentElement.dataset.theme === "dark") return;
-    pic.querySelectorAll<HTMLSourceElement>("source[data-srcset]").forEach((s) => (s.srcset = s.dataset.srcset!));
+    if (!pic || !matchMedia("(min-width: 56rem) and (pointer: fine)").matches) return;
     const img = pic.querySelector("img")!;
-    img.src = img.dataset.src!;
+    const want = isDark() ? img.dataset.srcDark! : img.dataset.src!;
+    if (img.getAttribute("src") === want) return;
+    pic.querySelectorAll<HTMLSourceElement>("source").forEach((s) => (s.srcset = (isDark() ? s.dataset.srcsetDark : s.dataset.srcset)!));
+    img.src = want;
   };
 
   // One place decides whether the video should be running right now.
@@ -98,6 +98,7 @@ export function initWalkOn(root = document.querySelector<HTMLElement>("[data-wal
     if (failed) return;
     const allowed = canPlay();
     root.classList.toggle("is-live", allowed);
+    if (allowed && attached && attachedDark !== isDark()) detach();
     if (allowed && !attached) return attach();
     if (!allowed && attached) return detach();
     if (allowed && onScreen && !userPaused && document.visibilityState === "visible") {

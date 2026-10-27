@@ -9,23 +9,24 @@ import walkon from "../data/walkon.json";
   class="walkon"
   data-walkon
   data-sources={JSON.stringify(walkon.sources)}
+  data-sources-dark={JSON.stringify(walkon.dark.sources)}
   data-walks={JSON.stringify(walkon.walks)}
 >
   <div class="walkon-media" aria-hidden="true">
     <picture>
-      <source data-srcset={walkon.posterAvif} type="image/avif" />
-      <img class="walkon-poster" data-walkon-poster data-src={walkon.poster} alt="" fetchpriority="high" />
+      <source data-srcset={walkon.posterAvif} data-srcset-dark={walkon.dark.posterAvif} type="image/avif" />
+      <img class="walkon-poster" data-walkon-poster data-src={walkon.poster} data-src-dark={walkon.dark.poster} alt="" fetchpriority="high" />
     </picture>
     <script is:inline>
       // Runs during parse so the poster starts early, but only where it is shown:
-      // desktop with the light theme. Phones and dark theme download nothing.
+      // desktop, in the current theme's variant. Phones download nothing.
       (function () {
-        var m = matchMedia("(min-width: 56rem) and (pointer: fine)").matches;
-        if (!m || document.documentElement.dataset.theme === "dark") return;
+        if (!matchMedia("(min-width: 56rem) and (pointer: fine)").matches) return;
+        var dark = document.documentElement.dataset.theme === "dark";
         var s = document.currentScript.previousElementSibling;
-        s.querySelectorAll("[data-srcset]").forEach(function (e) { e.srcset = e.dataset.srcset; });
+        s.querySelectorAll("source").forEach(function (e) { e.srcset = dark ? e.dataset.srcsetDark : e.dataset.srcset; });
         var i = s.querySelector("img");
-        i.src = i.dataset.src;
+        i.src = dark ? i.dataset.srcDark : i.dataset.src;
       })();
     </script>
     <video class="walkon-video" data-walkon-video muted loop playsinline preload="none"></video>
@@ -193,10 +194,6 @@ import walkon from "../data/walkon.json";
     height: 0;
     border-block: 0.38rem solid transparent;
     border-left: 0.6rem solid currentColor;
-  }
-
-  :global(html[data-theme="dark"]) .walkon {
-    display: none;
   }
 
   @media (max-width: 56rem) {

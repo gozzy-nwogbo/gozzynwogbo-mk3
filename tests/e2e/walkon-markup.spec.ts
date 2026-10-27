@@ -40,11 +40,11 @@ test.describe("server HTML (no JS)", () => {
   });
 });
 
-test("walk-on hidden in dark theme", async ({ page }) => {
+test("walk-on shows in dark theme too", async ({ page }) => {
   await page.setViewportSize(DESKTOP);
   await setTheme(page, "dark");
   await page.goto("/");
-  await expect(page.locator("[data-walkon]")).toHaveCSS("display", "none");
+  await expect(page.locator("[data-walkon]")).not.toHaveCSS("display", "none");
 });
 
 test("walk-on never widens the page", async ({ page }) => {

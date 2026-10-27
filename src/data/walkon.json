@@ -32,5 +32,19 @@
       "turnAt": 28.88,
       "holdEnd": 32.75
     }
-  ]
+  ],
+  "dark": {
+    "sources": [
+      {
+        "src": "/hero/walkon-av1-dark.mp4",
+        "type": "video/mp4; codecs=\"av01.0.08M.08\""
+      },
+      {
+        "src": "/hero/walkon-h264-dark.mp4",
+        "type": "video/mp4"
+      }
+    ],
+    "poster": "/hero/walkon-poster-dark.webp",
+    "posterAvif": "/hero/walkon-poster-dark.avif"
+  }
 }

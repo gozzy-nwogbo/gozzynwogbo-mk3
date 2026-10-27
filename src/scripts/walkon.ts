@@ -81,8 +81,20 @@ export function initWalkOn(root = document.querySelector<HTMLElement>("[data-wal
     video.load();
   };
 
+  // The poster ships without URLs; fill them in once desktop + light theme applies.
+  const loadPoster = () => {
+    const pic = root.querySelector("picture");
+    if (!pic || pic.querySelector("img")?.getAttribute("src")) return;
+    if (!matchMedia("(min-width: 56rem) and (pointer: fine)").matches) return;
+    if (document.documentElement.dataset.theme === "dark") return;
+    pic.querySelectorAll<HTMLSourceElement>("source[data-srcset]").forEach((s) => (s.srcset = s.dataset.srcset!));
+    const img = pic.querySelector("img")!;
+    img.src = img.dataset.src!;
+  };
+
   // One place decides whether the video should be running right now.
   const sync = () => {
+    loadPoster();
     if (failed) return;
     const allowed = canPlay();
     root.classList.toggle("is-live", allowed);

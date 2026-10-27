@@ -13,9 +13,21 @@ import walkon from "../data/walkon.json";
 >
   <div class="walkon-media" aria-hidden="true">
     <picture>
-      <source srcset={walkon.posterAvif} type="image/avif" />
-      <img class="walkon-poster" data-walkon-poster src={walkon.poster} alt="" decoding="async" />
+      <source data-srcset={walkon.posterAvif} type="image/avif" />
+      <img class="walkon-poster" data-walkon-poster data-src={walkon.poster} alt="" fetchpriority="high" />
     </picture>
+    <script is:inline>
+      // Runs during parse so the poster starts early, but only where it is shown:
+      // desktop with the light theme. Phones and dark theme download nothing.
+      (function () {
+        var m = matchMedia("(min-width: 56rem) and (pointer: fine)").matches;
+        if (!m || document.documentElement.dataset.theme === "dark") return;
+        var s = document.currentScript.previousElementSibling;
+        s.querySelectorAll("[data-srcset]").forEach(function (e) { e.srcset = e.dataset.srcset; });
+        var i = s.querySelector("img");
+        i.src = i.dataset.src;
+      })();
+    </script>
     <video class="walkon-video" data-walkon-video muted loop playsinline preload="none"></video>
   </div>
 

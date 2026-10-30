@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "perf": "node tests/perf/harness.mjs"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.18",
